@@ -1,7 +1,7 @@
 extends Node
 
 enum RPSType {
-	ROCK,
-	PAPER,
-	SCISSOR
+	ROCK = 0,
+	PAPER = 1,
+	SCISSOR = 2
 }

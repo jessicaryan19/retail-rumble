@@ -1,38 +1,24 @@
-[gd_scene load_steps=7 format=3 uid="uid://c7s7t0l0r87ea"]
+[gd_scene load_steps=5 format=3 uid="uid://c7s7t0l0r87ea"]
 
 [ext_resource type="PackedScene" uid="uid://byxbcaf1scbhq" path="res://player/player.tscn" id="1_l1rk1"]
-[ext_resource type="PackedScene" uid="uid://dnlyyya3m6omh" path="res://components/rps_component.tscn" id="2_4fuuu"]
-[ext_resource type="PackedScene" uid="uid://5lapc8r0j8bx" path="res://components/health_component.tscn" id="3_dxrkv"]
-[ext_resource type="PackedScene" uid="uid://di46oww8318i7" path="res://components/hitbox_component.tscn" id="4_dakft"]
+[ext_resource type="Script" uid="uid://diyk7uvmbdi6c" path="res://enemy/enemy_spawner.gd" id="2_h7iqs"]
+[ext_resource type="PackedScene" uid="uid://dxp1mdmx5l6jl" path="res://enemy/enemy.tscn" id="3_4fuuu"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_u5opy"]
-size = Vector2(165, 217)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_y36n6"]
-radius = 33.2415
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_dxrkv"]
+vertices = PackedVector2Array(1905.91, 1076.91, 771.398, 1067.1, 902.211, 468.992, 1897.08, 4.00781, 7.99219, 6.97656, 701.453, 452.156, 502.953, 365.938, 377.82, 369.273, 7, 1065.84, 390.812, 1060.14)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 3, 2, 5, 6), PackedInt32Array(4, 6, 7), PackedInt32Array(8, 4, 7, 9)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-2, -3, -3, 1076, 401, 1070, 388, 379, 501, 376, 699, 462, 890, 478, 759, 1077, 1916, 1087, 1907, -6)])
 
 [node name="Game" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_l1rk1")]
 position = Vector2(587, 298)
 
-[node name="EnemyTest" type="CharacterBody2D" parent="."]
-position = Vector2(1048, 546)
-collision_layer = 2
-collision_mask = 4
+[node name="NavigationRegion" type="NavigationRegion2D" parent="."]
+position = Vector2(7, 8)
+navigation_polygon = SubResource("NavigationPolygon_dxrkv")
 
-[node name="RPSComponent" parent="EnemyTest" instance=ExtResource("2_4fuuu")]
-current_rps_type = 1
-
-[node name="HealthComponent" parent="EnemyTest" instance=ExtResource("3_dxrkv")]
-
-[node name="HitboxComponent" parent="EnemyTest" node_paths=PackedStringArray("rps_component") instance=ExtResource("4_dakft")]
-collision_layer = 2
-rps_component = NodePath("../RPSComponent")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyTest/HitboxComponent"]
-position = Vector2(0.5, -117.5)
-shape = SubResource("RectangleShape2D_u5opy")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyTest"]
-shape = SubResource("CircleShape2D_y36n6")
+[node name="EnemySpawner" type="Node2D" parent="."]
+script = ExtResource("2_h7iqs")
+enemy_scene = ExtResource("3_4fuuu")
+spawn_interval = 20.0

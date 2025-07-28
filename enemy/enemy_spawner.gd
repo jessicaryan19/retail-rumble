@@ -27,9 +27,7 @@ func spawn_enemy():
 
 	var enemy = enemy_scene.instantiate()
 	enemy.global_position = spawn_pos
-	enemy.generate_rps_list()
 	get_tree().current_scene.add_child.call_deferred(enemy)
-	enemy.call_deferred("update_rps_icons")
 	print("Spawning enemy", enemy.global_position, enemy.rps_list)
 
 func get_valid_spawn_position():

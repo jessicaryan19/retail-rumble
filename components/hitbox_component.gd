@@ -5,10 +5,14 @@ signal win
 signal lose
 
 @export var rps_component: RPSComponent
+@export var target: HitboxComponent
+
 
 func _on_area_entered(area: Area2D) -> void:
 	
-	if area is not HitboxComponent: return # return if not
+	if area is not HitboxComponent: return 
+	
+	if area != target: return
 	
 	var my_rps_type = rps_component.current_rps_type
 		
