@@ -7,8 +7,6 @@ enum PlayerState {
 	DIE
 }
 
-#TODO: sometimes both player and enemy lose idk why
-
 @onready var pose_timer: Timer = $PoseTimer
 @onready var invincible_timer: Timer = $InvincibleTimer
 
@@ -21,6 +19,7 @@ var state: PlayerState = PlayerState.NORMAL:
 		if state==PlayerState.DIE: return
 		
 		state = value
+		frightened_tween()
 		
 		match (value):
 			PlayerState.NORMAL:
@@ -70,7 +69,31 @@ var deccel_time: float= 0.0
 @onready var head: AnimatedSprite2D = $Sprite/Head
 @onready var body: AnimatedSprite2D = $Sprite/Body
 @onready var check_close_entity: Area2D = $CheckCloseEntity
+@onready var sprite: Node2D = $Sprite
+@onready var camera_2d: Camera2D = $Camera2D
 
+var die_tween: Tween
+var scale_tween: Tween
+var duel_tween: Tween
+
+func reset_die_tween() -> void:
+	if die_tween:
+		die_tween.kill()
+	
+	die_tween = create_tween()
+
+func reset_scale_tween() -> void:
+	if scale_tween:
+		scale_tween.kill()
+	
+	scale_tween = create_tween()
+
+func reset_duel_tween() -> void:
+	if duel_tween:
+		duel_tween.kill()
+	
+	duel_tween = create_tween()
+	
 func _process(delta: float) -> void:
 	handle_anim()
 	
@@ -121,7 +144,9 @@ func handle_rps():
 	if Input.is_action_just_pressed("equip_scissor"):
 		rps_component.current_rps_type = Enums.RPSType.SCISSOR
 	
-	head.frame = rps_component.current_rps_type
+	if head.frame != rps_component.current_rps_type:
+		frightened_tween()
+		head.frame = rps_component.current_rps_type
 	
 func handle_movement(delta: float):
 	
@@ -181,17 +206,40 @@ func _on_invincible_timer_timeout() -> void:
 	
 	hitbox_collision.set_deferred("disabled", false)
 	state = PlayerState.NORMAL
-	
-func _on_hitbox_component_lose(opponent: HitboxComponent) -> void:
-	print("lose")
-	state = PlayerState.INVINCIBLE
-	health_component.take_damage(1)
-	
-	# apply knockback
-	#var knockback_dir = -(opponent.global_position - hitbox_component.global_position).normalized()
-	#knockback_component.apply_knockback(knockback_dir)
 
+func closeup_tween() -> void:
+	reset_duel_tween()
+	duel_tween.set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	duel_tween.set_parallel(true)
+	duel_tween.tween_property(camera_2d, "zoom", Vector2(1.3, 1.3), 0.5)
+	duel_tween.tween_property(Engine, "time_scale", 0.5, 0.5)
+	
+	duel_tween.chain().tween_interval(0)
+	duel_tween.parallel().set_ease(Tween.EASE_IN).tween_property(Engine, "time_scale", 1, 0.5)
+	duel_tween.parallel().tween_property(camera_2d, "zoom", Vector2(1.0, 1.0), 0.5)
+	
+	
+	
+func frightened_tween() -> void:
+	reset_scale_tween()
+	scale_tween.set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	scale_tween.tween_property(sprite, "scale", Vector2(0.9, 1.1), 0.1)
+	scale_tween.tween_property(sprite, "scale", Vector2(1, 1), 0.1)
+	
 
-func _on_hitbox_component_win(opponent: HitboxComponent) -> void:
-	print("win")
-	state = PlayerState.POSE
+func _on_hitbox_component_duel(win: bool, opponent: HitboxComponent) -> void:
+	closeup_tween()
+	
+	if (win):
+		print("win")
+		state = PlayerState.POSE
+	else:
+		print("lose")
+		health_component.take_damage(1)
+		
+		if health_component.health > 0:
+			state = PlayerState.INVINCIBLE
+	
+		# apply knockback
+		#var knockback_dir = -(opponent.global_position - hitbox_component.global_position).normalized()
+		#knockback_component.apply_knockback(knockback_dir)

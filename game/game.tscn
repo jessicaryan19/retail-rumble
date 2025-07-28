@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://c7s7t0l0r87ea"]
 
-[ext_resource type="Texture2D" uid="uid://c66foqpixvgx6" path="res://common/repeating_background.png" id="1_4fuuu"]
+[ext_resource type="Texture2D" uid="uid://c66foqpixvgx6" path="res://game/background/repeating_background.png" id="1_4fuuu"]
 [ext_resource type="PackedScene" uid="uid://byxbcaf1scbhq" path="res://player/player.tscn" id="1_l1rk1"]
 [ext_resource type="Script" uid="uid://diyk7uvmbdi6c" path="res://enemy/enemy_spawner.gd" id="2_h7iqs"]
 [ext_resource type="PackedScene" uid="uid://dxp1mdmx5l6jl" path="res://enemy/enemy.tscn" id="3_4fuuu"]
@@ -11,6 +11,7 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(30, 7, 19, 1103, 1916, 1087, 1907, -6)])
 
 [node name="Game" type="Node2D"]
+y_sort_enabled = true
 
 [node name="TextureRect" type="TextureRect" parent="."]
 anchors_preset = 15

@@ -17,14 +17,13 @@ var player: Node2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var body: AnimatedSprite2D = $Sprite/Body
 @onready var head: AnimatedSprite2D = $Sprite/Head
+@onready var sprite: Node2D = $Sprite
 
 @onready var rps_component: RPSComponent = $RPSComponent
 @onready var health_component: HealthComponent = $HealthComponent
 @onready var hitbox_component: HitboxComponent = $HitboxComponent
 @onready var hitbox_collision: CollisionShape2D = $HitboxComponent/CollisionShape2D
 #@onready var knockback_component: KnockbackComponent = $KnockbackComponent
-
-var tween: Tween
 
 var state: EnemyState = EnemyState.CHASE:
 	get: 
@@ -36,6 +35,7 @@ var state: EnemyState = EnemyState.CHASE:
 		
 		state = value
 		body.frame = state
+		frightened_tween()
 		
 		match (value):
 			EnemyState.CHASE:
@@ -46,21 +46,32 @@ var state: EnemyState = EnemyState.CHASE:
 				stunned_timer.start()
 				head.animation = "rps"
 				
+				
+				
 			EnemyState.DIE:
 				head.animation = "die"
 				hitbox_collision.set_deferred("disabled", true)
 				
-				reset_tween()
-				tween.set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
-				tween.tween_property(self, "modulate:a", 0.0, 2.0)
-				tween.tween_callback(self.queue_free)
-				await tween.finished
-		
-func reset_tween() -> void:
-	if tween:
-		tween.kill()
+				reset_die_tween()
+				die_tween.set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
+				die_tween.tween_property(self, "modulate:a", 0.0, 2.0)
+				die_tween.tween_callback(self.queue_free)
+				await die_tween.finished
+
+var die_tween: Tween
+var scale_tween: Tween
+
+func reset_die_tween() -> void:
+	if die_tween:
+		die_tween.kill()
 	
-	tween = create_tween()
+	die_tween = create_tween()
+	
+func reset_scale_tween() -> void:
+	if scale_tween:
+		scale_tween.kill()
+	
+	scale_tween = create_tween()
 	
 func generate_rps_list():
 	rps_list.clear()
@@ -72,8 +83,9 @@ func generate_rps_list():
 		var random_rps: Enums.RPSType = Enums.RPSType[random_key]
 		rps_list.append(random_rps)
 	
-	update_current_rps_and_health()
-	update_rps_icons()
+	update_current_rps()
+	update_health()
+	update_rps_visual()
 		
 const RPS_TEXTURES = {
 	Enums.RPSType.ROCK: preload("res://assets/rps/rock.png"),
@@ -85,7 +97,11 @@ func randomize_variant():
 	var animation_names = body.sprite_frames.get_animation_names()
 	body.animation = animation_names[randi() % animation_names.size()]
 
-func update_rps_icons():
+func update_rps_visual():
+	# update head
+	if rps_list.size() > 0:
+		head.frame = rps_list.front()
+	
 	for child in rps_container.get_children():
 		child.queue_free()
 
@@ -144,17 +160,19 @@ func chase_player(delta: float):
 	
 	move_and_slide()
 
-func update_current_rps_and_health() -> void:
+func update_current_rps() -> void:
 	if rps_list.size() > 0:
-		rps_component.current_rps_type = rps_list[0]
-		head.frame = rps_component.current_rps_type
+		rps_component.current_rps_type = rps_list.front()
 	
+func update_health() -> void:
 	health_component.health = rps_list.size()
 	
 func _on_stunned_timer_timeout() -> void:
 	if state == EnemyState.DIE: return
 	
 	state = EnemyState.CHASE
+	
+	update_current_rps()
 	
 	print("enemy end of stunned")
 	
@@ -163,23 +181,24 @@ func _on_health_component_die() -> void:
 	
 	print("enemy die")
 
-
-func _on_hitbox_component_lose(opponent: HitboxComponent) -> void:
-	print("enemy lose")
+func frightened_tween() -> void:
+	reset_scale_tween()
+	scale_tween.set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	scale_tween.tween_property(sprite, "scale", Vector2(0.9, 1.1), 0.1)
+	scale_tween.tween_property(sprite, "scale", Vector2(1, 1), 0.1)
 	
-	state = EnemyState.STUNNED
-	await state == EnemyState.STUNNED
+func _on_hitbox_component_duel(win: bool, opponent: HitboxComponent) -> void:
+	frightened_tween()
 	
-	rps_list.pop_front()
-	update_current_rps_and_health()
-	update_rps_icons()
-	
-	# apply knockback
-	#var knockback_dir = -(opponent.global_position - hitbox_component.global_position).normalized()
-	#knockback_component.apply_knockback(knockback_dir)
-
-
-func _on_hitbox_component_win(opponent: HitboxComponent) -> void:
-	print("enemy win")
-	
-	state = EnemyState.STUNNED
+	if win:
+		print("enemy win")
+		frightened_tween()
+	else:
+		print("enemy lose")
+		
+		rps_list.pop_front()
+		update_rps_visual()
+		update_health()
+		
+		if health_component.health > 0:
+			state = EnemyState.STUNNED

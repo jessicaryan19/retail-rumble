@@ -211,6 +211,7 @@ motion_mode = 1
 script = ExtResource("1_2mvqj")
 
 [node name="Sprite" type="Node2D" parent="."]
+y_sort_enabled = true
 
 [node name="Head" type="AnimatedSprite2D" parent="Sprite"]
 position = Vector2(0, -128)
@@ -258,6 +259,5 @@ one_shot = true
 [node name="KnockbackComponent" parent="." instance=ExtResource("8_5ffra")]
 
 [connection signal="die" from="HealthComponent" to="." method="_on_health_component_die"]
-[connection signal="lose" from="HitboxComponent" to="." method="_on_hitbox_component_lose"]
-[connection signal="win" from="HitboxComponent" to="." method="_on_hitbox_component_win"]
+[connection signal="duel" from="HitboxComponent" to="." method="_on_hitbox_component_duel"]
 [connection signal="timeout" from="StunnedTimer" to="." method="_on_stunned_timer_timeout"]

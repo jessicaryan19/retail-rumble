@@ -195,6 +195,7 @@ size = Vector2(90, 172)
 radius = 604.477
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
+y_sort_enabled = true
 collision_mask = 4
 motion_mode = 1
 script = ExtResource("1_rkbax")
@@ -239,6 +240,7 @@ debug_color = Color(0.996078, 0, 0.176471, 0.419608)
 [node name="HealthComponent" parent="." instance=ExtResource("5_qjkh3")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2(0, -60)
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 
@@ -258,8 +260,7 @@ collision_mask = 2
 shape = SubResource("CircleShape2D_g6k8r")
 debug_color = Color(0.952589, 0.784763, 7.70092e-07, 0.42)
 
-[connection signal="lose" from="HitboxComponent" to="." method="_on_hitbox_component_lose"]
-[connection signal="win" from="HitboxComponent" to="." method="_on_hitbox_component_win"]
+[connection signal="duel" from="HitboxComponent" to="." method="_on_hitbox_component_duel"]
 [connection signal="die" from="HealthComponent" to="." method="_on_health_component_die"]
 [connection signal="timeout" from="PoseTimer" to="." method="_on_pose_timer_timeout"]
 [connection signal="timeout" from="InvincibleTimer" to="." method="_on_invincible_timer_timeout"]
