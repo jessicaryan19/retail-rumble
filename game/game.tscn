@@ -1,15 +1,29 @@
-[gd_scene load_steps=5 format=3 uid="uid://c7s7t0l0r87ea"]
+[gd_scene load_steps=6 format=3 uid="uid://c7s7t0l0r87ea"]
 
+[ext_resource type="Texture2D" uid="uid://c66foqpixvgx6" path="res://common/repeating_background.png" id="1_4fuuu"]
 [ext_resource type="PackedScene" uid="uid://byxbcaf1scbhq" path="res://player/player.tscn" id="1_l1rk1"]
 [ext_resource type="Script" uid="uid://diyk7uvmbdi6c" path="res://enemy/enemy_spawner.gd" id="2_h7iqs"]
 [ext_resource type="PackedScene" uid="uid://dxp1mdmx5l6jl" path="res://enemy/enemy.tscn" id="3_4fuuu"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_dxrkv"]
-vertices = PackedVector2Array(1905.91, 1076.91, 771.398, 1067.1, 902.211, 468.992, 1897.08, 4.00781, 7.99219, 6.97656, 701.453, 452.156, 502.953, 365.938, 377.82, 369.273, 7, 1065.84, 390.812, 1060.14)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 3, 2, 5, 6), PackedInt32Array(4, 6, 7), PackedInt32Array(8, 4, 7, 9)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-2, -3, -3, 1076, 401, 1070, 388, 379, 501, 376, 699, 462, 890, 478, 759, 1077, 1916, 1087, 1907, -6)])
+vertices = PackedVector2Array(1905.91, 1077.08, 29.1016, 1092.91, 39.8984, 16.9297, 1897.08, 4.0625)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(30, 7, 19, 1103, 1916, 1087, 1907, -6)])
 
 [node name="Game" type="Node2D"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -45.0
+offset_top = -56.0
+offset_right = 1979.0
+offset_bottom = 1172.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_4fuuu")
+stretch_mode = 1
 
 [node name="Player" parent="." instance=ExtResource("1_l1rk1")]
 position = Vector2(587, 298)

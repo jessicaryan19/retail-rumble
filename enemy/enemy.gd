@@ -24,6 +24,8 @@ var player: Node2D
 @onready var hitbox_collision: CollisionShape2D = $HitboxComponent/CollisionShape2D
 #@onready var knockback_component: KnockbackComponent = $KnockbackComponent
 
+var tween: Tween
+
 var state: EnemyState = EnemyState.CHASE:
 	get: 
 		return state
@@ -33,6 +35,7 @@ var state: EnemyState = EnemyState.CHASE:
 		if state==EnemyState.DIE: return
 		
 		state = value
+		body.frame = state
 		
 		match (value):
 			EnemyState.CHASE:
@@ -46,10 +49,19 @@ var state: EnemyState = EnemyState.CHASE:
 			EnemyState.DIE:
 				head.animation = "die"
 				hitbox_collision.set_deferred("disabled", true)
-				queue_free()
+				
+				reset_tween()
+				tween.set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
+				tween.tween_property(self, "modulate:a", 0.0, 2.0)
+				tween.tween_callback(self.queue_free)
+				await tween.finished
 		
-		body.frame = state
-
+func reset_tween() -> void:
+	if tween:
+		tween.kill()
+	
+	tween = create_tween()
+	
 func generate_rps_list():
 	rps_list.clear()
 	var rps_length = randi() % 3 + 1
@@ -90,8 +102,9 @@ func update_rps_icons():
 func _ready():
 	player = get_tree().get_first_node_in_group("player")
 	agent.target_position = player.global_position
-	generate_rps_list()
 	randomize_variant()
+	generate_rps_list()
+	
 func _process(delta: float) -> void:
 	handle_anim()
 	
@@ -110,7 +123,6 @@ func handle_anim():
 		body.flip_h = true
 	else:
 		body.flip_h = false
-
 
 
 func change_animation(animation_name: String):
@@ -144,12 +156,20 @@ func _on_stunned_timer_timeout() -> void:
 	
 	state = EnemyState.CHASE
 	
+	print("enemy end of stunned")
+	
 func _on_health_component_die() -> void:
 	state = EnemyState.DIE
+	
+	print("enemy die")
 
 
 func _on_hitbox_component_lose(opponent: HitboxComponent) -> void:
+	print("enemy lose")
+	
 	state = EnemyState.STUNNED
+	await state == EnemyState.STUNNED
+	
 	rps_list.pop_front()
 	update_current_rps_and_health()
 	update_rps_icons()
@@ -157,3 +177,9 @@ func _on_hitbox_component_lose(opponent: HitboxComponent) -> void:
 	# apply knockback
 	#var knockback_dir = -(opponent.global_position - hitbox_component.global_position).normalized()
 	#knockback_component.apply_knockback(knockback_dir)
+
+
+func _on_hitbox_component_win(opponent: HitboxComponent) -> void:
+	print("enemy win")
+	
+	state = EnemyState.STUNNED

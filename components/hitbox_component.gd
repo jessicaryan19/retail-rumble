@@ -13,7 +13,6 @@ func reset_target() -> void:
 func _on_area_entered(area: Area2D) -> void:
 	
 	if area is not HitboxComponent: return 
-	
 	if area != target: return
 	
 	var my_rps_type = rps_component.current_rps_type

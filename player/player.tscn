@@ -244,9 +244,11 @@ position_smoothing_speed = 10.0
 
 [node name="PoseTimer" type="Timer" parent="."]
 wait_time = 2.0
+one_shot = true
 
 [node name="InvincibleTimer" type="Timer" parent="."]
 wait_time = 3.0
+one_shot = true
 
 [node name="CheckCloseEntity" type="Area2D" parent="."]
 visible = false

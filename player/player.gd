@@ -7,6 +7,8 @@ enum PlayerState {
 	DIE
 }
 
+#TODO: sometimes both player and enemy lose idk why
+
 @onready var pose_timer: Timer = $PoseTimer
 @onready var invincible_timer: Timer = $InvincibleTimer
 
@@ -91,7 +93,7 @@ func set_closest_hitbox_target():
 	
 	for entity in check_close_entity.get_overlapping_bodies():
 		if entity.is_in_group("enemy"):
-			entity.get_node("HitboxComponent").target = null
+			entity.get_node("HitboxComponent").reset_target()
 			var dsq = global_position.distance_squared_to(entity.global_position)
 			if dsq < closest_dist_sq:
 				closest_dist_sq = dsq
@@ -102,7 +104,7 @@ func set_closest_hitbox_target():
 		closest.get_node("HitboxComponent").target = hitbox_component
 		hitbox_component.target = closest.get_node("HitboxComponent")
 	else:
-		hitbox_component.target = null
+		hitbox_component.reset_target()
    
 		
 func get_input_direction() -> Vector2:
@@ -166,6 +168,8 @@ func _on_health_component_die() -> void:
 func _on_pose_timer_timeout() -> void:
 	if state == PlayerState.DIE: return
 	
+	print("end of pose")
+	
 	hitbox_collision.set_deferred("disabled", false)
 	state = PlayerState.NORMAL
 	
@@ -173,13 +177,15 @@ func _on_pose_timer_timeout() -> void:
 func _on_invincible_timer_timeout() -> void:
 	if state == PlayerState.DIE: return
 	
+	print("end of invincible")
+	
 	hitbox_collision.set_deferred("disabled", false)
 	state = PlayerState.NORMAL
 	
 func _on_hitbox_component_lose(opponent: HitboxComponent) -> void:
 	print("lose")
-	health_component.take_damage(1)
 	state = PlayerState.INVINCIBLE
+	health_component.take_damage(1)
 	
 	# apply knockback
 	#var knockback_dir = -(opponent.global_position - hitbox_component.global_position).normalized()

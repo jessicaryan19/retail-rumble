@@ -253,9 +253,11 @@ debug_color = Color(0.996879, 0, 0.177881, 0.42)
 
 [node name="StunnedTimer" type="Timer" parent="."]
 wait_time = 2.0
+one_shot = true
 
 [node name="KnockbackComponent" parent="." instance=ExtResource("8_5ffra")]
 
 [connection signal="die" from="HealthComponent" to="." method="_on_health_component_die"]
 [connection signal="lose" from="HitboxComponent" to="." method="_on_hitbox_component_lose"]
+[connection signal="win" from="HitboxComponent" to="." method="_on_hitbox_component_win"]
 [connection signal="timeout" from="StunnedTimer" to="." method="_on_stunned_timer_timeout"]
