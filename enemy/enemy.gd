@@ -21,6 +21,7 @@ var player: Node2D
 @onready var rps_component: RPSComponent = $RPSComponent
 @onready var health_component: HealthComponent = $HealthComponent
 @onready var hitbox_component: HitboxComponent = $HitboxComponent
+@onready var hitbox_collision: CollisionShape2D = $HitboxComponent/CollisionShape2D
 
 var state: EnemyState = EnemyState.CHASE:
 	get: 
@@ -43,7 +44,7 @@ var state: EnemyState = EnemyState.CHASE:
 				
 			EnemyState.DIE:
 				head.animation = "die"
-				hitbox_component.get_node("CollisionShape2D").disabled = true
+				hitbox_collision.set_deferred("disabled", true)
 				queue_free()
 		
 		body.frame = state

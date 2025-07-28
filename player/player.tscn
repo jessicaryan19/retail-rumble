@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://byxbcaf1scbhq"]
+[gd_scene load_steps=25 format=3 uid="uid://byxbcaf1scbhq"]
 
 [ext_resource type="Script" uid="uid://d35vujgw0gwx1" path="res://player/player.gd" id="1_rkbax"]
 [ext_resource type="Texture2D" uid="uid://c5ex7lvgpj3hw" path="res://common/head/head_spritesheet.png" id="2_g6k8r"]
@@ -190,6 +190,9 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g6k8r"]
 size = Vector2(90, 172)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_g6k8r"]
+radius = 604.477
+
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_mask = 4
 motion_mode = 1
@@ -241,6 +244,14 @@ wait_time = 2.0
 
 [node name="InvincibleTimer" type="Timer" parent="."]
 wait_time = 3.0
+
+[node name="CheckCloseEntity" type="Area2D" parent="."]
+visible = false
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CheckCloseEntity"]
+shape = SubResource("CircleShape2D_g6k8r")
+debug_color = Color(0.952589, 0.784763, 7.70092e-07, 0.42)
 
 [connection signal="lose" from="HitboxComponent" to="." method="_on_hitbox_component_lose"]
 [connection signal="win" from="HitboxComponent" to="." method="_on_hitbox_component_win"]

@@ -5,8 +5,10 @@ signal win
 signal lose
 
 @export var rps_component: RPSComponent
-@export var target: HitboxComponent
+@export var target: HitboxComponent = null
 
+func reset_target() -> void:
+	target = null
 
 func _on_area_entered(area: Area2D) -> void:
 	

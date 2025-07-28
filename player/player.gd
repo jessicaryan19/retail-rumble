@@ -28,17 +28,20 @@ var state: PlayerState = PlayerState.NORMAL:
 				pose_timer.start()
 				body.animation = "pose"
 				body.frame = randi() % body.sprite_frames.get_frame_count("pose")
-				hitbox_component.get_node("CollisionShape2D").disabled = true
+				hitbox_collision.set_deferred("disabled", true)
+				hitbox_component.target = null
+				
 				
 			PlayerState.INVINCIBLE:
 				invincible_timer.start()
 				body.animation = "hurt"
-				hitbox_component.get_node("CollisionShape2D").disabled = true
-			
+				hitbox_collision.set_deferred("disabled", true)
+				hitbox_component.target = null
+				
 			PlayerState.DIE:
 				body.animation = "hurt"
-				hitbox_component.get_node("CollisionShape2D").disabled = true
-		
+				hitbox_collision.set_deferred("disabled", true)
+				hitbox_component.target = null
 		
 
 @export var MAX_SPEED: float = 600.0
@@ -55,25 +58,27 @@ var deccel_time := 0.0
 @export var DECCELERATION_CURVE: Curve
 
 @onready var hitbox_component: HitboxComponent = $HitboxComponent
+@onready var hitbox_collision: CollisionShape2D = $HitboxComponent/CollisionShape2D
+
 @onready var health_component: HealthComponent = $HealthComponent
 @onready var rps_component: RPSComponent = $RPSComponent
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var head: AnimatedSprite2D = $Sprite/Head
 @onready var body: AnimatedSprite2D = $Sprite/Body
-	
+@onready var check_close_entity: Area2D = $CheckCloseEntity
+
 func _process(delta: float) -> void:
 	handle_anim()
 	
 	if state == PlayerState.NORMAL:
 		handle_rps()
-		set_hitbox_component_target()
+		set_closest_hitbox_target()
 	elif state == PlayerState.POSE or state == PlayerState.INVINCIBLE:
 		handle_rps()
 	elif state == PlayerState.DIE:
 		pass
-	
-		
+
 func _physics_process(delta: float) -> void:
 	
 	if state == PlayerState.NORMAL or state == PlayerState.POSE or state == PlayerState.INVINCIBLE:
@@ -82,23 +87,28 @@ func _physics_process(delta: float) -> void:
 	elif state == PlayerState.DIE:
 		pass
 
-func set_hitbox_component_target():
+func reset_hitbox_target():
+	get_tree().call_group("hitbox", "reset_target")
 	
-	var closest: HitboxComponent = null
-	var min_distsq: float = INF
-	for e in get_tree().get_nodes_in_group("enemy"):
-		if not is_instance_valid(e):
-			continue
-		
-		var d2 = hitbox_component.global_position.distance_squared_to(e.get_node("HitboxComponent").global_position)
-		if d2 < min_distsq:
-			min_distsq = d2
-			closest = e.get_node("HitboxComponent")
+	
+func set_closest_hitbox_target():
+	var closest = null
+	var closest_dist_sq = INF
+	
+	for entity in check_close_entity.get_overlapping_bodies():
+		if entity.is_in_group("enemy"):
+			entity.get_node("HitboxComponent").target = null
+			var dsq = global_position.distance_squared_to(entity.global_position)
+			if dsq < closest_dist_sq:
+				closest_dist_sq = dsq
+				closest = entity
+			
 	
 	if closest:
-		hitbox_component.target = closest
-		if is_instance_valid(closest):
-			closest.target = hitbox_component
+		closest.get_node("HitboxComponent").target = hitbox_component
+		hitbox_component.target = closest.get_node("HitboxComponent")
+	else:
+		hitbox_component.target = null
    
 		
 func get_input_direction() -> Vector2:
@@ -120,8 +130,6 @@ func handle_rps():
 	
 
 func handle_movement(delta: float):
-	
-	if state == PlayerState.DIE: return
 	
 	var input_direction = get_input_direction()
 	var target_vel = input_direction * MAX_SPEED
@@ -176,13 +184,13 @@ func _on_health_component_die() -> void:
 func _on_pose_timer_timeout() -> void:
 	if state == PlayerState.DIE: return
 	
+	hitbox_collision.set_deferred("disabled", false)
 	state = PlayerState.NORMAL
-	hitbox_component.get_node("CollisionShape2D").disabled = false
-
+	
 
 func _on_invincible_timer_timeout() -> void:
 	if state == PlayerState.DIE: return
 	
+	hitbox_collision.set_deferred("disabled", false)
 	state = PlayerState.NORMAL
-	hitbox_component.get_node("CollisionShape2D").disabled = false
-			
+	
