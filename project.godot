@@ -28,7 +28,6 @@ window/size/viewport_height=1080
 
 player=""
 enemy=""
-hitbox=""
 
 [input]
 

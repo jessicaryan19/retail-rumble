@@ -48,8 +48,8 @@ var state: PlayerState = PlayerState.NORMAL:
 @export var ACCELERATION: float = 800.0
 @export var DECCELERATION: float = 1200.0
 
-var accel_time := 0.0
-var deccel_time := 0.0
+var accel_time: float= 0.0
+var deccel_time: float= 0.0
 
 @export var ACCEL_TIME_TO_MAX := 0.3
 @export var DECCEL_TIME_TO_STOP := 0.3
@@ -62,6 +62,7 @@ var deccel_time := 0.0
 
 @onready var health_component: HealthComponent = $HealthComponent
 @onready var rps_component: RPSComponent = $RPSComponent
+#@onready var knockback_component: Node2D = $KnockbackComponent
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var head: AnimatedSprite2D = $Sprite/Head
@@ -83,13 +84,6 @@ func _physics_process(delta: float) -> void:
 	
 	if state == PlayerState.NORMAL or state == PlayerState.POSE or state == PlayerState.INVINCIBLE:
 		handle_movement(delta)
-		
-	elif state == PlayerState.DIE:
-		pass
-
-func reset_hitbox_target():
-	get_tree().call_group("hitbox", "reset_target")
-	
 	
 func set_closest_hitbox_target():
 	var closest = null
@@ -127,8 +121,6 @@ func handle_rps():
 	
 	head.frame = rps_component.current_rps_type
 	
-	
-
 func handle_movement(delta: float):
 	
 	var input_direction = get_input_direction()
@@ -146,7 +138,7 @@ func handle_movement(delta: float):
 		var t = deccel_time / DECCEL_TIME_TO_STOP
 		var curve_factor = DECCELERATION_CURVE.sample( clamp(t, 0.0, 1.0) )
 		velocity = velocity.move_toward(Vector2.ZERO, curve_factor * DECCELERATION * delta)
-		
+	
 	move_and_slide()
 
 func handle_anim():
@@ -165,17 +157,7 @@ func change_animation(animation_name: String):
 	if animation_player.current_animation != animation_name:
 		animation_player.play(animation_name)
 
-func _on_hitbox_component_lose() -> void:
-	print("lose")
-	health_component.take_damage(1)
-	state = PlayerState.INVINCIBLE
 
-
-func _on_hitbox_component_win() -> void:
-	print("win")
-	state = PlayerState.POSE
-	
-	
 func _on_health_component_die() -> void:
 	print("die")
 	state = PlayerState.DIE
@@ -194,3 +176,16 @@ func _on_invincible_timer_timeout() -> void:
 	hitbox_collision.set_deferred("disabled", false)
 	state = PlayerState.NORMAL
 	
+func _on_hitbox_component_lose(opponent: HitboxComponent) -> void:
+	print("lose")
+	health_component.take_damage(1)
+	state = PlayerState.INVINCIBLE
+	
+	# apply knockback
+	#var knockback_dir = -(opponent.global_position - hitbox_component.global_position).normalized()
+	#knockback_component.apply_knockback(knockback_dir)
+
+
+func _on_hitbox_component_win(opponent: HitboxComponent) -> void:
+	print("win")
+	state = PlayerState.POSE

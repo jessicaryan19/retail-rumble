@@ -1,12 +1,12 @@
-[gd_scene load_steps=22 format=3 uid="uid://dxp1mdmx5l6jl"]
+[gd_scene load_steps=26 format=3 uid="uid://dxp1mdmx5l6jl"]
 
 [ext_resource type="Script" uid="uid://b62uf5egtperd" path="res://enemy/enemy.gd" id="1_2mvqj"]
 [ext_resource type="Texture2D" uid="uid://c5ex7lvgpj3hw" path="res://common/head/head_spritesheet.png" id="2_y5vj3"]
 [ext_resource type="PackedScene" uid="uid://5lapc8r0j8bx" path="res://components/health_component.tscn" id="3_pmsee"]
-[ext_resource type="Texture2D" uid="uid://c03ldxbunfsuc" path="res://enemy/enemy_test.png" id="3_y5vj3"]
+[ext_resource type="Texture2D" uid="uid://cob5as66f182c" path="res://enemy/enemy_spritesheet.png" id="3_y5vj3"]
 [ext_resource type="PackedScene" uid="uid://di46oww8318i7" path="res://components/hitbox_component.tscn" id="4_1wwld"]
-[ext_resource type="Texture2D" uid="uid://dmv3xh64oy6ee" path="res://player/player_spritesheet.png" id="4_5ffra"]
 [ext_resource type="PackedScene" uid="uid://dnlyyya3m6omh" path="res://components/rps_component.tscn" id="5_y5vj3"]
+[ext_resource type="PackedScene" uid="uid://d3yvf7tvhas08" path="res://components/knockback_component.tscn" id="8_5ffra"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pmsee"]
 atlas = ExtResource("2_y5vj3")
@@ -50,27 +50,57 @@ animations = [{
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e355f"]
-atlas = ExtResource("4_5ffra")
+atlas = ExtResource("3_y5vj3")
 region = Rect2(0, 0, 250, 300)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_78jik"]
-atlas = ExtResource("4_5ffra")
-region = Rect2(0, 600, 250, 300)
+atlas = ExtResource("3_y5vj3")
+region = Rect2(250, 0, 250, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o3pv7"]
+atlas = ExtResource("3_y5vj3")
+region = Rect2(500, 0, 250, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xoplw"]
+atlas = ExtResource("3_y5vj3")
+region = Rect2(0, 300, 250, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6yflr"]
+atlas = ExtResource("3_y5vj3")
+region = Rect2(250, 300, 250, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gf88j"]
+atlas = ExtResource("3_y5vj3")
+region = Rect2(500, 300, 250, 300)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_o3pv7"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_y5vj3")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_e355f")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_78jik")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o3pv7")
 }],
 "loop": true,
 "name": &"variant_0",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xoplw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6yflr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gf88j")
+}],
+"loop": true,
+"name": &"variant_1",
 "speed": 5.0
 }]
 
@@ -189,7 +219,7 @@ animation = &"rps"
 
 [node name="Body" type="AnimatedSprite2D" parent="Sprite"]
 sprite_frames = SubResource("SpriteFrames_o3pv7")
-animation = &"variant_0"
+animation = &"variant_1"
 offset = Vector2(0, -128)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -223,6 +253,8 @@ debug_color = Color(0.996879, 0, 0.177881, 0.42)
 
 [node name="StunnedTimer" type="Timer" parent="."]
 wait_time = 2.0
+
+[node name="KnockbackComponent" parent="." instance=ExtResource("8_5ffra")]
 
 [connection signal="die" from="HealthComponent" to="." method="_on_health_component_die"]
 [connection signal="lose" from="HitboxComponent" to="." method="_on_hitbox_component_lose"]

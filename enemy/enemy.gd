@@ -22,6 +22,7 @@ var player: Node2D
 @onready var health_component: HealthComponent = $HealthComponent
 @onready var hitbox_component: HitboxComponent = $HitboxComponent
 @onready var hitbox_collision: CollisionShape2D = $HitboxComponent/CollisionShape2D
+#@onready var knockback_component: KnockbackComponent = $KnockbackComponent
 
 var state: EnemyState = EnemyState.CHASE:
 	get: 
@@ -127,7 +128,8 @@ func chase_player(delta: float):
 
 	var next_path_position = agent.get_next_path_position()
 	var direction = (next_path_position - global_position).normalized()
-	velocity = direction * speed
+	velocity = direction * speed # TODO: tambahin delta
+	
 	move_and_slide()
 
 func update_current_rps_and_health() -> void:
@@ -137,14 +139,6 @@ func update_current_rps_and_health() -> void:
 	
 	health_component.health = rps_list.size()
 	
-
-func _on_hitbox_component_lose() -> void:
-	state = EnemyState.STUNNED
-	rps_list.pop_front()
-	update_current_rps_and_health()
-	update_rps_icons()
-	
-
 func _on_stunned_timer_timeout() -> void:
 	if state == EnemyState.DIE: return
 	
@@ -152,3 +146,14 @@ func _on_stunned_timer_timeout() -> void:
 	
 func _on_health_component_die() -> void:
 	state = EnemyState.DIE
+
+
+func _on_hitbox_component_lose(opponent: HitboxComponent) -> void:
+	state = EnemyState.STUNNED
+	rps_list.pop_front()
+	update_current_rps_and_health()
+	update_rps_icons()
+	
+	# apply knockback
+	#var knockback_dir = -(opponent.global_position - hitbox_component.global_position).normalized()
+	#knockback_component.apply_knockback(knockback_dir)
