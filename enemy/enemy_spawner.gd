@@ -4,7 +4,7 @@ extends Node2D
 @export var min_distance_from_player: float = 300.0
 @export var max_attempts: int = 20
 @export var max_enemies: int = 5
-@export var spawn_interval: float = 5.0
+@export var spawn_interval: float = 10.0
 @export var path_node: NodePath
 @export var timer_node: NodePath
 

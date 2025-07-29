@@ -47,3 +47,5 @@ navigation_polygon = SubResource("NavigationPolygon_dxrkv")
 
 [node name="ScoreManager" type="Node2D" parent="." groups=["utils"]]
 script = ExtResource("5_dxrkv")
+
+[node name="ComboTimer" type="Timer" parent="ScoreManager"]

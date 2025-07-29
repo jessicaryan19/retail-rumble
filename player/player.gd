@@ -72,6 +72,8 @@ var deccel_time: float= 0.0
 @onready var sprite: Node2D = $Sprite
 @onready var camera_2d: Camera2D = $Camera2D
 
+@onready var score_manager = get_tree().get_root().get_node("Game/ScoreManager")
+
 var die_tween: Tween
 var scale_tween: Tween
 var duel_tween: Tween
@@ -264,6 +266,7 @@ func apply_hit_shader_effect():
 
 func _on_took_damage():
 	apply_hit_shader_effect()
+	score_manager.reset_combo()
 
 func _ready():
 	health_component.took_damage.connect(_on_took_damage);
