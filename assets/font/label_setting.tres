@@ -1,0 +1,9 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://mj62uk12jtlr"]
+
+[ext_resource type="FontFile" uid="uid://bet3oe08d83oe" path="res://assets/font/Kaph-Regular.ttf" id="1_xxs8t"]
+
+[resource]
+font = ExtResource("1_xxs8t")
+font_size = 64
+outline_size = 24
+outline_color = Color(0, 0, 0, 1)

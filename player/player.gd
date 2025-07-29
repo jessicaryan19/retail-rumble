@@ -270,7 +270,3 @@ func _on_took_damage():
 
 func _ready():
 	health_component.took_damage.connect(_on_took_damage);
-
-
-
-	
