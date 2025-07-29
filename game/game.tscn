@@ -1,9 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://c7s7t0l0r87ea"]
+[gd_scene load_steps=8 format=3 uid="uid://c7s7t0l0r87ea"]
 
 [ext_resource type="Texture2D" uid="uid://c66foqpixvgx6" path="res://game/background/repeating_background.png" id="1_4fuuu"]
 [ext_resource type="PackedScene" uid="uid://byxbcaf1scbhq" path="res://player/player.tscn" id="1_l1rk1"]
 [ext_resource type="Script" uid="uid://diyk7uvmbdi6c" path="res://enemy/enemy_spawner.gd" id="2_h7iqs"]
 [ext_resource type="PackedScene" uid="uid://dxp1mdmx5l6jl" path="res://enemy/enemy.tscn" id="3_4fuuu"]
+[ext_resource type="Shader" uid="uid://c7nkn3qt468fs" path="res://player/damage_shader_test.gdshader" id="3_dxrkv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dakft"]
+shader = ExtResource("3_dxrkv")
+shader_parameter/opacity = 1.0
+shader_parameter/r = 1.0
+shader_parameter/g = 0.0
+shader_parameter/b = 0.0
+shader_parameter/mix_color = 0.4
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_dxrkv"]
 vertices = PackedVector2Array(1905.91, 1077.08, 29.1016, 1092.91, 39.8984, 16.9297, 1897.08, 4.0625)
@@ -27,6 +36,7 @@ texture = ExtResource("1_4fuuu")
 stretch_mode = 1
 
 [node name="Player" parent="." instance=ExtResource("1_l1rk1")]
+material = SubResource("ShaderMaterial_dakft")
 position = Vector2(587, 298)
 
 [node name="NavigationRegion" type="NavigationRegion2D" parent="."]

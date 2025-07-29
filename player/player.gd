@@ -236,6 +236,8 @@ func _on_hitbox_component_duel(win: bool, opponent: HitboxComponent) -> void:
 	else:
 		print("lose")
 		health_component.take_damage(1)
+		#apply_hit_shader_effect()
+		
 		
 		if health_component.health > 0:
 			state = PlayerState.INVINCIBLE
@@ -243,3 +245,29 @@ func _on_hitbox_component_duel(win: bool, opponent: HitboxComponent) -> void:
 		# apply knockback
 		#var knockback_dir = -(opponent.global_position - hitbox_component.global_position).normalized()
 		#knockback_component.apply_knockback(knockback_dir)
+
+# Ini shader yg buat jadi merah
+func apply_hit_shader_effect():
+	var mat := body.material as ShaderMaterial
+	if mat == null:
+		return
+	
+	mat.set("shader_parameter/r", 1.0)
+	mat.set("shader_parameter/g", 0.0)
+	mat.set("shader_parameter/b", 0.0)
+	mat.set("shader_parameter/mix_color", 1.0)
+	mat.set("shader_parameter/opacity", 1.0)
+
+	var tween := create_tween()
+	tween.tween_property(mat, "shader_parameter/mix_color", 0.0, 0.2)
+
+
+func _on_took_damage():
+	apply_hit_shader_effect()
+
+func _ready():
+	health_component.took_damage.connect(_on_took_damage);
+
+
+
+	

@@ -2,7 +2,7 @@ extends Node2D
 class_name HealthComponent
 
 signal die
-
+signal took_damage
 
 @export var MAX_HEALTH: int = 3
 @export var health: int = 1:
@@ -17,7 +17,7 @@ func _ready() -> void:
 	
 func take_damage(damage: int):
 	health -= damage 
-	
+	emit_signal("took_damage")
 	handle_die()
 	
 func handle_die():
