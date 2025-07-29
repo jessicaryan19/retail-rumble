@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" uid="uid://d35vujgw0gwx1" path="res://player/player.gd" id="1_rkbax"]
 [ext_resource type="Texture2D" uid="uid://c5ex7lvgpj3hw" path="res://common/head/head_spritesheet.png" id="2_g6k8r"]
-[ext_resource type="Shader" path="res://player/damage_shader_test.gdshader" id="2_rgyib"]
+[ext_resource type="Shader" uid="uid://c7nkn3qt468fs" path="res://player/damage_shader_test.gdshader" id="2_rgyib"]
 [ext_resource type="Texture2D" uid="uid://dmv3xh64oy6ee" path="res://player/player_spritesheet.png" id="3_g6k8r"]
 [ext_resource type="PackedScene" uid="uid://duk7tymh3tjem" path="res://components/rps_component.tscn" id="3_yw30f"]
 [ext_resource type="PackedScene" uid="uid://djphn5du2drkq" path="res://components/hitbox_component.tscn" id="4_qjkh3"]
 [ext_resource type="PackedScene" uid="uid://d3yvf7tvhas08" path="res://components/knockback_component.tscn" id="5_boad6"]
-[ext_resource type="PackedScene" path="res://components/health_component.tscn" id="5_qjkh3"]
+[ext_resource type="PackedScene" uid="uid://5lapc8r0j8bx" path="res://components/health_component.tscn" id="5_qjkh3"]
 
 [sub_resource type="Curve" id="Curve_qjkh3"]
 _data = [Vector2(0, 0), 0.0, 6.27438, 0, 0, Vector2(0.0811288, 0.806375), 1.96857, 1.96857, 0, 0, Vector2(0.201058, 0.928359), 0.213472, 0.213472, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
