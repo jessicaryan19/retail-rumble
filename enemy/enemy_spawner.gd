@@ -9,6 +9,7 @@ extends Node2D
 @export var timer_node: NodePath
 
 var player: Node2D
+@onready var score_manager = get_parent().get_node("ScoreManager")
 
 func _ready():
 	player = get_tree().get_first_node_in_group("player")

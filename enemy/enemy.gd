@@ -23,6 +23,7 @@ var player: Node2D
 @onready var health_component: HealthComponent = $HealthComponent
 @onready var hitbox_component: HitboxComponent = $HitboxComponent
 @onready var hitbox_collision: CollisionShape2D = $HitboxComponent/CollisionShape2D
+@onready var score_manager = get_tree().get_root().get_node("Game/ScoreManager")
 #@onready var knockback_component: KnockbackComponent = $KnockbackComponent
 
 var state: EnemyState = EnemyState.CHASE:
@@ -45,8 +46,6 @@ var state: EnemyState = EnemyState.CHASE:
 			EnemyState.STUNNED:
 				stunned_timer.start()
 				head.animation = "rps"
-				
-				
 				
 			EnemyState.DIE:
 				head.animation = "die"
@@ -120,6 +119,8 @@ func _ready():
 	agent.target_position = player.global_position
 	randomize_variant()
 	generate_rps_list()
+	if score_manager:
+		health_component.took_damage.connect(score_manager._on_enemy_took_damage)
 	
 func _process(delta: float) -> void:
 	handle_anim()
@@ -166,6 +167,7 @@ func update_current_rps() -> void:
 	
 func update_health() -> void:
 	health_component.health = rps_list.size()
+	health_component.take_damage(0)
 	
 func _on_stunned_timer_timeout() -> void:
 	if state == EnemyState.DIE: return
@@ -202,3 +204,4 @@ func _on_hitbox_component_duel(win: bool, opponent: HitboxComponent) -> void:
 		
 		if health_component.health > 0:
 			state = EnemyState.STUNNED
+			

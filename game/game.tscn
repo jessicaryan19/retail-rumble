@@ -1,10 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://c7s7t0l0r87ea"]
+[gd_scene load_steps=8 format=3 uid="uid://c7s7t0l0r87ea"]
 
 [ext_resource type="Texture2D" uid="uid://c66foqpixvgx6" path="res://game/background/repeating_background.png" id="1_4fuuu"]
 [ext_resource type="PackedScene" uid="uid://byxbcaf1scbhq" path="res://player/player.tscn" id="1_l1rk1"]
-[ext_resource type="Script" uid="uid://diyk7uvmbdi6c" path="res://enemy/enemy_spawner.gd" id="2_h7iqs"]
-[ext_resource type="PackedScene" uid="uid://dxp1mdmx5l6jl" path="res://enemy/enemy.tscn" id="3_4fuuu"]
 [ext_resource type="Shader" path="res://player/damage_shader_test.gdshader" id="3_dxrkv"]
+[ext_resource type="PackedScene" uid="uid://dsuxwx28ircol" path="res://enemy/enemy_spawner.tscn" id="4_4fuuu"]
+[ext_resource type="Script" uid="uid://uwp46gwnfjob" path="res://game/score_manager.gd" id="5_dxrkv"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dakft"]
 shader = ExtResource("3_dxrkv")
@@ -18,12 +18,6 @@ shader_parameter/mix_color = 0.4
 vertices = PackedVector2Array(1905.91, 1077.08, 29.1016, 1092.91, 39.8984, 16.9297, 1897.08, 4.0625)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(30, 7, 19, 1103, 1916, 1087, 1907, -6)])
-
-[sub_resource type="Curve2D" id="Curve2D_dxrkv"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, -148, 1, 0, 0, 0, 0, -150, 1223, 0, 0, 0, 0, 2114, 1227, 0, 0, 0, 0, 2112, 15)
-}
-point_count = 4
 
 [node name="Game" type="Node2D"]
 y_sort_enabled = true
@@ -49,13 +43,7 @@ position = Vector2(587, 298)
 position = Vector2(7, 8)
 navigation_polygon = SubResource("NavigationPolygon_dxrkv")
 
-[node name="EnemySpawner" type="Node2D" parent="."]
-script = ExtResource("2_h7iqs")
-enemy_scene = ExtResource("3_4fuuu")
-path_node = NodePath("SpawnPath")
-timer_node = NodePath("SpawnTimer")
+[node name="EnemySpawner" parent="." instance=ExtResource("4_4fuuu")]
 
-[node name="SpawnPath" type="Path2D" parent="EnemySpawner"]
-curve = SubResource("Curve2D_dxrkv")
-
-[node name="SpawnTimer" type="Timer" parent="EnemySpawner"]
+[node name="ScoreManager" type="Node2D" parent="." groups=["utils"]]
+script = ExtResource("5_dxrkv")
