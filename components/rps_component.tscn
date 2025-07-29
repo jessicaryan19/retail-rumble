@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://dnlyyya3m6omh"]
+[gd_scene load_steps=2 format=3 uid="uid://duk7tymh3tjem"]
 
-[ext_resource type="Script" uid="uid://wbulvx04sgr4" path="res://components/rps_component.gd" id="1_hv5fa"]
+[ext_resource type="Script" path="res://components/rps_component.gd" id="1_hv5fa"]
 
 [node name="RPSComponent" type="Node2D"]
 script = ExtResource("1_hv5fa")

@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://b62uf5egtperd" path="res://enemy/enemy.gd" id="1_2mvqj"]
 [ext_resource type="Texture2D" uid="uid://c5ex7lvgpj3hw" path="res://common/head/head_spritesheet.png" id="2_y5vj3"]
-[ext_resource type="PackedScene" uid="uid://5lapc8r0j8bx" path="res://components/health_component.tscn" id="3_pmsee"]
+[ext_resource type="PackedScene" path="res://components/health_component.tscn" id="3_pmsee"]
 [ext_resource type="Texture2D" uid="uid://cob5as66f182c" path="res://enemy/enemy_spritesheet.png" id="3_y5vj3"]
-[ext_resource type="PackedScene" uid="uid://di46oww8318i7" path="res://components/hitbox_component.tscn" id="4_1wwld"]
-[ext_resource type="PackedScene" uid="uid://dnlyyya3m6omh" path="res://components/rps_component.tscn" id="5_y5vj3"]
+[ext_resource type="PackedScene" uid="uid://djphn5du2drkq" path="res://components/hitbox_component.tscn" id="4_1wwld"]
+[ext_resource type="PackedScene" uid="uid://duk7tymh3tjem" path="res://components/rps_component.tscn" id="5_y5vj3"]
 [ext_resource type="PackedScene" uid="uid://d3yvf7tvhas08" path="res://components/knockback_component.tscn" id="8_5ffra"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pmsee"]
