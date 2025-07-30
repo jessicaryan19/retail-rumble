@@ -47,6 +47,17 @@ uniform float vignette_intensity = 0.4; // Size of the vignette, how far towards
 uniform float vignette_opacity : hint_range(0.0, 1.0) = 0.5;
 uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
 
+
+// Warmer tone filter
+uniform vec3 custom_tint : source_color = vec3(1.05, 0.95, 0.85); 
+uniform float custom_tint_intensity : hint_range(0.0, 1.0) = 0.4;
+
+
+uniform int tone_style : hint_enum("None", "Warm", "Sepia", "Cool") = 0;
+uniform float tone_intensity : hint_range(0.0, 1.0) = 0.4;
+
+
+
 // Used by the noise functin to generate a pseudo random value between 0.0 and 1.0
 vec2 random(vec2 uv){
     uv = vec2( dot(uv, vec2(127.1,311.7) ),
@@ -225,6 +236,22 @@ void fragment()
 		float midpoint = pow(0.5, 2.2);
 		text.rgb = (text.rgb - vec3(midpoint)) * contrast + midpoint;
 	}
+	
+	// Apply warm color tint
+	text.rgb = mix(text.rgb, text.rgb * custom_tint, custom_tint_intensity);
+	
+		
+	if (tone_style == 1) {
+		// Warm (VHS-like reddish/yellowish)
+		text.rgb = mix(text.rgb, text.rgb * vec3(1.05, 0.95, 0.85), tone_intensity);
+	} else if (tone_style == 2) {
+		// Sepia tone
+		text.rgb = mix(text.rgb, text.rgb * vec3(1.2, 1.0, 0.8), tone_intensity);
+	} else if (tone_style == 3) {
+		// Cool tone (bluish film tone)
+		text.rgb = mix(text.rgb, text.rgb * vec3(0.85, 0.95, 1.1), tone_intensity);
+	}
+
 	
 	COLOR = text;
 }
