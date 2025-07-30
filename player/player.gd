@@ -19,7 +19,7 @@ var state: PlayerState = PlayerState.NORMAL:
 		if state==PlayerState.DIE: return
 		
 		state = value
-		frightened_tween()
+		do_stretch_tween()
 		
 		match (value):
 			PlayerState.NORMAL:
@@ -28,15 +28,16 @@ var state: PlayerState = PlayerState.NORMAL:
 			PlayerState.POSE:
 				pose_timer.start()
 				body.animation = "pose"
+				do_closeup_tween(pose_timer.wait_time)
 				body.frame = randi() % body.sprite_frames.get_frame_count("pose")
-				hitbox_collision.set_deferred("disabled", true)
+				hitbox_component.invincible = true
 				hitbox_component.target = null
-				
 				
 			PlayerState.INVINCIBLE:
 				invincible_timer.start()
 				body.animation = "hurt"
-				hitbox_collision.set_deferred("disabled", true)
+				do_closeup_tween(invincible_timer.wait_time)
+				hitbox_component.invincible = true
 				hitbox_component.target = null
 				
 			PlayerState.DIE:
@@ -75,26 +76,43 @@ var deccel_time: float= 0.0
 @onready var score_manager = get_tree().get_root().get_node("Game/ScoreManager")
 
 var die_tween: Tween
-var scale_tween: Tween
-var duel_tween: Tween
+var closeup_tween: Tween
+var stretch_tween: Tween
 
 func reset_die_tween() -> void:
 	if die_tween:
 		die_tween.kill()
 	
 	die_tween = create_tween()
-
-func reset_scale_tween() -> void:
-	if scale_tween:
-		scale_tween.kill()
 	
-	scale_tween = create_tween()
 
-func reset_duel_tween() -> void:
-	if duel_tween:
-		duel_tween.kill()
+func do_closeup_tween(duration: float) -> void:
 	
-	duel_tween = create_tween()
+	if closeup_tween:
+		closeup_tween.kill()
+	
+	closeup_tween = create_tween()
+	
+	var duration_each_segment: float = duration/2
+	
+	closeup_tween.set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	closeup_tween.set_parallel(true)
+	closeup_tween.tween_property(camera_2d, "zoom", Vector2(1.3, 1.3), duration_each_segment)
+	closeup_tween.tween_property(Engine, "time_scale", 0.5, duration_each_segment)
+	
+	closeup_tween.chain().tween_interval(0)
+	closeup_tween.parallel().set_ease(Tween.EASE_IN).tween_property(Engine, "time_scale", 1, duration_each_segment)
+	closeup_tween.parallel().tween_property(camera_2d, "zoom", Vector2(1.0, 1.0), duration_each_segment)
+	
+func do_stretch_tween() -> void:
+	if stretch_tween:
+		stretch_tween.kill()
+	
+	stretch_tween = create_tween()
+	
+	stretch_tween.set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	stretch_tween.tween_property(sprite, "scale", Vector2(0.9, 1.1), 0.1)
+	stretch_tween.tween_property(sprite, "scale", Vector2(1, 1), 0.1)
 	
 func _process(delta: float) -> void:
 	handle_anim()
@@ -147,9 +165,15 @@ func handle_rps():
 		rps_component.current_rps_type = Enums.RPSType.SCISSOR
 	
 	if head.frame != rps_component.current_rps_type:
-		frightened_tween()
+		#retoggle_hitbox_monitoring()
+		do_stretch_tween()
 		head.frame = rps_component.current_rps_type
-	
+
+#func retoggle_hitbox_monitoring():
+	#hitbox_component.monitoring = false
+	#await get_tree().process_frame
+	#hitbox_component.monitoring = true
+
 func handle_movement(delta: float):
 	
 	var input_direction = get_input_direction()
@@ -197,7 +221,7 @@ func _on_pose_timer_timeout() -> void:
 	
 	print("end of pose")
 	
-	hitbox_collision.set_deferred("disabled", false)
+	hitbox_component.invincible = false
 	state = PlayerState.NORMAL
 	
 
@@ -206,40 +230,20 @@ func _on_invincible_timer_timeout() -> void:
 	
 	print("end of invincible")
 	
-	hitbox_collision.set_deferred("disabled", false)
+	hitbox_component.invincible = false
 	state = PlayerState.NORMAL
-
-func closeup_tween() -> void:
-	reset_duel_tween()
-	duel_tween.set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
-	duel_tween.set_parallel(true)
-	duel_tween.tween_property(camera_2d, "zoom", Vector2(1.3, 1.3), 0.5)
-	duel_tween.tween_property(Engine, "time_scale", 0.5, 0.5)
-	
-	duel_tween.chain().tween_interval(0)
-	duel_tween.parallel().set_ease(Tween.EASE_IN).tween_property(Engine, "time_scale", 1, 0.5)
-	duel_tween.parallel().tween_property(camera_2d, "zoom", Vector2(1.0, 1.0), 0.5)
-	
-	
-	
-func frightened_tween() -> void:
-	reset_scale_tween()
-	scale_tween.set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
-	scale_tween.tween_property(sprite, "scale", Vector2(0.9, 1.1), 0.1)
-	scale_tween.tween_property(sprite, "scale", Vector2(1, 1), 0.1)
 	
 
 func _on_hitbox_component_duel(win: bool, opponent: HitboxComponent) -> void:
-	closeup_tween()
 	
 	if (win):
 		print("win")
-		state = PlayerState.POSE
+		if state == PlayerState.NORMAL:
+			state = PlayerState.POSE
 	else:
 		print("lose")
 		health_component.take_damage(1)
 		#apply_hit_shader_effect()
-		
 		
 		if health_component.health > 0:
 			state = PlayerState.INVINCIBLE

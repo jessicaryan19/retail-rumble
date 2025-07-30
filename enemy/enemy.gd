@@ -46,6 +46,7 @@ var state: EnemyState = EnemyState.CHASE:
 			EnemyState.STUNNED:
 				stunned_timer.start()
 				head.animation = "rps"
+				hitbox_collision.set_deferred("disabled", true)
 				
 			EnemyState.DIE:
 				head.animation = "die"
@@ -172,16 +173,17 @@ func update_health() -> void:
 func _on_stunned_timer_timeout() -> void:
 	if state == EnemyState.DIE: return
 	
+	hitbox_collision.set_deferred("disabled", false)
 	state = EnemyState.CHASE
 	
 	update_current_rps()
 	
-	print("enemy end of stunned")
+	#print("enemy end of stunned")
 	
 func _on_health_component_die() -> void:
 	state = EnemyState.DIE
 	
-	print("enemy die")
+	#print("enemy die")
 
 func frightened_tween() -> void:
 	reset_scale_tween()
@@ -193,10 +195,10 @@ func _on_hitbox_component_duel(win: bool, opponent: HitboxComponent) -> void:
 	frightened_tween()
 	
 	if win:
-		print("enemy win")
+		#print("enemy win")
 		frightened_tween()
 	else:
-		print("enemy lose")
+		#print("enemy lose")
 		
 		rps_list.pop_front()
 		update_rps_visual()
