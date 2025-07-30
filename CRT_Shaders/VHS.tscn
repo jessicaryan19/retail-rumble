@@ -25,6 +25,10 @@ shader_parameter/warp_amount = 1.0
 shader_parameter/clip_warp = false
 shader_parameter/vignette_intensity = 0.4
 shader_parameter/vignette_opacity = 0.5
+shader_parameter/custom_tint = Color(1.05, 0.95, 0.85, 1)
+shader_parameter/custom_tint_intensity = 0.4
+shader_parameter/tone_style = 0
+shader_parameter/tone_intensity = 0.4
 
 [node name="Vhs" type="Node2D"]
 
