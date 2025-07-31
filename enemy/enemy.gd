@@ -25,7 +25,9 @@ var player: Node2D
 @onready var hitbox_component: HitboxComponent = $HitboxComponent
 @onready var hitbox_collision: CollisionShape2D = $HitboxComponent/CollisionShape2D
 @onready var score_manager = get_tree().get_root().get_node("Game/ScoreManager")
+
 #@onready var knockback_component: KnockbackComponent = $KnockbackComponent
+var rps_sprite_scene = preload("res://enemy/rps_sprite.tscn")
 
 var state: EnemyState = EnemyState.CHASE:
 	get: 
@@ -100,22 +102,28 @@ func randomize_variant():
 	body.animation = animation_names[randi() % animation_names.size()]
 
 func update_rps_visual():
-	# update head
 	if rps_list.size() > 0:
 		head.frame = rps_list.front()
 	
 	for child in rps_container.get_children():
 		child.queue_free()
 
-	var icon_spacing = 32
+	var icon_spacing = 80
 	var start_x = -(rps_list.size() - 1) * icon_spacing / 2.0
 
 	for i in rps_list.size():
-		var icon = Sprite2D.new()
-		icon.texture = RPS_TEXTURES[rps_list[i]]
-		icon.position = Vector2(start_x + i * icon_spacing, 0)
-		icon.scale = Vector2(0.05, 0.05)
-		rps_container.add_child(icon)
+		var rps_sprite = rps_sprite_scene.instantiate()
+		print("rps", rps_list[i])
+		rps_sprite.frame = rps_list[i]
+		rps_sprite.position = Vector2(start_x + i * icon_spacing, 0)
+		rps_container.add_child(rps_sprite)
+		
+		if i == 0:
+			var frame = Sprite2D.new()
+			frame.texture = preload("res://assets/ui/frame_icon.png")
+			frame.z_index = 1
+			frame.position = Vector2.ZERO
+			rps_sprite.add_child(frame)
 	
 func _ready():
 	player = get_tree().get_first_node_in_group("player")

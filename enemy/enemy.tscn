@@ -238,7 +238,8 @@ avoidance_enabled = true
 radius = 500.0
 
 [node name="RPSContainer" type="Node2D" parent="."]
-position = Vector2(0, -300)
+visible = false
+position = Vector2(0, -273)
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_pmsee")]
 

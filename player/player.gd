@@ -142,6 +142,7 @@ func set_closest_hitbox_target():
 	for entity in check_close_entity.get_overlapping_bodies():
 		if entity.is_in_group("enemy"):
 			entity.get_node("HitboxComponent").reset_target()
+			entity.get_node("RPSContainer").visible = false
 			var dsq = global_position.distance_squared_to(entity.global_position)
 			if dsq < closest_dist_sq:
 				closest_dist_sq = dsq
@@ -149,6 +150,7 @@ func set_closest_hitbox_target():
 			
 	
 	if closest:
+		closest.get_node("RPSContainer").visible = true
 		closest.get_node("HitboxComponent").target = hitbox_component
 		hitbox_component.target = closest.get_node("HitboxComponent")
 	else:

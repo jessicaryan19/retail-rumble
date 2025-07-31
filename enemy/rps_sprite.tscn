@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://dvfwxejomhirs"]
+
+[ext_resource type="Texture2D" uid="uid://s1c25dqahbtg" path="res://assets/ui/RPS_2.png" id="1_3uspe"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tbw0t"]
+atlas = ExtResource("1_3uspe")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wjonb"]
+atlas = ExtResource("1_3uspe")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rovcg"]
+atlas = ExtResource("1_3uspe")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_n2hyd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tbw0t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wjonb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rovcg")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="RPS" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_n2hyd")
