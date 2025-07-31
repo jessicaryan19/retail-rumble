@@ -5,3 +5,9 @@ enum RPSType {
 	PAPER = 1,
 	SCISSOR = 2
 }
+
+enum KeyType {
+	J = 0,
+	K = 1,
+	L = 3
+}

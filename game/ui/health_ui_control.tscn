@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://bl7fwt0y4dv4k"]
+
+[ext_resource type="Script" uid="uid://cnf1v35keb2bk" path="res://game/ui/health_ui_control.gd" id="1_7ot4j"]
+[ext_resource type="PackedScene" uid="uid://tjofq7wwye7n" path="res://game/ui/heart.tscn" id="2_lj8ia"]
+
+[node name="HealthUIControl" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_7ot4j")
+
+[node name="HealthContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 10.1)
+layout_mode = 1
+offset_bottom = 10.1
+theme_override_constants/separation = 180
+
+[node name="Heart" parent="HealthContainer" instance=ExtResource("2_lj8ia")]
+layout_mode = 2
+size_flags_stretch_ratio = 0.0

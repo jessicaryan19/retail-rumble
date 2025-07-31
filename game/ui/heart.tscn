@@ -1,0 +1,50 @@
+[gd_scene load_steps=5 format=3 uid="uid://tjofq7wwye7n"]
+
+[ext_resource type="Texture2D" uid="uid://ds2f2o5ivc1wn" path="res://assets/ui/heart.png" id="1_4qj0h"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j8tme"]
+atlas = ExtResource("1_4qj0h")
+region = Rect2(175, 0, 175, 175)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3vho3"]
+atlas = ExtResource("1_4qj0h")
+region = Rect2(0, 0, 175, 175)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qf6n1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j8tme")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3vho3")
+}],
+"loop": true,
+"name": &"default_1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3vho3")
+}],
+"loop": true,
+"name": &"default_2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j8tme")
+}],
+"loop": true,
+"name": &"full",
+"speed": 5.0
+}]
+
+[node name="Heart" type="TextureRect"]
+stretch_mode = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="HeartSprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_qf6n1")
+animation = &"default_2"
+offset = Vector2(90, 90)

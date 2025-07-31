@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://duk7tymh3tjem" path="res://components/rps_component.tscn" id="3_yw30f"]
 [ext_resource type="PackedScene" uid="uid://djphn5du2drkq" path="res://components/hitbox_component.tscn" id="4_qjkh3"]
 [ext_resource type="PackedScene" uid="uid://d3yvf7tvhas08" path="res://components/knockback_component.tscn" id="5_boad6"]
-[ext_resource type="PackedScene" uid="uid://5lapc8r0j8bx" path="res://components/health_component.tscn" id="5_qjkh3"]
+[ext_resource type="PackedScene" path="res://components/health_component.tscn" id="5_qjkh3"]
 
 [sub_resource type="Curve" id="Curve_qjkh3"]
 _data = [Vector2(0, 0), 0.0, 6.27438, 0, 0, Vector2(0.0811288, 0.806375), 1.96857, 1.96857, 0, 0, Vector2(0.201058, 0.928359), 0.213472, 0.213472, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -239,7 +239,7 @@ animation = &"rps"
 [node name="Body" type="AnimatedSprite2D" parent="Sprite"]
 material = SubResource("ShaderMaterial_8t03j")
 sprite_frames = SubResource("SpriteFrames_yllr7")
-animation = &"normal"
+animation = &"pose"
 offset = Vector2(0, -128)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

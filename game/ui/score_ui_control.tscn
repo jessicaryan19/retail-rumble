@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=3 uid="uid://bljp5jihpmr8f"]
+
+[ext_resource type="Script" uid="uid://cgikbfrecybyf" path="res://game/ui/score_ui_control.gd" id="1_y6dlv"]
+[ext_resource type="LabelSettings" uid="uid://mj62uk12jtlr" path="res://assets/font/label_setting.tres" id="2_vv5ws"]
+
+[node name="ScoreUIControl" type="Control"]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+size_flags_horizontal = 8
+size_flags_vertical = 0
+script = ExtResource("1_y6dlv")
+
+[node name="ScoreLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -397.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 94.0
+grow_horizontal = 0
+text = "score: 0"
+label_settings = ExtResource("2_vv5ws")
+horizontal_alignment = 2
+
+[node name="ComboLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -310.0
+offset_top = 100.0
+offset_right = -20.0
+offset_bottom = 174.0
+grow_horizontal = 0
+label_settings = ExtResource("2_vv5ws")
+horizontal_alignment = 2

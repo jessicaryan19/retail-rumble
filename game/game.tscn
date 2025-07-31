@@ -1,13 +1,14 @@
-[gd_scene load_steps=16 format=3 uid="uid://c7s7t0l0r87ea"]
+[gd_scene load_steps=14 format=3 uid="uid://c7s7t0l0r87ea"]
 
 [ext_resource type="Texture2D" uid="uid://c66foqpixvgx6" path="res://game/background/repeating_background.png" id="1_4fuuu"]
 [ext_resource type="PackedScene" uid="uid://byxbcaf1scbhq" path="res://player/player.tscn" id="1_l1rk1"]
 [ext_resource type="Shader" uid="uid://c7nkn3qt468fs" path="res://player/damage_shader_test.gdshader" id="3_dxrkv"]
 [ext_resource type="PackedScene" uid="uid://dsuxwx28ircol" path="res://enemy/enemy_spawner.tscn" id="4_4fuuu"]
 [ext_resource type="Script" uid="uid://uwp46gwnfjob" path="res://game/score_manager.gd" id="5_dxrkv"]
-[ext_resource type="LabelSettings" uid="uid://mj62uk12jtlr" path="res://assets/font/label_setting.tres" id="6_dakft"]
-[ext_resource type="Script" uid="uid://cgikbfrecybyf" path="res://game/game_ui.gd" id="6_u5opy"]
-[ext_resource type="Texture2D" uid="uid://ds2f2o5ivc1wn" path="res://assets/ui/heart.png" id="8_l8g03"]
+[ext_resource type="PackedScene" uid="uid://bljp5jihpmr8f" path="res://game/ui/score_ui_control.tscn" id="6_y36n6"]
+[ext_resource type="PackedScene" uid="uid://bl7fwt0y4dv4k" path="res://game/ui/health_ui_control.tscn" id="7_l8g03"]
+[ext_resource type="Script" uid="uid://bygbsrod35vsy" path="res://game/button_control.gd" id="8_j8tme"]
+[ext_resource type="PackedScene" uid="uid://cq8r2d04jnnbl" path="res://game/ui/rps_button.tscn" id="8_l8g03"]
 [ext_resource type="Shader" uid="uid://b6tgdk2xk2i6i" path="res://CRT_Shaders/VHS.gdshader" id="9_l8g03"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dakft"]
@@ -22,28 +23,6 @@ shader_parameter/mix_color = 0.4
 vertices = PackedVector2Array(1905.91, 1077.08, 29.1016, 1092.91, 39.8984, 16.9297, 1897.08, 4.0625)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(30, 7, 19, 1103, 1916, 1087, 1907, -6)])
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_j8tme"]
-atlas = ExtResource("8_l8g03")
-region = Rect2(175, 0, 175, 175)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3vho3"]
-atlas = ExtResource("8_l8g03")
-region = Rect2(0, 0, 175, 175)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_qf6n1"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_j8tme")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3vho3")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l8g03"]
 shader = ExtResource("9_l8g03")
@@ -102,53 +81,47 @@ script = ExtResource("5_dxrkv")
 
 [node name="GameUI" type="CanvasLayer" parent="."]
 
-[node name="GameUIControl" type="Control" parent="GameUI"]
+[node name="ScoreUIControl" parent="GameUI" instance=ExtResource("6_y36n6")]
+
+[node name="HealthUIControl" parent="GameUI" instance=ExtResource("7_l8g03")]
+
+[node name="ButtonControl" type="Control" parent="GameUI"]
 layout_mode = 3
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -40.0
-offset_bottom = 40.0
-grow_horizontal = 0
-size_flags_horizontal = 8
-size_flags_vertical = 0
-script = ExtResource("6_u5opy")
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("8_j8tme")
 
-[node name="ScoreLabel" type="Label" parent="GameUI/GameUIControl"]
+[node name="ButtonContainer" type="HBoxContainer" parent="GameUI/ButtonControl"]
 layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -397.0
-offset_top = 20.0
-offset_right = -20.0
-offset_bottom = 94.0
-grow_horizontal = 0
-text = "score: 0"
-label_settings = ExtResource("6_dakft")
-horizontal_alignment = 2
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = -62.0
+offset_right = 250.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 250
+alignment = 1
 
-[node name="ComboLabel" type="Label" parent="GameUI/GameUIControl"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -310.0
-offset_top = 100.0
-offset_right = -20.0
-offset_bottom = 174.0
-grow_horizontal = 0
-label_settings = ExtResource("6_dakft")
-horizontal_alignment = 2
+[node name="RockButton" parent="GameUI/ButtonControl/ButtonContainer" instance=ExtResource("8_l8g03")]
+layout_mode = 2
 
-[node name="HealthContainer" type="HBoxContainer" parent="GameUI/GameUIControl"]
-layout_mode = 1
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="PaperButton" parent="GameUI/ButtonControl/ButtonContainer" instance=ExtResource("8_l8g03")]
+layout_mode = 2
 
-[node name="HeartSprite" type="AnimatedSprite2D" parent="GameUI/GameUIControl/HealthContainer"]
-sprite_frames = SubResource("SpriteFrames_qf6n1")
-frame_progress = 0.618844
+[node name="ScissorButton" parent="GameUI/ButtonControl/ButtonContainer" instance=ExtResource("8_l8g03")]
+layout_mode = 2
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 128
