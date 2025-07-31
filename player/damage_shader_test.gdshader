@@ -20,6 +20,6 @@ void light() {
 
 	float cNdotL = max(1.0, dot(NORMAL, LIGHT_DIRECTION));
 	LIGHT = vec4(LIGHT_COLOR.rgb * LIGHT_ENERGY * cNdotL, LIGHT_COLOR.a);
-	// Called for every pixel for every light affecting the CanvasItem.
-	// Uncomment to replace the default light processing function with this one.
 }
+
+

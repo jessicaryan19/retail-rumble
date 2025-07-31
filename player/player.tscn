@@ -1,7 +1,8 @@
-[gd_scene load_steps=30 format=3 uid="uid://byxbcaf1scbhq"]
+[gd_scene load_steps=31 format=3 uid="uid://byxbcaf1scbhq"]
 
 [ext_resource type="Script" uid="uid://d35vujgw0gwx1" path="res://player/player.gd" id="1_rkbax"]
 [ext_resource type="Texture2D" uid="uid://c5ex7lvgpj3hw" path="res://common/head/head_spritesheet.png" id="2_g6k8r"]
+[ext_resource type="Shader" uid="uid://bfselaifmi40s" path="res://player/shineEffect.gdshader" id="2_hg6s5"]
 [ext_resource type="Shader" uid="uid://c7nkn3qt468fs" path="res://player/damage_shader_test.gdshader" id="2_rgyib"]
 [ext_resource type="Texture2D" uid="uid://dmv3xh64oy6ee" path="res://player/player_spritesheet.png" id="3_g6k8r"]
 [ext_resource type="PackedScene" uid="uid://duk7tymh3tjem" path="res://components/rps_component.tscn" id="3_yw30f"]
@@ -18,12 +19,10 @@ _data = [Vector2(0, 0), 0.0, 3.79656, 0, 0, Vector2(0.042328, 0.841227), 1.90016
 point_count = 4
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hg6s5"]
-shader = ExtResource("2_rgyib")
-shader_parameter/opacity = 1.0
-shader_parameter/r = 1.0
-shader_parameter/g = 0.0
-shader_parameter/b = 0.0
-shader_parameter/mix_color = 1.0
+shader = ExtResource("2_hg6s5")
+shader_parameter/speed = 2.0
+shader_parameter/tint = Vector4(1, 1, 0, 1)
+shader_parameter/span = 0.3
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rgyib"]
 shader = ExtResource("2_rgyib")
