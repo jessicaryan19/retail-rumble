@@ -71,7 +71,7 @@ var deccel_time: float= 0.0
 @onready var body: AnimatedSprite2D = $Sprite/Body
 @onready var check_close_entity: Area2D = $CheckCloseEntity
 @onready var sprite: Node2D = $Sprite
-@onready var camera_2d: Camera2D = $Camera2D
+@onready var camera: Camera2D = $Camera
 
 @onready var score_manager = get_tree().get_root().get_node("Game/ScoreManager")
 
@@ -97,12 +97,12 @@ func do_closeup_tween(duration: float) -> void:
 	
 	closeup_tween.set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 	closeup_tween.set_parallel(true)
-	closeup_tween.tween_property(camera_2d, "zoom", Vector2(1.3, 1.3), duration_each_segment)
+	closeup_tween.tween_property(camera, "zoom", Vector2(1.3, 1.3), duration_each_segment)
 	closeup_tween.tween_property(Engine, "time_scale", 0.5, duration_each_segment)
 	
 	closeup_tween.chain().tween_interval(0)
 	closeup_tween.parallel().set_ease(Tween.EASE_IN).tween_property(Engine, "time_scale", 1, duration_each_segment)
-	closeup_tween.parallel().tween_property(camera_2d, "zoom", Vector2(1.0, 1.0), duration_each_segment)
+	closeup_tween.parallel().tween_property(camera, "zoom", Vector2(1.0, 1.0), duration_each_segment)
 	
 func do_stretch_tween() -> void:
 	if stretch_tween:
@@ -238,10 +238,12 @@ func _on_hitbox_component_duel(win: bool, opponent: HitboxComponent) -> void:
 	
 	if (win):
 		print("win")
+		camera.apply_screen_shake(4, 0.1)
 		if state == PlayerState.NORMAL:
 			state = PlayerState.POSE
 	else:
 		print("lose")
+		camera.apply_screen_shake(16, 0.3)
 		health_component.take_damage(1)
 		#apply_hit_shader_effect()
 		
