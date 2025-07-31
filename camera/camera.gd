@@ -1,5 +1,7 @@
 extends Camera2D
 
+var original_offset: Vector2 = offset
+
 var shake_intensity: float = 0.0
 var active_shake_duration: float = 0.0
 
@@ -17,14 +19,14 @@ func _physics_process(delta: float) -> void:
 		shake_duration += delta * SHAKE_DURATION_SPEED
 		active_shake_duration -= delta
 		
-		offset = Vector2(
+		offset = original_offset + Vector2(
 			noise.get_noise_2d(shake_duration, 0) * shake_intensity,
 			noise.get_noise_2d(0, shake_duration) * shake_intensity
 		)
 		
 		shake_intensity = max(shake_intensity - SHAKE_DECAY * delta, 0)
 	else:
-		offset = lerp(offset, Vector2.ZERO, ZERO_OFFSET_LERP_AMMOUNT * delta)
+		offset = lerp(offset, original_offset, ZERO_OFFSET_LERP_AMMOUNT * delta)
 
 func apply_screen_shake(intensity: int, duration: float):
 	randomize()

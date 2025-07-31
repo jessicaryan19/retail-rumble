@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://c7s7t0l0r87ea"]
+[gd_scene load_steps=15 format=3 uid="uid://c7s7t0l0r87ea"]
 
 [ext_resource type="Texture2D" uid="uid://c66foqpixvgx6" path="res://game/background/repeating_background.png" id="1_4fuuu"]
 [ext_resource type="PackedScene" uid="uid://byxbcaf1scbhq" path="res://player/player.tscn" id="1_l1rk1"]
@@ -8,6 +8,8 @@
 [ext_resource type="LabelSettings" uid="uid://mj62uk12jtlr" path="res://assets/font/label_setting.tres" id="6_dakft"]
 [ext_resource type="Script" uid="uid://cgikbfrecybyf" path="res://game/game_ui.gd" id="6_u5opy"]
 [ext_resource type="Script" uid="uid://bgxrswvkll6id" path="res://game/combo_ui.gd" id="8_y36n6"]
+[ext_resource type="Script" uid="uid://dvcnqfc257ap1" path="res://game/player_die_canvas.gd" id="9_3vho3"]
+[ext_resource type="PackedScene" uid="uid://bsbw3tjr063ou" path="res://ui/player_die_ui.tscn" id="9_j8tme"]
 [ext_resource type="Shader" uid="uid://b6tgdk2xk2i6i" path="res://CRT_Shaders/VHS.gdshader" id="9_l8g03"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dakft"]
@@ -105,6 +107,15 @@ offset_top = 129.0
 offset_right = 361.0
 offset_bottom = 203.0
 label_settings = ExtResource("6_dakft")
+
+[node name="PlayerDieCanvas" type="CanvasLayer" parent="."]
+layer = 128
+follow_viewport_scale = 1.901
+script = ExtResource("9_3vho3")
+player = NodePath("../Player")
+
+[node name="PlayerDieUI" parent="PlayerDieCanvas" instance=ExtResource("9_j8tme")]
+visible = false
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 128

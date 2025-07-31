@@ -28,7 +28,7 @@ var state: PlayerState = PlayerState.NORMAL:
 			PlayerState.POSE:
 				pose_timer.start()
 				body.animation = "pose"
-				do_closeup_tween(pose_timer.wait_time)
+				do_closeup_tween(pose_timer.wait_time - 0.2)
 				body.frame = randi() % body.sprite_frames.get_frame_count("pose")
 				hitbox_component.invincible = true
 				hitbox_component.target = null
@@ -36,12 +36,13 @@ var state: PlayerState = PlayerState.NORMAL:
 			PlayerState.INVINCIBLE:
 				invincible_timer.start()
 				body.animation = "hurt"
-				do_closeup_tween(invincible_timer.wait_time)
+				do_closeup_tween(invincible_timer.wait_time - 0.2)
 				hitbox_component.invincible = true
 				hitbox_component.target = null
 				
 			PlayerState.DIE:
 				body.animation = "hurt"
+				do_die_tween()
 				hitbox_collision.set_deferred("disabled", true)
 				hitbox_component.target = null
 		
@@ -79,11 +80,15 @@ var die_tween: Tween
 var closeup_tween: Tween
 var stretch_tween: Tween
 
-func reset_die_tween() -> void:
+func do_die_tween() -> void:
 	if die_tween:
 		die_tween.kill()
-	
+		
 	die_tween = create_tween()
+	
+	Engine.time_scale = 1
+	
+	die_tween.tween_property(camera, "zoom", Vector2(2, 2), 0.5)
 	
 
 func do_closeup_tween(duration: float) -> void:
