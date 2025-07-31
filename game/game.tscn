@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c7s7t0l0r87ea"]
+[gd_scene load_steps=17 format=3 uid="uid://c7s7t0l0r87ea"]
 
 [ext_resource type="Texture2D" uid="uid://c66foqpixvgx6" path="res://game/background/repeating_background.png" id="1_4fuuu"]
 [ext_resource type="PackedScene" uid="uid://byxbcaf1scbhq" path="res://player/player.tscn" id="1_l1rk1"]
@@ -7,11 +7,12 @@
 [ext_resource type="Script" uid="uid://uwp46gwnfjob" path="res://game/score_manager.gd" id="5_dxrkv"]
 [ext_resource type="PackedScene" uid="uid://bljp5jihpmr8f" path="res://game/ui/score_ui_control.tscn" id="6_y36n6"]
 [ext_resource type="PackedScene" uid="uid://bl7fwt0y4dv4k" path="res://game/ui/health_ui_control.tscn" id="7_l8g03"]
-[ext_resource type="Script" uid="uid://bygbsrod35vsy" path="res://game/button_control.gd" id="8_j8tme"]
+[ext_resource type="Script" path="res://game/button_control.gd" id="8_j8tme"]
 [ext_resource type="PackedScene" uid="uid://cq8r2d04jnnbl" path="res://game/ui/rps_button.tscn" id="8_l8g03"]
 [ext_resource type="Script" uid="uid://dvcnqfc257ap1" path="res://game/player_die_canvas.gd" id="9_3vho3"]
 [ext_resource type="PackedScene" uid="uid://bsbw3tjr063ou" path="res://ui/player_die_ui.tscn" id="9_j8tme"]
 [ext_resource type="Shader" uid="uid://b6tgdk2xk2i6i" path="res://CRT_Shaders/VHS.gdshader" id="9_l8g03"]
+[ext_resource type="Texture2D" uid="uid://ellby238chfw" path="res://assets/foreground.png" id="13_vsp63"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dakft"]
 shader = ExtResource("3_dxrkv")
@@ -22,15 +23,15 @@ shader_parameter/b = 0.0
 shader_parameter/mix_color = 0.4
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_dxrkv"]
-vertices = PackedVector2Array(1905.91, 1077.08, 29.1016, 1092.91, 39.8984, 16.9297, 1897.08, 4.0625)
+vertices = PackedVector2Array(4544, -912.078, 4544, 2665, -2137, 2665, -2137, -970.906)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(30, 7, 19, 1103, 1916, 1087, 1907, -6)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-2147, -981, -2147, 2675, 4554, 2675, 4554, -922)])
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l8g03"]
 shader = ExtResource("9_l8g03")
 shader_parameter/overlay = true
 shader_parameter/scanlines_opacity = 0.175
-shader_parameter/scanlines_width = 0.3
+shader_parameter/scanlines_width = 0.25
 shader_parameter/grille_opacity = 0.064
 shader_parameter/resolution = Vector2(640, 480)
 shader_parameter/pixelate = false
@@ -61,10 +62,10 @@ y_sort_enabled = true
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -45.0
-offset_top = -56.0
-offset_right = 1979.0
-offset_bottom = 1172.0
+offset_left = -2165.0
+offset_top = -950.0
+offset_right = 4575.0
+offset_bottom = 2708.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_4fuuu")
@@ -75,6 +76,7 @@ material = SubResource("ShaderMaterial_dakft")
 position = Vector2(587, 298)
 
 [node name="NavigationRegion" type="NavigationRegion2D" parent="."]
+visible = false
 position = Vector2(7, 8)
 navigation_polygon = SubResource("NavigationPolygon_dxrkv")
 
@@ -151,3 +153,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Foreground" type="Sprite2D" parent="."]
+position = Vector2(1360, 1048)
+texture = ExtResource("13_vsp63")

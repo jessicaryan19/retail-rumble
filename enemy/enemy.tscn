@@ -1,8 +1,8 @@
-[gd_scene load_steps=26 format=3 uid="uid://dxp1mdmx5l6jl"]
+[gd_scene load_steps=38 format=3 uid="uid://dxp1mdmx5l6jl"]
 
 [ext_resource type="Script" uid="uid://b62uf5egtperd" path="res://enemy/enemy.gd" id="1_2mvqj"]
 [ext_resource type="Texture2D" uid="uid://c5ex7lvgpj3hw" path="res://common/head/head_spritesheet.png" id="2_y5vj3"]
-[ext_resource type="PackedScene" path="res://components/health_component.tscn" id="3_pmsee"]
+[ext_resource type="PackedScene" uid="uid://5lapc8r0j8bx" path="res://components/health_component.tscn" id="3_pmsee"]
 [ext_resource type="Texture2D" uid="uid://cob5as66f182c" path="res://enemy/enemy_spritesheet.png" id="3_y5vj3"]
 [ext_resource type="PackedScene" uid="uid://djphn5du2drkq" path="res://components/hitbox_component.tscn" id="4_1wwld"]
 [ext_resource type="PackedScene" uid="uid://duk7tymh3tjem" path="res://components/rps_component.tscn" id="5_y5vj3"]
@@ -73,6 +73,54 @@ region = Rect2(250, 300, 250, 300)
 atlas = ExtResource("3_y5vj3")
 region = Rect2(500, 300, 250, 300)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_tbw0t"]
+atlas = ExtResource("3_y5vj3")
+region = Rect2(0, 600, 250, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wjonb"]
+atlas = ExtResource("3_y5vj3")
+region = Rect2(250, 600, 250, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rovcg"]
+atlas = ExtResource("3_y5vj3")
+region = Rect2(500, 600, 250, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n2hyd"]
+atlas = ExtResource("3_y5vj3")
+region = Rect2(0, 900, 250, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c6eq3"]
+atlas = ExtResource("3_y5vj3")
+region = Rect2(250, 900, 250, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_34gv7"]
+atlas = ExtResource("3_y5vj3")
+region = Rect2(500, 900, 250, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pg32h"]
+atlas = ExtResource("3_y5vj3")
+region = Rect2(0, 1200, 250, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nfy00"]
+atlas = ExtResource("3_y5vj3")
+region = Rect2(250, 1200, 250, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iocd2"]
+atlas = ExtResource("3_y5vj3")
+region = Rect2(500, 1200, 250, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_05kf6"]
+atlas = ExtResource("3_y5vj3")
+region = Rect2(0, 1500, 250, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_26s8d"]
+atlas = ExtResource("3_y5vj3")
+region = Rect2(250, 1500, 250, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ipcql"]
+atlas = ExtResource("3_y5vj3")
+region = Rect2(500, 1500, 250, 300)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_o3pv7"]
 animations = [{
 "frames": [{
@@ -101,6 +149,62 @@ animations = [{
 }],
 "loop": true,
 "name": &"variant_1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tbw0t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wjonb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rovcg")
+}],
+"loop": true,
+"name": &"variant_2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n2hyd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c6eq3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_34gv7")
+}],
+"loop": true,
+"name": &"variant_3",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pg32h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nfy00")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iocd2")
+}],
+"loop": true,
+"name": &"variant_4",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_05kf6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_26s8d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ipcql")
+}],
+"loop": true,
+"name": &"variant_5",
 "speed": 5.0
 }]
 
@@ -221,7 +325,7 @@ animation = &"rps"
 [node name="Body" type="AnimatedSprite2D" parent="Sprite"]
 scale = Vector2(1, 0.986383)
 sprite_frames = SubResource("SpriteFrames_o3pv7")
-animation = &"variant_1"
+animation = &"variant_3"
 offset = Vector2(0, -128)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

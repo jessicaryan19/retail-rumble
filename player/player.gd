@@ -28,7 +28,7 @@ var state: PlayerState = PlayerState.NORMAL:
 			PlayerState.POSE:
 				pose_timer.start()
 				body.animation = "pose"
-				do_closeup_tween(pose_timer.wait_time - 0.2)
+				do_closeup_tween(1.2)
 				body.frame = randi() % body.sprite_frames.get_frame_count("pose")
 				hitbox_component.invincible = true
 				hitbox_component.target = null
@@ -36,7 +36,7 @@ var state: PlayerState = PlayerState.NORMAL:
 			PlayerState.INVINCIBLE:
 				invincible_timer.start()
 				body.animation = "hurt"
-				do_closeup_tween(invincible_timer.wait_time - 0.2)
+				do_closeup_tween(1.2)
 				hitbox_component.invincible = true
 				hitbox_component.target = null
 				
@@ -245,12 +245,12 @@ func _on_hitbox_component_duel(win: bool, opponent: HitboxComponent) -> void:
 	
 	if (win):
 		print("win")
-		camera.apply_screen_shake(4, 0.1)
+		camera.apply_screen_shake(8, 0.2)
 		if state == PlayerState.NORMAL:
 			state = PlayerState.POSE
 	else:
 		print("lose")
-		camera.apply_screen_shake(16, 0.3)
+		camera.apply_screen_shake(20, 0.3)
 		health_component.take_damage(1)
 		#apply_hit_shader_effect()
 		

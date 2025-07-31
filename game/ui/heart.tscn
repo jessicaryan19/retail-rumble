@@ -18,17 +18,21 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_3vho3")
-}],
-"loop": true,
-"name": &"default_1",
-"speed": 5.0
 }, {
-"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j8tme")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3vho3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j8tme")
+}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_3vho3")
 }],
-"loop": true,
-"name": &"default_2",
+"loop": false,
+"name": &"fade_to_empty",
 "speed": 5.0
 }, {
 "frames": [{
@@ -46,5 +50,5 @@ metadata/_edit_use_anchors_ = true
 
 [node name="HeartSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_qf6n1")
-animation = &"default_2"
+animation = &"fade_to_empty"
 offset = Vector2(90, 90)
