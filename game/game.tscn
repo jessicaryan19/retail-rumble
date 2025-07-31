@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c7s7t0l0r87ea"]
+[gd_scene load_steps=16 format=3 uid="uid://c7s7t0l0r87ea"]
 
 [ext_resource type="Texture2D" uid="uid://c66foqpixvgx6" path="res://game/background/repeating_background.png" id="1_4fuuu"]
 [ext_resource type="PackedScene" uid="uid://byxbcaf1scbhq" path="res://player/player.tscn" id="1_l1rk1"]
@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://bl7fwt0y4dv4k" path="res://game/ui/health_ui_control.tscn" id="7_l8g03"]
 [ext_resource type="Script" uid="uid://bygbsrod35vsy" path="res://game/button_control.gd" id="8_j8tme"]
 [ext_resource type="PackedScene" uid="uid://cq8r2d04jnnbl" path="res://game/ui/rps_button.tscn" id="8_l8g03"]
+[ext_resource type="Script" uid="uid://dvcnqfc257ap1" path="res://game/player_die_canvas.gd" id="9_3vho3"]
+[ext_resource type="PackedScene" uid="uid://bsbw3tjr063ou" path="res://ui/player_die_ui.tscn" id="9_j8tme"]
 [ext_resource type="Shader" uid="uid://b6tgdk2xk2i6i" path="res://CRT_Shaders/VHS.gdshader" id="9_l8g03"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dakft"]
@@ -27,11 +29,11 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(30, 7, 19, 1103, 1916, 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l8g03"]
 shader = ExtResource("9_l8g03")
 shader_parameter/overlay = true
-shader_parameter/scanlines_opacity = 0.4
-shader_parameter/scanlines_width = 0.25
-shader_parameter/grille_opacity = 0.3
+shader_parameter/scanlines_opacity = 0.175
+shader_parameter/scanlines_width = 0.3
+shader_parameter/grille_opacity = 0.064
 shader_parameter/resolution = Vector2(640, 480)
-shader_parameter/pixelate = true
+shader_parameter/pixelate = false
 shader_parameter/roll = false
 shader_parameter/roll_speed = 2.0
 shader_parameter/roll_size = 0.0
@@ -40,13 +42,17 @@ shader_parameter/distort_intensity = 0.05
 shader_parameter/noise_opacity = 0.4
 shader_parameter/noise_speed = 5.0
 shader_parameter/static_noise_intensity = 0.06
-shader_parameter/aberration = 0.02
-shader_parameter/brightness = 1.5
+shader_parameter/aberration = -0.00199995
+shader_parameter/brightness = 1.4
 shader_parameter/discolor = false
-shader_parameter/warp_amount = 0.0
+shader_parameter/warp_amount = 0.3
 shader_parameter/clip_warp = false
 shader_parameter/vignette_intensity = 0.4
-shader_parameter/vignette_opacity = 0.16
+shader_parameter/vignette_opacity = 0.22
+shader_parameter/custom_tint = Color(0.995558, 0.961445, 0.939133, 1)
+shader_parameter/custom_tint_intensity = 0.4
+shader_parameter/tone_style = 0
+shader_parameter/tone_intensity = 0.4
 
 [node name="Game" type="Node2D"]
 y_sort_enabled = true
@@ -73,6 +79,7 @@ position = Vector2(7, 8)
 navigation_polygon = SubResource("NavigationPolygon_dxrkv")
 
 [node name="EnemySpawner" parent="." instance=ExtResource("4_4fuuu")]
+spawn_interval = 1.0
 
 [node name="ScoreManager" type="Node2D" parent="." groups=["utils"]]
 script = ExtResource("5_dxrkv")
@@ -122,6 +129,15 @@ layout_mode = 2
 
 [node name="ScissorButton" parent="GameUI/ButtonControl/ButtonContainer" instance=ExtResource("8_l8g03")]
 layout_mode = 2
+
+[node name="PlayerDieCanvas" type="CanvasLayer" parent="."]
+layer = 128
+follow_viewport_scale = 1.901
+script = ExtResource("9_3vho3")
+player = NodePath("../Player")
+
+[node name="PlayerDieUI" parent="PlayerDieCanvas" instance=ExtResource("9_j8tme")]
+visible = false
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 128

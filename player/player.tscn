@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://byxbcaf1scbhq"]
+[gd_scene load_steps=31 format=3 uid="uid://byxbcaf1scbhq"]
 
 [ext_resource type="Script" uid="uid://d35vujgw0gwx1" path="res://player/player.gd" id="1_rkbax"]
 [ext_resource type="Texture2D" uid="uid://c5ex7lvgpj3hw" path="res://common/head/head_spritesheet.png" id="2_g6k8r"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://djphn5du2drkq" path="res://components/hitbox_component.tscn" id="4_qjkh3"]
 [ext_resource type="PackedScene" uid="uid://d3yvf7tvhas08" path="res://components/knockback_component.tscn" id="5_boad6"]
 [ext_resource type="PackedScene" path="res://components/health_component.tscn" id="5_qjkh3"]
+[ext_resource type="PackedScene" uid="uid://cirgpdru1rqyr" path="res://camera/camera.tscn" id="9_hg6s5"]
 
 [sub_resource type="Curve" id="Curve_qjkh3"]
 _data = [Vector2(0, 0), 0.0, 6.27438, 0, 0, Vector2(0.0811288, 0.806375), 1.96857, 1.96857, 0, 0, Vector2(0.201058, 0.928359), 0.213472, 0.213472, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -267,13 +268,10 @@ debug_color = Color(0.996078, 0, 0.176471, 0.419608)
 
 [node name="HealthComponent" parent="." instance=ExtResource("5_qjkh3")]
 
-[node name="Camera2D" type="Camera2D" parent="."]
-offset = Vector2(0, -60)
-position_smoothing_enabled = true
-position_smoothing_speed = 10.0
+[node name="Camera" parent="." instance=ExtResource("9_hg6s5")]
 
 [node name="PoseTimer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 1.5
 one_shot = true
 
 [node name="InvincibleTimer" type="Timer" parent="."]

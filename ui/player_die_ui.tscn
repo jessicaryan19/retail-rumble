@@ -1,0 +1,51 @@
+[gd_scene load_steps=5 format=3 uid="uid://bsbw3tjr063ou"]
+
+[ext_resource type="Script" uid="uid://nuvoutk01qv7" path="res://ui/player_die_ui.gd" id="1_kk2ni"]
+[ext_resource type="FontFile" uid="uid://bet3oe08d83oe" path="res://assets/font/Kaph-Regular.ttf" id="1_yex4l"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_kk2ni"]
+font = ExtResource("1_yex4l")
+font_size = 100
+outline_size = 40
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_3c44c"]
+font = ExtResource("1_yex4l")
+font_size = 36
+outline_size = 40
+outline_color = Color(0, 0, 0, 1)
+
+[node name="PlayerDieUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kk2ni")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -76.0
+offset_bottom = 76.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="DieLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "rock beats rock?"
+label_settings = SubResource("LabelSettings_kk2ni")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DrawInfoLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "*it's technically a draw, but customer is always right..."
+label_settings = SubResource("LabelSettings_3c44c")
+horizontal_alignment = 1
+vertical_alignment = 1

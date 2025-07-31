@@ -219,6 +219,7 @@ sprite_frames = SubResource("SpriteFrames_78jik")
 animation = &"rps"
 
 [node name="Body" type="AnimatedSprite2D" parent="Sprite"]
+scale = Vector2(1, 0.986383)
 sprite_frames = SubResource("SpriteFrames_o3pv7")
 animation = &"variant_1"
 offset = Vector2(0, -128)

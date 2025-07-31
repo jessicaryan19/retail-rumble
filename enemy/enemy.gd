@@ -18,6 +18,7 @@ var player: Node2D
 @onready var body: AnimatedSprite2D = $Sprite/Body
 @onready var head: AnimatedSprite2D = $Sprite/Head
 @onready var sprite: Node2D = $Sprite
+@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 
 @onready var rps_component: RPSComponent = $RPSComponent
 @onready var health_component: HealthComponent = $HealthComponent
@@ -41,15 +42,17 @@ var state: EnemyState = EnemyState.CHASE:
 		match (value):
 			EnemyState.CHASE:
 				head.animation = "rps"
-				pass
 			
 			EnemyState.STUNNED:
 				stunned_timer.start()
 				head.animation = "rps"
+				hitbox_collision.set_deferred("disabled", true)
+				collision_shape_2d.set_deferred("disabled", true)
 				
 			EnemyState.DIE:
 				head.animation = "die"
 				hitbox_collision.set_deferred("disabled", true)
+				collision_shape_2d.set_deferred("disabled", true)
 				
 				reset_die_tween()
 				die_tween.set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
@@ -172,16 +175,18 @@ func update_health() -> void:
 func _on_stunned_timer_timeout() -> void:
 	if state == EnemyState.DIE: return
 	
+	collision_shape_2d.set_deferred("disabled", false)
+	hitbox_collision.set_deferred("disabled", false)
 	state = EnemyState.CHASE
 	
 	update_current_rps()
 	
-	print("enemy end of stunned")
+	#print("enemy end of stunned")
 	
 func _on_health_component_die() -> void:
 	state = EnemyState.DIE
 	
-	print("enemy die")
+	#print("enemy die")
 
 func frightened_tween() -> void:
 	reset_scale_tween()
@@ -193,10 +198,10 @@ func _on_hitbox_component_duel(win: bool, opponent: HitboxComponent) -> void:
 	frightened_tween()
 	
 	if win:
-		print("enemy win")
+		#print("enemy win")
 		frightened_tween()
 	else:
-		print("enemy lose")
+		#print("enemy lose")
 		
 		rps_list.pop_front()
 		update_rps_visual()
