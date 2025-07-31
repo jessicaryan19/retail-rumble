@@ -141,7 +141,6 @@ visible = false
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 128
-visible = false
 follow_viewport_scale = 1.901
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
