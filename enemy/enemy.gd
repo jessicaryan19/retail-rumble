@@ -26,6 +26,8 @@ var player: Node2D
 @onready var hitbox_collision: CollisionShape2D = $HitboxComponent/CollisionShape2D
 @onready var score_manager = get_tree().get_root().get_node("Game/ScoreManager")
 
+@onready var outline_material: ShaderMaterial = preload("res://enemy/outline_material.tres")
+
 #@onready var knockback_component: KnockbackComponent = $KnockbackComponent
 var rps_sprite_scene = preload("res://enemy/rps_sprite.tscn")
 
@@ -218,3 +220,14 @@ func _on_hitbox_component_duel(win: bool, opponent: HitboxComponent) -> void:
 		if health_component.health > 0:
 			state = EnemyState.STUNNED
 			
+			
+func set_outline(is_active: bool) -> void:
+	if not is_node_ready():
+		await ready
+	
+	var material_to_set = outline_material if is_active else null
+	
+	if body:
+		body.material = material_to_set
+	if head:
+		head.material = material_to_set

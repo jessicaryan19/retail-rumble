@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cascx50xtkkhh"]
+
+[ext_resource type="Shader" uid="uid://c7nkn3qt468fs" path="res://player/damage_shader_test.gdshader" id="1_sjjwp"]
+
+[resource]
+shader = ExtResource("1_sjjwp")
+shader_parameter/opacity = 1.0
+shader_parameter/r = 1.0
+shader_parameter/g = 0.0
+shader_parameter/b = 0.0
+shader_parameter/mix_color = 0.0

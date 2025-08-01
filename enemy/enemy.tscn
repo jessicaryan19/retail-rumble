@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://dxp1mdmx5l6jl"]
+[gd_scene load_steps=40 format=3 uid="uid://dxp1mdmx5l6jl"]
 
 [ext_resource type="Script" uid="uid://b62uf5egtperd" path="res://enemy/enemy.gd" id="1_2mvqj"]
 [ext_resource type="Texture2D" uid="uid://c5ex7lvgpj3hw" path="res://common/head/head_spritesheet.png" id="2_y5vj3"]
@@ -7,6 +7,10 @@
 [ext_resource type="PackedScene" uid="uid://djphn5du2drkq" path="res://components/hitbox_component.tscn" id="4_1wwld"]
 [ext_resource type="PackedScene" uid="uid://duk7tymh3tjem" path="res://components/rps_component.tscn" id="5_y5vj3"]
 [ext_resource type="PackedScene" uid="uid://d3yvf7tvhas08" path="res://components/knockback_component.tscn" id="8_5ffra"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_78jik"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5ffra"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pmsee"]
 atlas = ExtResource("2_y5vj3")
@@ -316,8 +320,10 @@ script = ExtResource("1_2mvqj")
 
 [node name="Sprite" type="Node2D" parent="."]
 y_sort_enabled = true
+material = SubResource("ShaderMaterial_78jik")
 
 [node name="Head" type="AnimatedSprite2D" parent="Sprite"]
+material = SubResource("ShaderMaterial_5ffra")
 position = Vector2(0, -128)
 sprite_frames = SubResource("SpriteFrames_78jik")
 animation = &"rps"
@@ -325,7 +331,7 @@ animation = &"rps"
 [node name="Body" type="AnimatedSprite2D" parent="Sprite"]
 scale = Vector2(1, 0.986383)
 sprite_frames = SubResource("SpriteFrames_o3pv7")
-animation = &"variant_3"
+animation = &"variant_4"
 offset = Vector2(0, -128)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

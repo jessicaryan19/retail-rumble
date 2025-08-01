@@ -1,10 +1,11 @@
-[gd_scene load_steps=31 format=3 uid="uid://byxbcaf1scbhq"]
+[gd_scene load_steps=30 format=3 uid="uid://byxbcaf1scbhq"]
 
 [ext_resource type="Script" uid="uid://d35vujgw0gwx1" path="res://player/player.gd" id="1_rkbax"]
 [ext_resource type="Texture2D" uid="uid://c5ex7lvgpj3hw" path="res://common/head/head_spritesheet.png" id="2_g6k8r"]
 [ext_resource type="Shader" uid="uid://c7nkn3qt468fs" path="res://player/damage_shader_test.gdshader" id="2_rgyib"]
 [ext_resource type="Texture2D" uid="uid://dmv3xh64oy6ee" path="res://player/player_spritesheet.png" id="3_g6k8r"]
 [ext_resource type="PackedScene" uid="uid://duk7tymh3tjem" path="res://components/rps_component.tscn" id="3_yw30f"]
+[ext_resource type="Material" uid="uid://cascx50xtkkhh" path="res://player/red_damage.tres" id="4_8t03j"]
 [ext_resource type="PackedScene" uid="uid://djphn5du2drkq" path="res://components/hitbox_component.tscn" id="4_qjkh3"]
 [ext_resource type="PackedScene" uid="uid://d3yvf7tvhas08" path="res://components/knockback_component.tscn" id="5_boad6"]
 [ext_resource type="PackedScene" uid="uid://5lapc8r0j8bx" path="res://components/health_component.tscn" id="5_qjkh3"]
@@ -25,14 +26,6 @@ shader_parameter/r = 1.0
 shader_parameter/g = 0.0
 shader_parameter/b = 0.0
 shader_parameter/mix_color = 1.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_rgyib"]
-shader = ExtResource("2_rgyib")
-shader_parameter/opacity = 1.0
-shader_parameter/r = 1.0
-shader_parameter/g = 0.0
-shader_parameter/b = 0.0
-shader_parameter/mix_color = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_boad6"]
 atlas = ExtResource("2_g6k8r")
@@ -62,14 +55,6 @@ animations = [{
 "name": &"rps",
 "speed": 5.0
 }]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8t03j"]
-shader = ExtResource("2_rgyib")
-shader_parameter/opacity = 1.0
-shader_parameter/r = 1.0
-shader_parameter/g = 0.0
-shader_parameter/b = 0.0
-shader_parameter/mix_color = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8t03j"]
 atlas = ExtResource("3_g6k8r")
@@ -232,13 +217,13 @@ DECCELERATION_CURVE = SubResource("Curve_g6k8r")
 material = SubResource("ShaderMaterial_hg6s5")
 
 [node name="Head" type="AnimatedSprite2D" parent="Sprite"]
-material = SubResource("ShaderMaterial_rgyib")
+material = ExtResource("4_8t03j")
 position = Vector2(0, -128)
 sprite_frames = SubResource("SpriteFrames_2ieo8")
 animation = &"rps"
 
 [node name="Body" type="AnimatedSprite2D" parent="Sprite"]
-material = SubResource("ShaderMaterial_8t03j")
+material = ExtResource("4_8t03j")
 sprite_frames = SubResource("SpriteFrames_yllr7")
 animation = &"normal"
 offset = Vector2(0, -128)

@@ -76,6 +76,8 @@ var deccel_time: float= 0.0
 
 @onready var score_manager = get_tree().get_root().get_node("Game/ScoreManager")
 
+var current_target_enemy: CharacterBody2D = null
+
 var die_tween: Tween
 var closeup_tween: Tween
 var stretch_tween: Tween
@@ -136,25 +138,31 @@ func _physics_process(delta: float) -> void:
 		handle_movement(delta)
 	
 func set_closest_hitbox_target():
-	var closest = null
+	var potential_enemies = check_close_entity.get_overlapping_bodies()
+	var new_closest_enemy: CharacterBody2D = null
 	var closest_dist_sq = INF
 	
-	for entity in check_close_entity.get_overlapping_bodies():
+	for entity in potential_enemies:
 		if entity.is_in_group("enemy"):
-			entity.get_node("HitboxComponent").reset_target()
-			entity.get_node("RPSContainer").visible = false
 			var dsq = global_position.distance_squared_to(entity.global_position)
 			if dsq < closest_dist_sq:
 				closest_dist_sq = dsq
-				closest = entity
-			
+				new_closest_enemy = entity
 	
-	if closest:
-		closest.get_node("RPSContainer").visible = true
-		closest.get_node("HitboxComponent").target = hitbox_component
-		hitbox_component.target = closest.get_node("HitboxComponent")
-	else:
-		hitbox_component.reset_target()
+	if new_closest_enemy != current_target_enemy:
+	
+		if is_instance_valid(current_target_enemy):
+			current_target_enemy.get_node("RPSContainer").visible = false
+			current_target_enemy.set_outline(false)
+			
+		if is_instance_valid(new_closest_enemy):
+			new_closest_enemy.get_node("RPSContainer").visible = true
+			new_closest_enemy.set_outline(true)
+			new_closest_enemy.get_node("HitboxComponent").target = hitbox_component
+			hitbox_component.target = new_closest_enemy.get_node("HitboxComponent")
+		else:
+			hitbox_component.reset_target()
+		current_target_enemy = new_closest_enemy
    
 		
 func get_input_direction() -> Vector2:
