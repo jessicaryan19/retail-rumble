@@ -334,14 +334,12 @@ material = SubResource("ShaderMaterial_78jik")
 
 [node name="Head" type="AnimatedSprite2D" parent="Sprite"]
 use_parent_material = true
-position = Vector2(0, -128)
 sprite_frames = SubResource("SpriteFrames_78jik")
 animation = &"rps"
 offset = Vector2(0, -128)
 
 [node name="Body" type="AnimatedSprite2D" parent="Sprite"]
 use_parent_material = true
-scale = Vector2(1, 0.986383)
 sprite_frames = SubResource("SpriteFrames_o3pv7")
 animation = &"variant_2"
 offset = Vector2(0, -128)
