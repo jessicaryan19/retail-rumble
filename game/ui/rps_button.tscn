@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://ctwfret86bw6n" path="res://game/ui/rps_button.gd" id="1_u6ecd"]
 [ext_resource type="Texture2D" uid="uid://u5djl4fe67ft" path="res://assets/ui/button_select.png" id="1_x8xke"]
-[ext_resource type="Texture2D" uid="uid://cbkf5hekrfd72" path="res://assets/ui/JKL.png" id="2_3iq7w"]
-[ext_resource type="Texture2D" uid="uid://db3nxfbkpkvn6" path="res://assets/ui/RPS.png" id="3_ncfmm"]
+[ext_resource type="Texture2D" uid="uid://cbkf5hekrfd72" path="res://assets/ui/jkl.png" id="2_3iq7w"]
+[ext_resource type="Texture2D" uid="uid://db3nxfbkpkvn6" path="res://assets/ui/rps.png" id="3_ncfmm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bnmkp"]
 atlas = ExtResource("1_x8xke")

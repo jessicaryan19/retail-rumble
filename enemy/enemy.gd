@@ -6,6 +6,9 @@ enum EnemyState {
 	DIE = 2
 }
 
+@onready var hurt_sfx: AudioStream = preload("res://sfx/ua.mp3")
+@onready var die_sfx: AudioStream = preload("res://sfx/yey.mp3")
+
 @export var speed: float = 300.0
 @export var rps_list: Array[Enums.RPSType] = []
 
@@ -50,11 +53,13 @@ var state: EnemyState = EnemyState.CHASE:
 			EnemyState.STUNNED:
 				stunned_timer.start()
 				head.animation = "rps"
+				AudioHandler.play_sfx(hurt_sfx, 0, randf_range(0.8, 1.4))
 				hitbox_collision.set_deferred("disabled", true)
 				collision_shape_2d.set_deferred("disabled", true)
 				
 			EnemyState.DIE:
 				head.animation = "die"
+				AudioHandler.play_sfx(die_sfx, 0, randf_range(0.8, 1.4))
 				hitbox_collision.set_deferred("disabled", true)
 				collision_shape_2d.set_deferred("disabled", true)
 				
@@ -130,7 +135,7 @@ func update_rps_visual():
 		
 		if i == 0:
 			var frame = Sprite2D.new()
-			frame.texture = preload("res://assets/ui/frame_icon.png")
+			frame.texture = preload("res://assets/ui/frame_indicator.png")
 			frame.z_index = 1
 			frame.position = Vector2.ZERO
 			rps_sprite.add_child(frame)

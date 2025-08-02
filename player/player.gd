@@ -7,6 +7,9 @@ enum PlayerState {
 	DIE
 }
 
+@onready var hurt_sfx: AudioStream = preload("res://sfx/ua.mp3")
+@onready var pose_sfx: AudioStream = preload("res://sfx/woosh2.mp3")
+
 @onready var pose_timer: Timer = $PoseTimer
 @onready var invincible_timer: Timer = $InvincibleTimer
 @onready var retoggle_hitbox_timer: Timer = $RetoggleHitboxTimer
@@ -30,6 +33,7 @@ var state: PlayerState = PlayerState.NORMAL:
 			PlayerState.POSE:
 				pose_timer.start()
 				body.animation = "pose"
+				AudioHandler.play_sfx(pose_sfx, 6, randf_range(0.9, 1.1))
 				do_closeup_tween(1.2)
 				body.frame = randi() % body.sprite_frames.get_frame_count("pose")
 				hitbox_component.invincible = true
@@ -39,6 +43,7 @@ var state: PlayerState = PlayerState.NORMAL:
 			PlayerState.INVINCIBLE:
 				invincible_timer.start()
 				body.animation = "hurt"
+				AudioHandler.play_sfx(hurt_sfx, 0, randf_range(0.8, 1.4))
 				do_closeup_tween(1.2)
 				hitbox_component.invincible = true
 				hitbox_component.target = null
@@ -46,6 +51,7 @@ var state: PlayerState = PlayerState.NORMAL:
 				
 			PlayerState.DIE:
 				body.animation = "hurt"
+				AudioHandler.play_sfx(hurt_sfx, 0, randf_range(0.8, 1.4))
 				do_die_tween()
 				hitbox_collision.set_deferred("disabled", true)
 				hitbox_component.target = null
