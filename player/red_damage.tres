@@ -5,7 +5,10 @@
 [resource]
 shader = ExtResource("1_sjjwp")
 shader_parameter/opacity = 1.0
-shader_parameter/r = 1.0
-shader_parameter/g = 0.0
-shader_parameter/b = 0.0
-shader_parameter/mix_color = 0.0
+shader_parameter/blink_active = false
+shader_parameter/flash_active = false
+shader_parameter/blink_speed = 20.0
+shader_parameter/flash_mix_strength = 1.0
+shader_parameter/blink_mix_strength = 1.0
+shader_parameter/blink_color = Vector3(1, 1, 1)
+shader_parameter/flash_color = Vector3(1, 0, 0)
