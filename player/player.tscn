@@ -29,7 +29,7 @@ shader_parameter/blink_speed = 20.0
 shader_parameter/flash_mix_strength = 1.0
 shader_parameter/blink_mix_strength = 1.0
 shader_parameter/blink_color = Vector3(1, 1, 1)
-shader_parameter/flash_color = Vector3(1, 0, 0)
+shader_parameter/flash_color = Vector3(0.835, 0.294, 0.051)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_boad6"]
 atlas = ExtResource("2_g6k8r")

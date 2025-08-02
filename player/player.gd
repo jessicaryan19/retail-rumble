@@ -172,11 +172,13 @@ func set_closest_hitbox_target():
 	
 		if is_instance_valid(current_target_enemy):
 			current_target_enemy.get_node("RPSContainer").visible = false
-			current_target_enemy.set_outline(false)
+			current_target_enemy.get_node("ClosestIndicator").visible = false
+			#current_target_enemy.set_outline(false)
 			
 		if is_instance_valid(new_closest_enemy):
 			new_closest_enemy.get_node("RPSContainer").visible = true
-			new_closest_enemy.set_outline(true)
+			new_closest_enemy.get_node("ClosestIndicator").visible = true
+			#new_closest_enemy.set_outline(true)
 			new_closest_enemy.get_node("HitboxComponent").target = hitbox_component
 		else:
 			hitbox_component.reset_target()

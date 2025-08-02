@@ -10,7 +10,7 @@ uniform float flash_mix_strength = 1.0;
 uniform float blink_mix_strength = 1.0;
 
 uniform vec3 blink_color = vec3(1.0, 1.0, 1.0); // white
-uniform vec3 flash_color = vec3(1.0, 0.0, 0.0); // red
+uniform vec3 flash_color = vec3(0.835, 0.294, 0.051); // red
 
 void fragment() {
 	vec4 tex_color = texture(TEXTURE, UV);

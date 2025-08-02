@@ -29,7 +29,7 @@ var player: Node2D
 @onready var hitbox_collision: CollisionShape2D = $HitboxComponent/CollisionShape2D
 @onready var score_manager = get_tree().get_root().get_node("Game/ScoreManager")
 
-@onready var outline_material: ShaderMaterial = preload("res://enemy/outline_material.tres")
+#@onready var outline_material: ShaderMaterial = preload("res://enemy/outline_material.tres")
 @onready var enemy_shader := preload("res://enemy/white_outline.gdshader")
 
 #@onready var knockback_component: KnockbackComponent = $KnockbackComponent
@@ -242,18 +242,18 @@ func _on_hitbox_component_duel(win: bool, opponent: HitboxComponent) -> void:
 			state = EnemyState.STUNNED
 			
 			
-func set_outline(is_active: bool) -> void:
-	if not is_node_ready():
-		await ready
-	
-	var material_to_set = outline_material if is_active else null
-	stop_blink()
-	if sprite:
-		sprite.material = material_to_set
-	#if body:
-		#body.material = material_to_set
-	#if head:
-		#head.material = material_to_set
+#func set_outline(is_active: bool) -> void:
+	#if not is_node_ready():
+		#await ready
+	#
+	#var material_to_set = outline_material if is_active else null
+	#stop_blink()
+	#if sprite:
+		#sprite.material = material_to_set
+	##if body:
+		##body.material = material_to_set
+	##if head:
+		##head.material = material_to_set
 
 func flash_red():
 	var mat := sprite.material as ShaderMaterial

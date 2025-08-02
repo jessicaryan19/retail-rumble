@@ -3,7 +3,7 @@ extends StaticBody2D
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var area_2d: Area2D = $Area2D
 
-@onready var click_sfx: AudioStream = preload("res://sfx/click3.mp3")
+@onready var collide_sfx: AudioStream = preload("res://sfx/dieThrow1.mp3")
 
 func _ready() -> void:
 	animated_sprite_2d.frame = randi() % animated_sprite_2d.sprite_frames.get_frame_count(animated_sprite_2d.animation)
@@ -23,4 +23,4 @@ func do_squash_stretch_tween() -> void:
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	do_squash_stretch_tween()
-	AudioHandler.play_sfx(click_sfx, 6, randf_range(0.9, 1.1))
+	AudioHandler.play_sfx(collide_sfx, -2, randf_range(0.9, 1.1))
