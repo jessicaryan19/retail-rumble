@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://cfdry582nbf00"]
 
-[ext_resource type="Shader" uid="uid://b6tgdk2xk2i6i" path="res://CRT_Shaders/VHS.gdshader" id="1_0ede8"]
+[ext_resource type="Shader" uid="uid://b6tgdk2xk2i6i" path="res://crt_shader/vhs.gdshader" id="1_ei0on"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k4w84"]
-shader = ExtResource("1_0ede8")
+shader = ExtResource("1_ei0on")
 shader_parameter/overlay = false
 shader_parameter/scanlines_opacity = 0.4
 shader_parameter/scanlines_width = 0.25

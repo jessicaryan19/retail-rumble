@@ -16,10 +16,10 @@ func _on_area_entered(area: Area2D) -> void:
 	
 	if not area.invincible and not invincible:
 		if area != target:
-			print("test")
+			print("Area is not target")
 			return
 	
-	reset_target()
+	#reset_target()
 	
 	var my_rps_type = rps_component.current_rps_type
 		
@@ -28,7 +28,7 @@ func _on_area_entered(area: Area2D) -> void:
 		if area.rps_component.priority < rps_component.priority:
 			if not invincible: emit_signal("duel", false, area)
 		else:
-			if not area.invincible: emit_signal("duel", true, area)
+			emit_signal("duel", true, area)
 			
 		return # make sure to return
 	
@@ -38,18 +38,18 @@ func _on_area_entered(area: Area2D) -> void:
 			if my_rps_type == Enums.RPSType.SCISSOR:
 				if not invincible: emit_signal("duel", false, area)
 			else:
-				if not area.invincible: emit_signal("duel", true, area)
+				emit_signal("duel", true, area)
 					
 		Enums.RPSType.PAPER:
 			if my_rps_type == Enums.RPSType.ROCK:
 				if not invincible: emit_signal("duel", false, area)
 			else:
-				if not area.invincible: emit_signal("duel", true, area)
+				emit_signal("duel", true, area)
 					
 		Enums.RPSType.SCISSOR:
 			if my_rps_type == Enums.RPSType.PAPER:
 				if not invincible: emit_signal("duel", false, area)
 			else:
-				if not area.invincible: emit_signal("duel", true, area)
+				emit_signal("duel", true, area)
 				
 	

@@ -7,8 +7,12 @@ enum PlayerState {
 	DIE
 }
 
+@onready var hurt_sfx: AudioStream = preload("res://sfx/ua.mp3")
+@onready var pose_sfx: AudioStream = preload("res://sfx/woosh2.mp3")
+
 @onready var pose_timer: Timer = $PoseTimer
 @onready var invincible_timer: Timer = $InvincibleTimer
+@onready var retoggle_hitbox_timer: Timer = $RetoggleHitboxTimer
 
 var state: PlayerState = PlayerState.NORMAL:
 	get: 
@@ -19,39 +23,45 @@ var state: PlayerState = PlayerState.NORMAL:
 		if state==PlayerState.DIE: return
 		
 		state = value
-		do_stretch_tween()
+
 		var mat := body.material as ShaderMaterial
+		do_squash_stretch_tween()
 		
 		match (value):
 			PlayerState.NORMAL:
 				body.animation = "normal"
 				mat.set("shader_parameter/blink_active", false)
+				retoggle_hitbox_timer.start()
 			
 			PlayerState.POSE:
 				pose_timer.start()
 				body.animation = "pose"
+				AudioHandler.play_sfx(pose_sfx, 6, randf_range(0.9, 1.1))
 				do_closeup_tween(1.2)
 				body.frame = randi() % body.sprite_frames.get_frame_count("pose")
 				hitbox_component.invincible = true
 				hitbox_component.target = null
 				mat.set("shader_parameter/blink_active", true)
-
+				retoggle_hitbox_timer.stop()
 				
 			PlayerState.INVINCIBLE:
 				invincible_timer.start()
 				body.animation = "hurt"
+				AudioHandler.play_sfx(hurt_sfx, 0, randf_range(0.8, 1.4))
 				do_closeup_tween(1.2)
 				hitbox_component.invincible = true
 				hitbox_component.target = null
 				mat.set("shader_parameter/blink_active", true)
-
+				retoggle_hitbox_timer.stop()
 				
 			PlayerState.DIE:
 				body.animation = "hurt"
+				AudioHandler.play_sfx(hurt_sfx, 0, randf_range(0.8, 1.4))
 				do_die_tween()
 				hitbox_collision.set_deferred("disabled", true)
 				hitbox_component.target = null
 				mat.set("shader_parameter/blink_active", false)
+				retoggle_hitbox_timer.stop()
 		
 
 @export var MAX_SPEED: float = 600.0
@@ -87,7 +97,7 @@ var current_target_enemy: CharacterBody2D = null
 
 var die_tween: Tween
 var closeup_tween: Tween
-var stretch_tween: Tween
+var squash_stretch_tween: Tween
 
 func do_die_tween() -> void:
 	if die_tween:
@@ -118,15 +128,16 @@ func do_closeup_tween(duration: float) -> void:
 	closeup_tween.parallel().set_ease(Tween.EASE_IN).tween_property(Engine, "time_scale", 1, duration_each_segment)
 	closeup_tween.parallel().tween_property(camera, "zoom", Vector2(1.0, 1.0), duration_each_segment)
 	
-func do_stretch_tween() -> void:
-	if stretch_tween:
-		stretch_tween.kill()
+func do_squash_stretch_tween() -> void:
+	if squash_stretch_tween:
+		squash_stretch_tween.kill()
 	
-	stretch_tween = create_tween()
+	squash_stretch_tween = create_tween()
 	
-	stretch_tween.set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
-	stretch_tween.tween_property(sprite, "scale", Vector2(0.9, 1.1), 0.1)
-	stretch_tween.tween_property(sprite, "scale", Vector2(1, 1), 0.1)
+	squash_stretch_tween.set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	squash_stretch_tween.tween_property(sprite, "scale", Vector2(1.1, 0.9), 0.1)
+	squash_stretch_tween.tween_property(sprite, "scale", Vector2(0.9, 1.1), 0.1)
+	squash_stretch_tween.tween_property(sprite, "scale", Vector2(1, 1), 0.1)
 	
 func _process(delta: float) -> void:
 	handle_anim()
@@ -166,10 +177,15 @@ func set_closest_hitbox_target():
 			new_closest_enemy.get_node("RPSContainer").visible = true
 			new_closest_enemy.set_outline(true)
 			new_closest_enemy.get_node("HitboxComponent").target = hitbox_component
-			hitbox_component.target = new_closest_enemy.get_node("HitboxComponent")
 		else:
 			hitbox_component.reset_target()
+		
 		current_target_enemy = new_closest_enemy
+		
+	if is_instance_valid(current_target_enemy) and current_target_enemy.is_in_group("enemy"):
+		if hitbox_component.target == current_target_enemy.get_node("HitboxComponent"): return
+		
+		hitbox_component.target = current_target_enemy.get_node("HitboxComponent")
    
 		
 func get_input_direction() -> Vector2:
@@ -187,14 +203,13 @@ func handle_rps():
 		rps_component.current_rps_type = Enums.RPSType.SCISSOR
 	
 	if head.frame != rps_component.current_rps_type:
-		#retoggle_hitbox_monitoring()
-		do_stretch_tween()
+		do_squash_stretch_tween()
 		head.frame = rps_component.current_rps_type
 
-#func retoggle_hitbox_monitoring():
-	#hitbox_component.monitoring = false
-	#await get_tree().process_frame
-	#hitbox_component.monitoring = true
+func retoggle_hitbox_monitoring():
+	hitbox_component.monitoring = false
+	await get_tree().process_frame
+	hitbox_component.monitoring = true
 
 func handle_movement(delta: float):
 	
@@ -293,3 +308,12 @@ func _on_took_damage():
 
 func _ready():
 	health_component.took_damage.connect(_on_took_damage);
+
+
+func _on_retoggle_hitbox_timer_timeout() -> void:
+	print("Retoggle Timer Timeout")
+	retoggle_hitbox_monitoring()
+	
+	retoggle_hitbox_timer.start()
+	
+		
