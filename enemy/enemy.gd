@@ -20,7 +20,7 @@ var player: Node2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var body: AnimatedSprite2D = $Sprite/Body
 @onready var head: AnimatedSprite2D = $Sprite/Head
-@onready var sprite: Node2D = $Sprite
+@onready var sprite: Sprite2D = $Sprite
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 
 @onready var rps_component: RPSComponent = $RPSComponent

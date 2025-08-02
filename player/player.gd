@@ -89,7 +89,7 @@ var deccel_time: float= 0.0
 @onready var head: AnimatedSprite2D = $Sprite/Head
 @onready var body: AnimatedSprite2D = $Sprite/Body
 @onready var check_close_entity: Area2D = $CheckCloseEntity
-@onready var sprite: Node2D = $Sprite
+@onready var sprite: Sprite2D = $Sprite
 @onready var camera: Camera2D = $Camera
 
 @onready var score_manager = get_tree().get_root().get_node("Game/ScoreManager")

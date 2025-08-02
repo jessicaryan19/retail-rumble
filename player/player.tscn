@@ -221,7 +221,7 @@ DECCEL_TIME_TO_STOP = 0.05
 ACCELERATION_CURVE = SubResource("Curve_qjkh3")
 DECCELERATION_CURVE = SubResource("Curve_g6k8r")
 
-[node name="Sprite" type="Node2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_hg6s5")
 
 [node name="Head" type="AnimatedSprite2D" parent="Sprite"]
