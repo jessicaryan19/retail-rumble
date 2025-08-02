@@ -27,6 +27,7 @@ var player: Node2D
 @onready var score_manager = get_tree().get_root().get_node("Game/ScoreManager")
 
 @onready var outline_material: ShaderMaterial = preload("res://enemy/outline_material.tres")
+@onready var enemy_shader := preload("res://enemy/white_outline.gdshader")
 
 #@onready var knockback_component: KnockbackComponent = $KnockbackComponent
 var rps_sprite_scene = preload("res://enemy/rps_sprite.tscn")
@@ -45,18 +46,26 @@ var state: EnemyState = EnemyState.CHASE:
 		
 		match (value):
 			EnemyState.CHASE:
+				stop_blink()
 				head.animation = "rps"
+				
 			
 			EnemyState.STUNNED:
+				flash_red()
+				start_blink()
 				stunned_timer.start()
 				head.animation = "rps"
 				hitbox_collision.set_deferred("disabled", true)
 				collision_shape_2d.set_deferred("disabled", true)
 				
+				
 			EnemyState.DIE:
+				flash_red()
+				stop_blink()
 				head.animation = "die"
 				hitbox_collision.set_deferred("disabled", true)
 				collision_shape_2d.set_deferred("disabled", true)
+				
 				
 				reset_die_tween()
 				die_tween.set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
@@ -127,7 +136,13 @@ func update_rps_visual():
 			frame.position = Vector2.ZERO
 			rps_sprite.add_child(frame)
 	
+	
+
 func _ready():
+	var mat := ShaderMaterial.new()
+	mat.shader = enemy_shader
+	body.material = mat.duplicate()
+	head.material = mat.duplicate()
 	player = get_tree().get_first_node_in_group("player")
 	agent.target_position = player.global_position
 	randomize_variant()
@@ -186,8 +201,9 @@ func _on_stunned_timer_timeout() -> void:
 	if state == EnemyState.DIE: return
 	
 	collision_shape_2d.set_deferred("disabled", false)
-	hitbox_collision.set_deferred("disabled", false)
+	hitbox_collision.set_deferred("disabled", false)	
 	state = EnemyState.CHASE
+	
 	
 	update_current_rps()
 	
@@ -226,8 +242,25 @@ func set_outline(is_active: bool) -> void:
 		await ready
 	
 	var material_to_set = outline_material if is_active else null
-	
+	stop_blink()
 	if body:
 		body.material = material_to_set
 	if head:
 		head.material = material_to_set
+
+func flash_red():
+	var mat := body.material as ShaderMaterial
+	if mat:
+		mat.set("shader_parameter/flash_active", true)
+		var tween = create_tween()
+		tween.tween_property(mat, "shader_parameter/flash_active", false, 0.3)
+
+func start_blink():
+	var mat := body.material as ShaderMaterial
+	if mat:
+		mat.set("shader_parameter/blink_active", true)
+
+func stop_blink():
+	var mat := body.material as ShaderMaterial
+	if mat:
+		mat.set("shader_parameter/blink_active", false)

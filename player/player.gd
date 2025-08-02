@@ -20,10 +20,12 @@ var state: PlayerState = PlayerState.NORMAL:
 		
 		state = value
 		do_stretch_tween()
+		var mat := body.material as ShaderMaterial
 		
 		match (value):
 			PlayerState.NORMAL:
 				body.animation = "normal"
+				mat.set("shader_parameter/blink_active", false)
 			
 			PlayerState.POSE:
 				pose_timer.start()
@@ -32,6 +34,8 @@ var state: PlayerState = PlayerState.NORMAL:
 				body.frame = randi() % body.sprite_frames.get_frame_count("pose")
 				hitbox_component.invincible = true
 				hitbox_component.target = null
+				mat.set("shader_parameter/blink_active", true)
+
 				
 			PlayerState.INVINCIBLE:
 				invincible_timer.start()
@@ -39,12 +43,15 @@ var state: PlayerState = PlayerState.NORMAL:
 				do_closeup_tween(1.2)
 				hitbox_component.invincible = true
 				hitbox_component.target = null
+				mat.set("shader_parameter/blink_active", true)
+
 				
 			PlayerState.DIE:
 				body.animation = "hurt"
 				do_die_tween()
 				hitbox_collision.set_deferred("disabled", true)
 				hitbox_component.target = null
+				mat.set("shader_parameter/blink_active", false)
 		
 
 @export var MAX_SPEED: float = 600.0
@@ -271,19 +278,14 @@ func _on_hitbox_component_duel(win: bool, opponent: HitboxComponent) -> void:
 
 # Ini shader yg buat jadi merah
 func apply_hit_shader_effect():
+	print("Flash triggered")
 	var mat := body.material as ShaderMaterial
 	if mat == null:
+		print("No material!")
 		return
-	
-	mat.set("shader_parameter/r", 1.0)
-	mat.set("shader_parameter/g", 0.0)
-	mat.set("shader_parameter/b", 0.0)
-	mat.set("shader_parameter/mix_color", 1.0)
-	mat.set("shader_parameter/opacity", 1.0)
-
+	mat.set("shader_parameter/flash_active", true)
 	var tween := create_tween()
-	tween.tween_property(mat, "shader_parameter/mix_color", 0.0, 0.2)
-
+	tween.tween_property(mat, "shader_parameter/flash_active", false, 0.2)
 
 func _on_took_damage():
 	apply_hit_shader_effect()
