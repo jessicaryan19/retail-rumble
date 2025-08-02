@@ -7,8 +7,12 @@ extends TextureRect
 func set_button_state(is_active: bool) -> void:
 	if is_active:
 		button_sprite.frame = 1
+		button_sprite.scale = Vector2(1.1, 1.1)
+		rps_sprite.scale = Vector2(1.1, 1.1)
 	else:
 		button_sprite.frame = 0
+		button_sprite.scale = Vector2(1, 1)
+		rps_sprite.scale = Vector2(1, 1)
 
 func show_key_hint(key: String) -> void:
 	jkl_sprite.visible = true

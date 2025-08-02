@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://dn53g2i6s2v5e"]
+
+[ext_resource type="Script" uid="uid://bygbsrod35vsy" path="res://game/button_control.gd" id="1_xokks"]
+[ext_resource type="PackedScene" uid="uid://cq8r2d04jnnbl" path="res://game/ui/rps_button.tscn" id="2_3frhq"]
+
+[node name="ButtonControl" type="Control"]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("1_xokks")
+
+[node name="ButtonContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = -62.0
+offset_right = 250.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 250
+alignment = 1
+
+[node name="RockButton" parent="ButtonContainer" instance=ExtResource("2_3frhq")]
+layout_mode = 2
+
+[node name="PaperButton" parent="ButtonContainer" instance=ExtResource("2_3frhq")]
+layout_mode = 2
+
+[node name="ScissorButton" parent="ButtonContainer" instance=ExtResource("2_3frhq")]
+layout_mode = 2

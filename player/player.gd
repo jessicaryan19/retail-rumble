@@ -135,6 +135,7 @@ func _physics_process(delta: float) -> void:
 	if state == PlayerState.NORMAL or state == PlayerState.POSE or state == PlayerState.INVINCIBLE:
 		handle_movement(delta)
 	
+	
 func set_closest_hitbox_target():
 	var closest = null
 	var closest_dist_sq = INF
@@ -182,7 +183,6 @@ func handle_rps():
 	#hitbox_component.monitoring = true
 
 func handle_movement(delta: float):
-	
 	var input_direction = get_input_direction()
 	var target_vel = input_direction * MAX_SPEED
 	
@@ -221,6 +221,7 @@ func change_animation(animation_name: String):
 func _on_health_component_die() -> void:
 	print("die")
 	state = PlayerState.DIE
+	score_manager.save_high_score()
 
 
 func _on_pose_timer_timeout() -> void:
