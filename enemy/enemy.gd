@@ -151,8 +151,9 @@ func update_rps_visual():
 func _ready():
 	var mat := ShaderMaterial.new()
 	mat.shader = enemy_shader
-	body.material = mat.duplicate()
-	head.material = mat.duplicate()
+	sprite.material = mat.duplicate()
+	#body.material = mat.duplicate()
+	#head.material = mat.duplicate()
 	player = get_tree().get_first_node_in_group("player")
 	agent.target_position = player.global_position
 	randomize_variant()
@@ -247,24 +248,26 @@ func set_outline(is_active: bool) -> void:
 	
 	var material_to_set = outline_material if is_active else null
 	stop_blink()
-	if body:
-		body.material = material_to_set
-	if head:
-		head.material = material_to_set
+	if sprite:
+		sprite.material = material_to_set
+	#if body:
+		#body.material = material_to_set
+	#if head:
+		#head.material = material_to_set
 
 func flash_red():
-	var mat := body.material as ShaderMaterial
+	var mat := sprite.material as ShaderMaterial
 	if mat:
 		mat.set("shader_parameter/flash_active", true)
 		var tween = create_tween()
 		tween.tween_property(mat, "shader_parameter/flash_active", false, 0.3)
 
 func start_blink():
-	var mat := body.material as ShaderMaterial
+	var mat := sprite.material as ShaderMaterial
 	if mat:
 		mat.set("shader_parameter/blink_active", true)
 
 func stop_blink():
-	var mat := body.material as ShaderMaterial
+	var mat := sprite.material as ShaderMaterial
 	if mat:
 		mat.set("shader_parameter/blink_active", false)

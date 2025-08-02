@@ -1,6 +1,7 @@
-[gd_scene load_steps=39 format=3 uid="uid://dxp1mdmx5l6jl"]
+[gd_scene load_steps=40 format=3 uid="uid://dxp1mdmx5l6jl"]
 
 [ext_resource type="Script" uid="uid://b62uf5egtperd" path="res://enemy/enemy.gd" id="1_2mvqj"]
+[ext_resource type="Shader" uid="uid://xl2m2ive8tj3" path="res://enemy/white_outline.gdshader" id="2_5ffra"]
 [ext_resource type="Texture2D" uid="uid://c5ex7lvgpj3hw" path="res://common/head/head_spritesheet.png" id="2_y5vj3"]
 [ext_resource type="PackedScene" uid="uid://5lapc8r0j8bx" path="res://components/health_component.tscn" id="3_pmsee"]
 [ext_resource type="Texture2D" uid="uid://cob5as66f182c" path="res://enemy/enemy_spritesheet.png" id="3_y5vj3"]
@@ -9,6 +10,17 @@
 [ext_resource type="PackedScene" uid="uid://d3yvf7tvhas08" path="res://components/knockback_component.tscn" id="8_5ffra"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_78jik"]
+shader = ExtResource("2_5ffra")
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/outline_width = 1.0
+shader_parameter/flash_active = false
+shader_parameter/flash_color = Vector3(1, 0, 0)
+shader_parameter/flash_mix_strength = 1.0
+shader_parameter/blink_active = false
+shader_parameter/blink_color = Vector3(1, 1, 1)
+shader_parameter/blink_mix_strength = 1.0
+shader_parameter/blink_speed = 15.0
+shader_parameter/opacity = 1.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pmsee"]
 atlas = ExtResource("2_y5vj3")
@@ -321,11 +333,13 @@ y_sort_enabled = true
 material = SubResource("ShaderMaterial_78jik")
 
 [node name="Head" type="AnimatedSprite2D" parent="Sprite"]
+use_parent_material = true
 position = Vector2(0, -128)
 sprite_frames = SubResource("SpriteFrames_78jik")
 animation = &"rps"
 
 [node name="Body" type="AnimatedSprite2D" parent="Sprite"]
+use_parent_material = true
 scale = Vector2(1, 0.986383)
 sprite_frames = SubResource("SpriteFrames_o3pv7")
 animation = &"variant_4"
