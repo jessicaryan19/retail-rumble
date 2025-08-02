@@ -311,24 +311,23 @@ _data = {
 size = Vector2(90, 172)
 
 [node name="Enemy" type="CharacterBody2D" groups=["enemy"]]
+y_sort_enabled = true
 collision_layer = 2
 collision_mask = 6
 motion_mode = 1
 script = ExtResource("1_2mvqj")
 
 [node name="Sprite" type="Node2D" parent="."]
-y_sort_enabled = true
 material = SubResource("ShaderMaterial_78jik")
 
 [node name="Head" type="AnimatedSprite2D" parent="Sprite"]
-position = Vector2(0, -128)
 sprite_frames = SubResource("SpriteFrames_78jik")
 animation = &"rps"
+offset = Vector2(0, -128)
 
 [node name="Body" type="AnimatedSprite2D" parent="Sprite"]
-scale = Vector2(1, 0.986383)
 sprite_frames = SubResource("SpriteFrames_o3pv7")
-animation = &"variant_4"
+animation = &"variant_2"
 offset = Vector2(0, -128)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

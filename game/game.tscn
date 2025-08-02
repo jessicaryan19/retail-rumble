@@ -1,6 +1,7 @@
-[gd_scene load_steps=17 format=3 uid="uid://c7s7t0l0r87ea"]
+[gd_scene load_steps=33 format=3 uid="uid://c7s7t0l0r87ea"]
 
 [ext_resource type="Texture2D" uid="uid://c66foqpixvgx6" path="res://game/background/repeating_background.png" id="1_4fuuu"]
+[ext_resource type="PackedScene" uid="uid://chldd6futyqxb" path="res://common/object/boxes/boxes.tscn" id="1_hb504"]
 [ext_resource type="PackedScene" uid="uid://byxbcaf1scbhq" path="res://player/player.tscn" id="1_l1rk1"]
 [ext_resource type="Shader" uid="uid://c7nkn3qt468fs" path="res://player/damage_shader_test.gdshader" id="3_dxrkv"]
 [ext_resource type="PackedScene" uid="uid://dsuxwx28ircol" path="res://enemy/enemy_spawner.tscn" id="4_4fuuu"]
@@ -13,6 +14,21 @@
 [ext_resource type="PackedScene" uid="uid://bsbw3tjr063ou" path="res://ui/player_die_ui.tscn" id="9_j8tme"]
 [ext_resource type="Shader" uid="uid://b6tgdk2xk2i6i" path="res://crt_shader/vhs.gdshader" id="9_l8g03"]
 [ext_resource type="Texture2D" uid="uid://ellby238chfw" path="res://assets/foreground.png" id="13_vsp63"]
+[ext_resource type="PackedScene" uid="uid://c4r6pj4ykxsbb" path="res://common/object/book_display/book_display.tscn" id="14_b686c"]
+[ext_resource type="PackedScene" uid="uid://cojt5388xembg" path="res://common/object/metal_cabinet/metal_cabinet.tscn" id="16_58yx1"]
+[ext_resource type="PackedScene" uid="uid://bywkqv0d0qou1" path="res://common/object/small_chair/small_chair.tscn" id="17_hbvmx"]
+[ext_resource type="PackedScene" uid="uid://cex342afo4i7q" path="res://common/object/crate/crate.tscn" id="18_fegy3"]
+[ext_resource type="PackedScene" uid="uid://d0ybj20tb2k78" path="res://common/object/gas_cylinder/gas_cylinder.tscn" id="19_pvdu1"]
+[ext_resource type="PackedScene" uid="uid://c7vojnu1bqdld" path="res://common/object/sack_of_rice/sack_of_rice.tscn" id="20_cf130"]
+[ext_resource type="PackedScene" uid="uid://digt76h7o0eci" path="res://common/object/snack_display/snack_display.tscn" id="21_posua"]
+[ext_resource type="PackedScene" uid="uid://cst8m5kcrg08r" path="res://common/object/wooden_chair/wooden_chair.tscn" id="22_gvtgv"]
+[ext_resource type="PackedScene" uid="uid://cvra8la8etmvw" path="res://common/object/water_jug/water_jug.tscn" id="23_5ywmu"]
+[ext_resource type="PackedScene" uid="uid://yop8ft77reaj" path="res://common/object/light_brown_cabinet/light_brown_cabinet.tscn" id="24_mhp6k"]
+[ext_resource type="PackedScene" uid="uid://c0xgfumm13vgd" path="res://common/object/fridge_display/fridge_display.tscn" id="25_vkvnp"]
+[ext_resource type="PackedScene" uid="uid://6ads4lsdimtp" path="res://common/object/fan/fan.tscn" id="26_urpib"]
+[ext_resource type="PackedScene" uid="uid://dbpklr08gu4ow" path="res://common/object/brown_cabinet/brown_cabinet.tscn" id="27_cieqw"]
+[ext_resource type="PackedScene" uid="uid://dfqcu1s2h616t" path="res://common/object/desk_counter/desk_counter.tscn" id="28_ta815"]
+[ext_resource type="PackedScene" uid="uid://b742fn3vj3o42" path="res://common/object/white_cabinet/white_cabinet.tscn" id="29_64wtb"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dakft"]
 shader = ExtResource("3_dxrkv")
@@ -65,10 +81,10 @@ y_sort_enabled = true
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -2165.0
-offset_top = -950.0
-offset_right = 4575.0
-offset_bottom = 2708.0
+offset_left = -3291.0
+offset_top = -1950.0
+offset_right = 3449.0
+offset_bottom = 1708.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_4fuuu")
@@ -76,11 +92,9 @@ stretch_mode = 1
 
 [node name="Player" parent="." instance=ExtResource("1_l1rk1")]
 material = SubResource("ShaderMaterial_dakft")
-position = Vector2(587, 298)
 
 [node name="NavigationRegion" type="NavigationRegion2D" parent="."]
-visible = false
-position = Vector2(7, 8)
+position = Vector2(243, 3063)
 navigation_polygon = SubResource("NavigationPolygon_dxrkv")
 
 [node name="EnemySpawner" parent="." instance=ExtResource("4_4fuuu")]
@@ -92,6 +106,7 @@ script = ExtResource("5_dxrkv")
 [node name="ComboTimer" type="Timer" parent="ScoreManager"]
 
 [node name="GameUI" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="ScoreUIControl" parent="GameUI" instance=ExtResource("6_y36n6")]
 
@@ -146,6 +161,7 @@ visible = false
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 128
+visible = false
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
 material = SubResource("ShaderMaterial_l8g03")
@@ -156,5 +172,104 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Foreground" type="Sprite2D" parent="."]
-position = Vector2(1360, 1048)
+visible = false
 texture = ExtResource("13_vsp63")
+
+[node name="BookDisplay" parent="." instance=ExtResource("14_b686c")]
+position = Vector2(-640, 506)
+
+[node name="Boxes" parent="." instance=ExtResource("1_hb504")]
+position = Vector2(1240, -1000)
+
+[node name="BookDisplay2" parent="." instance=ExtResource("14_b686c")]
+position = Vector2(640, 506)
+
+[node name="BookDisplay3" parent="." instance=ExtResource("14_b686c")]
+position = Vector2(-640, -32)
+
+[node name="BookDisplay4" parent="." instance=ExtResource("14_b686c")]
+position = Vector2(640, -32)
+
+[node name="MetalCabinet" parent="." instance=ExtResource("16_58yx1")]
+position = Vector2(-2304, 976)
+
+[node name="SmallChair" parent="." instance=ExtResource("17_hbvmx")]
+position = Vector2(376, -480)
+
+[node name="SmallChair2" parent="." instance=ExtResource("17_hbvmx")]
+position = Vector2(504, -544)
+
+[node name="Crate" parent="." instance=ExtResource("18_fegy3")]
+position = Vector2(-1528, -296)
+
+[node name="DeskCounter" parent="." instance=ExtResource("19_pvdu1")]
+position = Vector2(-2080, -648)
+
+[node name="MetalCabinet2" parent="." instance=ExtResource("16_58yx1")]
+position = Vector2(2136, -184)
+
+[node name="SackOfRice" parent="." instance=ExtResource("20_cf130")]
+position = Vector2(1552, 1184)
+
+[node name="SmallChair3" parent="." instance=ExtResource("17_hbvmx")]
+position = Vector2(-1224, 840)
+
+[node name="SmallChair4" parent="." instance=ExtResource("17_hbvmx")]
+position = Vector2(-1112, 936)
+
+[node name="SnackDisplay" parent="." instance=ExtResource("21_posua")]
+position = Vector2(-1048, -1928)
+
+[node name="WhiteCabinet" parent="." instance=ExtResource("22_gvtgv")]
+position = Vector2(-1048, -1488)
+
+[node name="WaterJug" parent="." instance=ExtResource("23_5ywmu")]
+position = Vector2(2488, -1152)
+
+[node name="SmallChair5" parent="." instance=ExtResource("17_hbvmx")]
+position = Vector2(-2728, -584)
+
+[node name="SmallChair6" parent="." instance=ExtResource("17_hbvmx")]
+position = Vector2(-2688, -816)
+
+[node name="LightBrownCabinet" parent="." instance=ExtResource("24_mhp6k")]
+position = Vector2(2560, 656)
+
+[node name="FridgeDisplay" parent="." instance=ExtResource("25_vkvnp")]
+position = Vector2(784, -1902)
+
+[node name="Fan" parent="." instance=ExtResource("26_urpib")]
+position = Vector2(1152, -1056)
+
+[node name="Fan2" parent="." instance=ExtResource("26_urpib")]
+position = Vector2(-1352, 1168)
+
+[node name="BrownCabinet" parent="." instance=ExtResource("27_cieqw")]
+position = Vector2(1624, -1902)
+
+[node name="BrownCabinet2" parent="." instance=ExtResource("27_cieqw")]
+position = Vector2(1896, -1904)
+
+[node name="BrownCabinet3" parent="." instance=ExtResource("27_cieqw")]
+position = Vector2(2176, -1904)
+
+[node name="BrownCabinet4" parent="." instance=ExtResource("27_cieqw")]
+position = Vector2(2456, -1904)
+
+[node name="Crate2" parent="." instance=ExtResource("18_fegy3")]
+position = Vector2(1544, 584)
+
+[node name="DeskCounter2" parent="." instance=ExtResource("28_ta815")]
+position = Vector2(0, -776)
+
+[node name="WhiteCabinet2" parent="." instance=ExtResource("29_64wtb")]
+position = Vector2(-3040, -1880)
+
+[node name="WhiteCabinet3" parent="." instance=ExtResource("29_64wtb")]
+position = Vector2(-2560, -1880)
+
+[node name="WhiteCabinet4" parent="." instance=ExtResource("29_64wtb")]
+position = Vector2(-2080, -1880)
+
+[node name="WhiteCabinet5" parent="." instance=ExtResource("29_64wtb")]
+position = Vector2(2945, 1464)

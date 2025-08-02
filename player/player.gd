@@ -7,6 +7,7 @@ enum PlayerState {
 	DIE
 }
 
+@onready var click_sfx: AudioStream = preload("res://sfx/click3.mp3")
 @onready var hurt_sfx: AudioStream = preload("res://sfx/ua.mp3")
 @onready var pose_sfx: AudioStream = preload("res://sfx/woosh2.mp3")
 
@@ -204,6 +205,7 @@ func handle_rps():
 	
 	if head.frame != rps_component.current_rps_type:
 		do_squash_stretch_tween()
+		AudioHandler.play_sfx(click_sfx, 6, randf_range(0.9, 1.1))
 		head.frame = rps_component.current_rps_type
 
 func retoggle_hitbox_monitoring():

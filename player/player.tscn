@@ -212,7 +212,6 @@ radius = 604.477
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 y_sort_enabled = true
 collision_mask = 4
-motion_mode = 1
 script = ExtResource("1_rkbax")
 MAX_SPEED = 800.0
 ACCELERATION = 1000.0
@@ -227,9 +226,9 @@ material = SubResource("ShaderMaterial_hg6s5")
 
 [node name="Head" type="AnimatedSprite2D" parent="Sprite"]
 material = ExtResource("4_8t03j")
-position = Vector2(0, -128)
 sprite_frames = SubResource("SpriteFrames_2ieo8")
 animation = &"rps"
+offset = Vector2(0, -128)
 
 [node name="Body" type="AnimatedSprite2D" parent="Sprite"]
 material = ExtResource("4_8t03j")
