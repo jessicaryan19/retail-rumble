@@ -41,7 +41,7 @@ var state: EnemyState = EnemyState.CHASE:
 		
 		state = value
 		body.frame = state
-		frightened_tween()
+		do_squash_stretch_tween()
 		
 		match (value):
 			EnemyState.CHASE:
@@ -58,26 +58,34 @@ var state: EnemyState = EnemyState.CHASE:
 				hitbox_collision.set_deferred("disabled", true)
 				collision_shape_2d.set_deferred("disabled", true)
 				
-				reset_die_tween()
-				die_tween.set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
-				die_tween.tween_property(self, "modulate:a", 0.0, 2.0)
-				die_tween.tween_callback(self.queue_free)
+				do_die_tween()
+				
 				await die_tween.finished
 
 var die_tween: Tween
-var scale_tween: Tween
+var squash_stretch_tween: Tween
 
-func reset_die_tween() -> void:
+func do_die_tween() -> void:
 	if die_tween:
 		die_tween.kill()
 	
 	die_tween = create_tween()
 	
-func reset_scale_tween() -> void:
-	if scale_tween:
-		scale_tween.kill()
+	die_tween.set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
+	die_tween.tween_property(self, "modulate:a", 0.0, 2.0)
+	die_tween.tween_callback(self.queue_free)
 	
-	scale_tween = create_tween()
+func do_squash_stretch_tween() -> void:
+	if squash_stretch_tween:
+		squash_stretch_tween.kill()
+	
+	squash_stretch_tween = create_tween()
+	
+	squash_stretch_tween.set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	squash_stretch_tween.tween_property(sprite, "scale", Vector2(1.1, 0.9), 0.1)
+	squash_stretch_tween.tween_property(sprite, "scale", Vector2(0.9, 1.1), 0.1)
+	squash_stretch_tween.tween_property(sprite, "scale", Vector2(1, 1), 0.1)
+
 	
 func generate_rps_list():
 	rps_list.clear()
@@ -197,19 +205,13 @@ func _on_health_component_die() -> void:
 	state = EnemyState.DIE
 	
 	#print("enemy die")
-
-func frightened_tween() -> void:
-	reset_scale_tween()
-	scale_tween.set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
-	scale_tween.tween_property(sprite, "scale", Vector2(0.9, 1.1), 0.1)
-	scale_tween.tween_property(sprite, "scale", Vector2(1, 1), 0.1)
 	
 func _on_hitbox_component_duel(win: bool, opponent: HitboxComponent) -> void:
-	frightened_tween()
 	
 	if win:
-		#print("enemy win")
-		frightened_tween()
+		print("enemy win")
+		do_squash_stretch_tween()
+		pass
 	else:
 		#print("enemy lose")
 		

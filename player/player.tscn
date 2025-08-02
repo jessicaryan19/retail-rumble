@@ -18,6 +18,7 @@ point_count = 4
 [sub_resource type="Curve" id="Curve_g6k8r"]
 _data = [Vector2(0, 0), 0.0, 3.79656, 0, 0, Vector2(0.042328, 0.841227), 1.90016, 1.90016, 0, 0, Vector2(0.119929, 0.941912), 0.162645, 0.162645, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 4
+metadata/_snap_enabled = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hg6s5"]
 shader = ExtResource("2_rgyib")
@@ -210,6 +211,11 @@ y_sort_enabled = true
 collision_mask = 4
 motion_mode = 1
 script = ExtResource("1_rkbax")
+MAX_SPEED = 800.0
+ACCELERATION = 1000.0
+DECCELERATION = 1500.0
+ACCEL_TIME_TO_MAX = 0.2
+DECCEL_TIME_TO_STOP = 0.05
 ACCELERATION_CURVE = SubResource("Curve_qjkh3")
 DECCELERATION_CURVE = SubResource("Curve_g6k8r")
 
@@ -259,8 +265,13 @@ debug_color = Color(0.996078, 0, 0.176471, 0.419608)
 wait_time = 1.5
 one_shot = true
 
+[node name="RetoggleHitboxTimer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+ignore_time_scale = true
+
 [node name="InvincibleTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 2.0
 one_shot = true
 
 [node name="CheckCloseEntity" type="Area2D" parent="."]
@@ -274,4 +285,5 @@ debug_color = Color(0.952589, 0.784763, 7.70092e-07, 0.42)
 [connection signal="duel" from="HitboxComponent" to="." method="_on_hitbox_component_duel"]
 [connection signal="die" from="HealthComponent" to="." method="_on_health_component_die"]
 [connection signal="timeout" from="PoseTimer" to="." method="_on_pose_timer_timeout"]
+[connection signal="timeout" from="RetoggleHitboxTimer" to="." method="_on_retoggle_hitbox_timer_timeout"]
 [connection signal="timeout" from="InvincibleTimer" to="." method="_on_invincible_timer_timeout"]
