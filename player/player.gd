@@ -25,21 +25,24 @@ var state: PlayerState = PlayerState.NORMAL:
 		
 		state = value
 
-		var mat := body.material as ShaderMaterial
+		var mat := sprite.material as ShaderMaterial
 		do_squash_stretch_tween()
 		
 		match (value):
 			PlayerState.NORMAL:
 				body.animation = "normal"
+				body_silhouette.animation = "normal"
 				mat.set("shader_parameter/blink_active", false)
 				retoggle_hitbox_timer.start()
 			
 			PlayerState.POSE:
 				pose_timer.start()
 				body.animation = "pose"
+				body_silhouette.animation = "pose"
 				AudioHandler.play_sfx(pose_sfx, 6, randf_range(0.9, 1.1))
 				do_closeup_tween(1.2)
 				body.frame = randi() % body.sprite_frames.get_frame_count("pose")
+				body_silhouette.frame = body.frame
 				hitbox_component.invincible = true
 				hitbox_component.target = null
 				mat.set("shader_parameter/blink_active", true)
@@ -48,6 +51,7 @@ var state: PlayerState = PlayerState.NORMAL:
 			PlayerState.INVINCIBLE:
 				invincible_timer.start()
 				body.animation = "hurt"
+				body_silhouette.animation = "hurt"
 				AudioHandler.play_sfx(hurt_sfx, 0, randf_range(0.8, 1.4))
 				do_closeup_tween(1.2)
 				hitbox_component.invincible = true
@@ -57,6 +61,7 @@ var state: PlayerState = PlayerState.NORMAL:
 				
 			PlayerState.DIE:
 				body.animation = "hurt"
+				body_silhouette.animation = "hurt"
 				AudioHandler.play_sfx(hurt_sfx, 0, randf_range(0.8, 1.4))
 				do_die_tween()
 				hitbox_collision.set_deferred("disabled", true)
@@ -88,6 +93,8 @@ var deccel_time: float= 0.0
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var head: AnimatedSprite2D = $Sprite/Head
 @onready var body: AnimatedSprite2D = $Sprite/Body
+@onready var body_silhouette: AnimatedSprite2D = $Sprite/BodySilhouette
+@onready var head_silhouette: AnimatedSprite2D = $Sprite/HeadSilhouette
 @onready var check_close_entity: Area2D = $CheckCloseEntity
 @onready var sprite: Sprite2D = $Sprite
 @onready var camera: Camera2D = $Camera
@@ -209,6 +216,7 @@ func handle_rps():
 		do_squash_stretch_tween()
 		AudioHandler.play_sfx(click_sfx, 6, randf_range(0.9, 1.1))
 		head.frame = rps_component.current_rps_type
+		head_silhouette.frame = head.frame
 
 func retoggle_hitbox_monitoring():
 	hitbox_component.monitoring = false
@@ -243,10 +251,11 @@ func handle_anim():
 		change_animation("idle")
 		
 	if input_direction.x > 0:
-		body.flip_h = true
+		body.flip_h = true	
 	elif input_direction.x < 0:
 		body.flip_h = false
-
+		
+	body_silhouette.flip_h = body.flip_h
 func change_animation(animation_name: String):
 	if animation_player.current_animation != animation_name:
 		animation_player.play(animation_name)
@@ -298,7 +307,7 @@ func _on_hitbox_component_duel(win: bool, opponent: HitboxComponent) -> void:
 # Ini shader yg buat jadi merah
 func apply_hit_shader_effect():
 	print("Flash triggered")
-	var mat := body.material as ShaderMaterial
+	var mat := sprite.material as ShaderMaterial
 	if mat == null:
 		print("No material!")
 		return
