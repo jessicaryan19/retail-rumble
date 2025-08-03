@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Retail Rumble"
-run/main_scene="uid://c7s7t0l0r87ea"
+run/main_scene="uid://mktqdoxooupc"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 

@@ -90,12 +90,6 @@ func generate_rps_list():
 	update_current_rps()
 	update_health()
 	update_rps_visual()
-		
-const RPS_TEXTURES = {
-	Enums.RPSType.ROCK: preload("res://assets/rps/rock.png"),
-	Enums.RPSType.PAPER: preload("res://assets/rps/paper.png"),
-	Enums.RPSType.SCISSOR: preload("res://assets/rps/scissor.png"),
-}
 
 func randomize_variant():
 	var animation_names = body.sprite_frames.get_animation_names()
