@@ -3,6 +3,8 @@ extends CanvasLayer
 @export var player: NodePath
 @onready var player_die_ui: Control = $PlayerDieUI
 
+@export var stopwatch: Stopwatch
+
 @export var show_die_ui: bool = false:
 	get:
 		return show_die_ui
@@ -17,6 +19,7 @@ func _ready() -> void:
 
 func player_die() -> void:
 	show_die_ui = true
+	stopwatch.paused = true
 	
 func change_die_string(win: bool, opponent: HitboxComponent) -> void:
 	if win: return

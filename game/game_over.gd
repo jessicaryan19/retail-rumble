@@ -6,6 +6,7 @@ extends Control
 @onready var vbox= $VBoxContainer
 
 var score_manager: Node
+var stopwatch_manager: Node
 
 func _ready() -> void:
 	back_button.disabled = true
@@ -24,4 +25,11 @@ func _on_back_to_menu() -> void:
 	back_button.disabled = true
 	var tween := create_tween()
 	await tween.tween_property(vbox, "modulate:a", 0.0, 0.5).finished
-	get_tree().change_scene_to_file("res://menu/main_menu.tscn")
+	#get_tree().change_scene_to_file("res://menu/main_menu.tscn")
+	SceneManager.change_scene("res://game/game.tscn", {
+				"pattern": "squares",
+				"speed": 2.5,               
+				"invert_on_leave": true,   
+				"ease": 4.5,
+				"color" : Color("#D1370B")
+			})
