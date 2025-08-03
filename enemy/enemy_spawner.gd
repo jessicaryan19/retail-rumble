@@ -45,7 +45,7 @@ func _ready():
 func _on_difficulty_timer_timeout():
 	var old_difficulty = current_difficulty
 	
-	current_difficulty += 0.5 
+	current_difficulty += 0.25
 	print("New difficulty level: ", current_difficulty)
 	
 	var new_spawn_interval = max(1.0, initial_spawn_interval / current_difficulty)
