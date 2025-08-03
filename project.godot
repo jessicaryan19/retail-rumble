@@ -21,12 +21,17 @@ config/windows_native_icon="res://icon.ico"
 
 Enums="*res://autoloads/enums.gd"
 AudioHandler="*res://autoloads/audio_handler.gd"
+SceneManager="*res://addons/scene_manager/SceneManager.tscn"
 
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/stretch/mode="canvas_items"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/scene_manager/plugin.cfg")
 
 [global_group]
 
