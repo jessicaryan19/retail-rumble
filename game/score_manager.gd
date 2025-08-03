@@ -6,13 +6,18 @@ signal new_high_score()
 
 const SAVE_PATH := "user://high_score.save"
 
+@onready var score_sfx1: AudioStream = preload("res://sfx/UI_Quirky7.mp3")
+@onready var score_sfx2: AudioStream = preload("res://sfx/UI_Quirky18.mp3")
+
 var score: int = 0
 var combo: int = 0
 var high_score: int = 0
 var is_new_high_score_notified = false
 
-@export var combo_interval: float = 6.0
+@export var combo_interval: float = 5.0
 @onready var combo_timer = $ComboTimer
+
+@export var sfx_variant_every_n_combo: int = 5
 
 func _ready():
 	load_high_score()
@@ -31,6 +36,11 @@ func add_combo():
 	combo_timer.start()
 
 func add_score(points: int):
+	if combo % sfx_variant_every_n_combo == 0:
+		AudioHandler.play_sfx(score_sfx2, 10, randf_range(0.8, 1.0))
+	else:
+		AudioHandler.play_sfx(score_sfx1, 10, randf_range(0.8, 1.0))
+	
 	score += points * combo
 	emit_signal("score_changed", score)
 	

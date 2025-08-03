@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://b0vn4ssda8j0v"]
+
+[ext_resource type="Shader" uid="uid://dkj2qmsnlubs5" path="res://shader/silhouette.gdshader" id="1_mwu51"]
+
+[resource]
+shader = ExtResource("1_mwu51")
+shader_parameter/silhouette_color = Color(0, 0, 0, 0.5)
+shader_parameter/color_tolerance = 0.01
+shader_parameter/blink_active = false
+shader_parameter/flash_active = false
+shader_parameter/blink_speed = 20.0

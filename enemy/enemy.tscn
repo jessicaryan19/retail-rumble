@@ -384,7 +384,7 @@ shape = SubResource("RectangleShape2D_y5vj3")
 debug_color = Color(0.996879, 0, 0.177881, 0.42)
 
 [node name="StunnedTimer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 0.5
 one_shot = true
 
 [node name="KnockbackComponent" parent="." instance=ExtResource("8_5ffra")]

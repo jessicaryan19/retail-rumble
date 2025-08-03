@@ -32,7 +32,7 @@ offset_top = 20.0
 offset_right = -20.0
 offset_bottom = 94.0
 grow_horizontal = 0
-text = "score: 0"
+text = "0"
 label_settings = ExtResource("2_vv5ws")
 horizontal_alignment = 2
 
