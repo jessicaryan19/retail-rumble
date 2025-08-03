@@ -3,7 +3,6 @@ extends Control
 @onready var draw_info_label: Label = $VBoxContainer/VBoxContainer/DrawInfoLabel
 @onready var player = get_tree().get_first_node_in_group("player")
 @onready var rolling_door_bg = $RollingDoorBG
-
 var score_manager
 
 @export var die_string: String = "rock beats rock?":

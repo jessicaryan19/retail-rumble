@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://c7s7t0l0r87ea"]
+[gd_scene load_steps=38 format=3 uid="uid://c7s7t0l0r87ea"]
 
 [ext_resource type="Shader" uid="uid://dbdaintllwjv0" path="res://shader/moving_background.gdshader" id="1_fegy3"]
 [ext_resource type="PackedScene" uid="uid://chldd6futyqxb" path="res://common/object/boxes/boxes.tscn" id="1_hb504"]
@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cqsfhit0irycd" path="res://background/background_toserba.png" id="2_fegy3"]
 [ext_resource type="Shader" uid="uid://c7nkn3qt468fs" path="res://player/damage_shader_test.gdshader" id="3_dxrkv"]
 [ext_resource type="PackedScene" uid="uid://dsuxwx28ircol" path="res://enemy/enemy_spawner.tscn" id="4_4fuuu"]
-[ext_resource type="Script" path="res://game/score_manager.gd" id="5_dxrkv"]
+[ext_resource type="Script" uid="uid://uwp46gwnfjob" path="res://game/score_manager.gd" id="5_dxrkv"]
 [ext_resource type="PackedScene" uid="uid://bljp5jihpmr8f" path="res://game/ui/score_ui_control.tscn" id="6_y36n6"]
 [ext_resource type="PackedScene" uid="uid://bl7fwt0y4dv4k" path="res://game/ui/health_ui_control.tscn" id="7_l8g03"]
 [ext_resource type="PackedScene" uid="uid://dn53g2i6s2v5e" path="res://game/ui/button_control.tscn" id="8_qf6n1"]
