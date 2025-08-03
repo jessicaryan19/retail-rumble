@@ -3,6 +3,7 @@ extends Node2D
 @onready var rolling_door_bg = $RollingDoorBG
 @onready var button_container = $ButtonContainer
 @onready var game_logo = $GameLogo
+@onready var tutorial_page = $TutorialPage
 #@onready var tutorial_panel = $TutorialPanel
 
 @onready var play_btn = button_container.get_node("Play")
@@ -26,16 +27,16 @@ func _ready():
 	rolling_door_bg.transition_finished.connect(_on_transition_finished)
 
 func _on_play_pressed():
-	prepare_ui_for_transition()
 	pending_action = ActionType.PLAY
+	prepare_ui_for_transition()
 
 func _on_tutorial_pressed():
-	prepare_ui_for_transition()
 	pending_action = ActionType.TUTORIAL
+	prepare_ui_for_transition()
 
 func _on_credit_pressed():
-	prepare_ui_for_transition()
 	pending_action = ActionType.CREDITS
+	prepare_ui_for_transition()
 
 func _on_exit_pressed():
 	get_tree().quit()
@@ -50,10 +51,7 @@ func prepare_ui_for_transition():
 	tween.parallel().tween_property(button_container, "modulate:a", 0.0, 0.3).set_trans(Tween.TRANS_SINE)
 	tween.tween_callback(rolling_door_bg.roll_up)
 
-func _on_transition_finished(direction: String):
-	if direction != "up":
-		return
-
+func _on_transition_finished():
 	match pending_action:
 		ActionType.PLAY:
 			get_tree().change_scene_to_file("res://game/game.tscn")
@@ -65,10 +63,8 @@ func _on_transition_finished(direction: String):
 			pass
 
 func show_tutorial():
-	# Show your tutorial panel here
-	#tutorial_panel.visible = true
-	# Optionally reset modulate + input
-	pass
+	tutorial_page.page1.visible = true
+	tutorial_page._animate_page(tutorial_page.page1)
 
 func show_credits():
 	pass

@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://mktqdoxooupc"]
+[gd_scene load_steps=14 format=3 uid="uid://mktqdoxooupc"]
 
 [ext_resource type="PackedScene" uid="uid://crsc23np72w83" path="res://ui/button_menu.tscn" id="1_1x3cv"]
 [ext_resource type="Script" uid="uid://cucthbmp0ix8o" path="res://menu/main_menu.gd" id="1_s8mfa"]
@@ -6,20 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://wvsyv8woa171" path="res://assets/menu_bg.png" id="3_s8mfa"]
 [ext_resource type="Texture2D" uid="uid://rx33fl5xdr2c" path="res://assets/menu_deco.png" id="4_0tw43"]
 [ext_resource type="Texture2D" uid="uid://b5atlmketfxqx" path="res://assets/logo_retail_rumble.png" id="5_jc45y"]
-[ext_resource type="Texture2D" uid="uid://cr0iegxpi2wn3" path="res://tutorial/assets/background.png" id="7_k17ts"]
-[ext_resource type="Script" uid="uid://puwkh0rvp47w" path="res://tutorial/tutorial.gd" id="7_pfmj8"]
-[ext_resource type="Texture2D" uid="uid://deqixanayplfy" path="res://tutorial/assets/foreground.png" id="8_1vfm6"]
-[ext_resource type="Texture2D" uid="uid://dgrx5h2lgyom5" path="res://tutorial/assets/title.png" id="9_23ste"]
-[ext_resource type="Texture2D" uid="uid://cjxg4lmnhcahq" path="res://tutorial/assets/tutroial_1_2.png" id="11_lb3k0"]
-[ext_resource type="PackedScene" uid="uid://ehvsgplifmn" path="res://tutorial/tutorial_item.tscn" id="11_pfmj8"]
-[ext_resource type="Texture2D" uid="uid://d22tmvmfyrwu8" path="res://tutorial/assets/tutorial_1_3.png" id="12_5urqu"]
-[ext_resource type="Texture2D" uid="uid://cta0r75qrco3v" path="res://tutorial/assets/tutorial_2_1.png" id="13_qkuil"]
-[ext_resource type="Texture2D" uid="uid://c5k0f2vff8v05" path="res://tutorial/assets/tutorial_2_2.png" id="14_pfmj8"]
-[ext_resource type="Texture2D" uid="uid://c51fc1r55p51f" path="res://tutorial/assets/tutroial_2_3.png" id="15_iqufe"]
-[ext_resource type="Texture2D" uid="uid://dvf0fmcce0n0i" path="res://assets/ui/button_s_normal.png" id="16_8lj81"]
-[ext_resource type="Texture2D" uid="uid://dksrqk18aympv" path="res://assets/ui/button_s_clicked.png" id="17_lbtey"]
-[ext_resource type="Texture2D" uid="uid://bhqays8filocl" path="res://assets/ui/button_s_hover.png" id="18_0wlwb"]
-[ext_resource type="LabelSettings" uid="uid://mj62uk12jtlr" path="res://assets/font/label_setting.tres" id="19_yrnos"]
+[ext_resource type="PackedScene" uid="uid://c2fohfpjn2brr" path="res://tutorial/tutorial_page.tscn" id="7_0tw43"]
 
 [sub_resource type="Animation" id="Animation_0tw43"]
 length = 0.001
@@ -98,8 +85,9 @@ _data = {
 [node name="MainMenu" type="Node2D"]
 script = ExtResource("1_s8mfa")
 
+[node name="TutorialPage" parent="." instance=ExtResource("7_0tw43")]
+
 [node name="RollingDoorBG" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = -90.0
@@ -156,119 +144,3 @@ libraries = {
 &"": SubResource("AnimationLibrary_l5uyn")
 }
 autoplay = "logo_rotate"
-
-[node name="Tutorial" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("7_pfmj8")
-
-[node name="Background" type="TextureRect" parent="Tutorial"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("7_k17ts")
-
-[node name="Foreground" type="TextureRect" parent="Tutorial"]
-layout_mode = 0
-offset_right = 1920.0
-offset_bottom = 1080.0
-texture = ExtResource("8_1vfm6")
-
-[node name="Title" type="TextureRect" parent="Tutorial"]
-layout_mode = 0
-offset_right = 1920.0
-offset_bottom = 1080.0
-texture = ExtResource("9_23ste")
-
-[node name="Page1" type="Control" parent="Tutorial"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="TutorialItem" parent="Tutorial/Page1" instance=ExtResource("11_pfmj8")]
-layout_mode = 0
-
-[node name="TutorialItem2" parent="Tutorial/Page1" instance=ExtResource("11_pfmj8")]
-pivot_offset = Vector2(988, 571)
-texture = ExtResource("11_lb3k0")
-
-[node name="TutorialItem3" parent="Tutorial/Page1" instance=ExtResource("11_pfmj8")]
-pivot_offset = Vector2(1565, 574)
-texture = ExtResource("12_5urqu")
-
-[node name="Page2" type="Control" parent="Tutorial"]
-visible = false
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="TutorialItem" parent="Tutorial/Page2" instance=ExtResource("11_pfmj8")]
-pivot_offset = Vector2(430, 553)
-texture = ExtResource("13_qkuil")
-
-[node name="TutorialItem2" parent="Tutorial/Page2" instance=ExtResource("11_pfmj8")]
-pivot_offset = Vector2(988, 571)
-texture = ExtResource("14_pfmj8")
-
-[node name="TutorialItem3" parent="Tutorial/Page2" instance=ExtResource("11_pfmj8")]
-pivot_offset = Vector2(1559, 571)
-texture = ExtResource("15_iqufe")
-
-[node name="ButtonContainer" type="HBoxContainer" parent="Tutorial"]
-layout_mode = 1
-offset_left = 40.0
-offset_top = 960.0
-offset_right = 2340.0
-offset_bottom = 1081.0
-scale = Vector2(0.8, 0.8)
-
-[node name="PrevButton" type="TextureButton" parent="Tutorial/ButtonContainer"]
-layout_mode = 2
-texture_normal = ExtResource("16_8lj81")
-texture_pressed = ExtResource("17_lbtey")
-texture_hover = ExtResource("18_0wlwb")
-
-[node name="Label" type="Label" parent="Tutorial/ButtonContainer/PrevButton"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -104.0
-offset_top = -42.5
-offset_right = 104.0
-offset_bottom = 31.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "prev"
-label_settings = ExtResource("19_yrnos")
-
-[node name="Spacer" type="Control" parent="Tutorial/ButtonContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="NextButton" type="TextureButton" parent="Tutorial/ButtonContainer"]
-layout_mode = 2
-texture_normal = ExtResource("16_8lj81")
-texture_pressed = ExtResource("17_lbtey")
-texture_hover = ExtResource("18_0wlwb")
-
-[node name="Label" type="Label" parent="Tutorial/ButtonContainer/NextButton"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -104.0
-offset_top = -42.5
-offset_right = 104.0
-offset_bottom = 31.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "NEXT"
-label_settings = ExtResource("19_yrnos")

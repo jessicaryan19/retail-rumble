@@ -8,15 +8,16 @@ extends Control
 var current_page: int = 1
 
 func _ready():
-	page2.visible = false
-	prev_button.visible = false
-	_animate_page(page1)
-
 	next_button.pressed.connect(_on_next_pressed)
 	prev_button.pressed.connect(_on_prev_pressed)
 	
+	page1.visible = false
+	page2.visible = false
+	prev_button.visible = false
+	
 func _animate_page(page: Node):
 	for i in page.get_children():
+		print("tutorial playing animation")
 		stop_beating_animation(i)
 		i.scale = Vector2(0.0, 0.0)
 		#i.modulate.a = 0.0
