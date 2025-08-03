@@ -79,7 +79,6 @@ var state: EnemyState = EnemyState.CHASE:
 var die_tween: Tween
 var squash_stretch_tween: Tween
 
-
 func initialize(p_difficulty_level: float):
 	await ready
 

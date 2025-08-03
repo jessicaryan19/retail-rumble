@@ -8,7 +8,7 @@
 [ext_resource type="Material" uid="uid://cascx50xtkkhh" path="res://shader/red_damage.tres" id="4_8t03j"]
 [ext_resource type="PackedScene" uid="uid://djphn5du2drkq" path="res://components/hitbox_component.tscn" id="4_qjkh3"]
 [ext_resource type="PackedScene" uid="uid://d3yvf7tvhas08" path="res://components/knockback_component.tscn" id="5_boad6"]
-[ext_resource type="PackedScene" path="res://components/health_component.tscn" id="5_qjkh3"]
+[ext_resource type="PackedScene" uid="uid://5lapc8r0j8bx" path="res://components/health_component.tscn" id="5_qjkh3"]
 [ext_resource type="PackedScene" uid="uid://cirgpdru1rqyr" path="res://camera/camera.tscn" id="9_hg6s5"]
 
 [sub_resource type="Curve" id="Curve_qjkh3"]

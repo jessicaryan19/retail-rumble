@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b62uf5egtperd" path="res://enemy/enemy.gd" id="1_2mvqj"]
 [ext_resource type="Texture2D" uid="uid://co7vanke5kkyd" path="res://enemy/closest_indicator.png" id="2_5ffra"]
-[ext_resource type="Texture2D" uid="uid://c5ex7lvgpj3hw" path="res://common/head/head_spritesheet.png" id="2_y5vj3"]
+[ext_resource type="Texture2D" uid="uid://hgog5btqut2" path="res://common/head/head_spritesheet.png" id="2_y5vj3"]
 [ext_resource type="Shader" uid="uid://c7nkn3qt468fs" path="res://player/damage_shader_test.gdshader" id="3_e355f"]
 [ext_resource type="PackedScene" uid="uid://5lapc8r0j8bx" path="res://components/health_component.tscn" id="3_pmsee"]
 [ext_resource type="Texture2D" uid="uid://cob5as66f182c" path="res://enemy/enemy_spritesheet.png" id="3_y5vj3"]
@@ -10,8 +10,6 @@
 [ext_resource type="PackedScene" uid="uid://duk7tymh3tjem" path="res://components/rps_component.tscn" id="5_y5vj3"]
 [ext_resource type="PackedScene" uid="uid://d3yvf7tvhas08" path="res://components/knockback_component.tscn" id="8_5ffra"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_mqeel"]
-atlas = ExtResource("2_y5vj3")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_78jik"]
 shader = ExtResource("3_e355f")
 shader_parameter/opacity = 1.0
@@ -23,7 +21,7 @@ shader_parameter/blink_mix_strength = 1.0
 shader_parameter/blink_color = Vector3(1, 1, 1)
 shader_parameter/flash_color = Vector3(0.835, 0.294, 0.051)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_pmsee"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_mqeel"]
 atlas = ExtResource("2_y5vj3")
 region = Rect2(750, 0, 250, 300)
 
@@ -43,7 +41,7 @@ region = Rect2(500, 300, 250, 300)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_y5vj3")
+"texture": SubResource("AtlasTexture_mqeel")
 }],
 "loop": true,
 "name": &"die",
@@ -58,9 +56,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_jb0mw")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_mqeel")
 }],
 "loop": true,
 "name": &"rps",
