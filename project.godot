@@ -13,18 +13,25 @@ config_version=5
 config/name="Retail Rumble"
 run/main_scene="uid://mktqdoxooupc"
 config/features=PackedStringArray("4.4", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="uid://cywnbreugg58"
+config/macos_native_icon="res://icon.icns"
+config/windows_native_icon="res://icon.ico"
 
 [autoload]
 
 Enums="*res://autoloads/enums.gd"
 AudioHandler="*res://autoloads/audio_handler.gd"
+SceneManager="*res://addons/scene_manager/SceneManager.tscn"
 
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/stretch/mode="canvas_items"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/scene_manager/plugin.cfg")
 
 [global_group]
 
@@ -76,6 +83,7 @@ equip_scissor={
 2d_physics/layer_1="Player"
 2d_physics/layer_2="Enemy"
 2d_physics/layer_3="Solid"
+2d_physics/layer_4="PlayerSolid"
 
 [rendering]
 

@@ -69,6 +69,7 @@ func _on_transition_finished():
 	match pending_action:
 		ActionType.PLAY:
 			get_tree().change_scene_to_file("res://cutscene/cutscene.tscn")
+			
 		ActionType.TUTORIAL:
 			show_tutorial()
 		ActionType.CREDITS:

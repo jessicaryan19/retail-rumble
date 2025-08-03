@@ -77,4 +77,10 @@ func _input(event: InputEvent) -> void:
 		if current_item < beating_items.size() and current_item <= 3:
 			show_item(current_item)
 		else:
-			get_tree().change_scene_to_file("res://game/game.tscn")
+			SceneManager.change_scene("res://game/game.tscn", {
+				"pattern": "circle",
+				"speed": 1.0,               
+				"invert_on_leave": true,
+				"ease": 5.0,
+				"color" : Color("#D1370B")
+			})
