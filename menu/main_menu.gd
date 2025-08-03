@@ -84,7 +84,7 @@ func show_tutorial():
 func _on_tutorial_closed():
 	await rolling_door_bg.roll_down()
 	transition_into_menu()
-	tutorial_page.page1.visible = false
+	tutorial_page._on_close()
 	
 func show_credits():
 	pass

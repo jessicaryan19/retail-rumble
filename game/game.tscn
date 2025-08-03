@@ -169,18 +169,9 @@ offset_right = 363.0
 offset_bottom = -246.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(626, 584)
+pivot_offset = Vector2(363, 35)
 text = "New High Score!"
 label_settings = ExtResource("9_58yx1")
-
-[node name="PlayerDieCanvas" type="CanvasLayer" parent="."]
-layer = 128
-follow_viewport_scale = 1.901
-script = ExtResource("9_3vho3")
-player = NodePath("../Player")
-
-[node name="PlayerDieUI" parent="PlayerDieCanvas" instance=ExtResource("9_j8tme")]
-visible = false
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 128
@@ -192,6 +183,15 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="PlayerDieCanvas" type="CanvasLayer" parent="."]
+layer = 128
+follow_viewport_scale = 1.901
+script = ExtResource("9_3vho3")
+player = NodePath("../Player")
+
+[node name="PlayerDieUI" parent="PlayerDieCanvas" instance=ExtResource("9_j8tme")]
+visible = false
 
 [node name="Foreground" type="Sprite2D" parent="."]
 visible = false
