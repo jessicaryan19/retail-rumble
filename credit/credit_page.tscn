@@ -1,0 +1,47 @@
+[gd_scene load_steps=9 format=3 uid="uid://blgr3d3k1l3h5"]
+
+[ext_resource type="Script" uid="uid://duurfixnlh6o2" path="res://credit/credit_page.gd" id="1_5fpwd"]
+[ext_resource type="Texture2D" uid="uid://cr0iegxpi2wn3" path="res://tutorial/assets/background.png" id="2_jesed"]
+[ext_resource type="Texture2D" uid="uid://deqixanayplfy" path="res://tutorial/assets/foreground.png" id="3_kjpmr"]
+[ext_resource type="Texture2D" uid="uid://ccn6mnxbmtf7n" path="res://credit/credit.png" id="4_bs010"]
+[ext_resource type="Texture2D" uid="uid://xw7cnislntfs" path="res://assets/ui/x_button_normal.png" id="5_xth8l"]
+[ext_resource type="Texture2D" uid="uid://dgrs3efvca2gd" path="res://assets/ui/x_button_select.png" id="6_oekn3"]
+[ext_resource type="Texture2D" uid="uid://b8ja8far4ek1r" path="res://assets/ui/x_button_hover.png" id="7_gro40"]
+[ext_resource type="Script" uid="uid://b0g45rpgsjerg" path="res://ui/button_close.gd" id="8_ncid2"]
+
+[node name="CreditPage" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 2.0
+offset_right = 40.0
+offset_bottom = 42.0
+script = ExtResource("1_5fpwd")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_jesed")
+
+[node name="Foreground" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = ExtResource("3_kjpmr")
+
+[node name="Title" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = ExtResource("4_bs010")
+
+[node name="ButtonClose" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 1740.0
+offset_top = 20.0
+offset_right = 1899.0
+offset_bottom = 175.0
+texture_normal = ExtResource("5_xth8l")
+texture_pressed = ExtResource("6_oekn3")
+texture_hover = ExtResource("7_gro40")
+script = ExtResource("8_ncid2")

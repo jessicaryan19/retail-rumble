@@ -1,18 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://mktqdoxooupc"]
+[gd_scene load_steps=10 format=3 uid="uid://mktqdoxooupc"]
 
 [ext_resource type="PackedScene" uid="uid://crsc23np72w83" path="res://ui/button_menu.tscn" id="1_1x3cv"]
 [ext_resource type="Script" uid="uid://cucthbmp0ix8o" path="res://menu/main_menu.gd" id="1_s8mfa"]
-[ext_resource type="Script" uid="uid://duurfixnlh6o2" path="res://menu/credit_page.gd" id="3_1vfm6"]
 [ext_resource type="PackedScene" uid="uid://8eqx36gbs540" path="res://menu/rolling_door_bg.tscn" id="3_jc45y"]
-[ext_resource type="Texture2D" uid="uid://cr0iegxpi2wn3" path="res://tutorial/assets/background.png" id="3_youj7"]
-[ext_resource type="Texture2D" uid="uid://deqixanayplfy" path="res://tutorial/assets/foreground.png" id="4_l5uyn"]
-[ext_resource type="Texture2D" uid="uid://ccn6mnxbmtf7n" path="res://credit/credit.png" id="5_8qj3r"]
+[ext_resource type="PackedScene" uid="uid://blgr3d3k1l3h5" path="res://credit/credit_page.tscn" id="3_s8mfa"]
 [ext_resource type="Texture2D" uid="uid://b5atlmketfxqx" path="res://assets/logo_retail_rumble.png" id="5_jc45y"]
-[ext_resource type="Texture2D" uid="uid://xw7cnislntfs" path="res://assets/ui/x_button_normal.png" id="6_k17ts"]
 [ext_resource type="PackedScene" uid="uid://c2fohfpjn2brr" path="res://tutorial/tutorial_page.tscn" id="7_0tw43"]
-[ext_resource type="Texture2D" uid="uid://dgrs3efvca2gd" path="res://assets/ui/x_button_select.png" id="7_1vfm6"]
-[ext_resource type="Texture2D" uid="uid://b8ja8far4ek1r" path="res://assets/ui/x_button_hover.png" id="8_23ste"]
-[ext_resource type="Script" uid="uid://b0g45rpgsjerg" path="res://ui/button_close.gd" id="9_b06p2"]
 
 [sub_resource type="Animation" id="Animation_youj7"]
 length = 0.001
@@ -68,41 +61,7 @@ color = Color(1, 0.976471, 0.921569, 1)
 
 [node name="TutorialPage" parent="." instance=ExtResource("7_0tw43")]
 
-[node name="CreditPage" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_top = 2.0
-offset_right = 40.0
-offset_bottom = 42.0
-script = ExtResource("3_1vfm6")
-
-[node name="Background" type="TextureRect" parent="CreditPage"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("3_youj7")
-
-[node name="Foreground" type="TextureRect" parent="CreditPage"]
-layout_mode = 0
-offset_right = 1920.0
-offset_bottom = 1080.0
-texture = ExtResource("4_l5uyn")
-
-[node name="Title" type="TextureRect" parent="CreditPage"]
-layout_mode = 0
-offset_right = 1920.0
-offset_bottom = 1080.0
-texture = ExtResource("5_8qj3r")
-
-[node name="ButtonClose" type="TextureButton" parent="CreditPage"]
-offset_left = 1740.0
-offset_top = 20.0
-offset_right = 1899.0
-offset_bottom = 175.0
-texture_normal = ExtResource("6_k17ts")
-texture_pressed = ExtResource("7_1vfm6")
-texture_hover = ExtResource("8_23ste")
-script = ExtResource("9_b06p2")
+[node name="CreditPage" parent="." instance=ExtResource("3_s8mfa")]
 
 [node name="RollingDoorBG" parent="." instance=ExtResource("3_jc45y")]
 

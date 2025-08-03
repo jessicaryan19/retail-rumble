@@ -5,12 +5,8 @@ extends Control
 @onready var high_score = $VBoxContainer/HighScore/Point
 @onready var vbox= $VBoxContainer
 
-<<<<<<< Updated upstream
-var score_manager: Node
-var stopwatch_manager: Node
-=======
-var score_manager: Node2D
->>>>>>> Stashed changes
+@onready var score_manager: Node
+@onready var stopwatch_manager: Node
 
 func _ready() -> void:
 	back_button.disabled = true

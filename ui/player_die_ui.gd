@@ -26,8 +26,9 @@ var stopwatch_manager
 
 func _ready() -> void:
 	self.mouse_filter = Control.MOUSE_FILTER_STOP
-	score_manager = get_tree().get_current_scene().get_node("ScoreManager")
-	stopwatch_manager = get_tree().get_current_scene().get_node("StopwatchManager")
+	score_manager = get_tree().get_current_scene()
+	print("skor menejer", score_manager)
+	stopwatch_manager = get_tree()
 
 func _input(event: InputEvent) -> void:
 	if player.state == player.PlayerState.DIE:
@@ -39,7 +40,7 @@ func _on_continue():
 	var next_scene = load("res://game/game_over.tscn").instantiate()
 	next_scene.score_manager = score_manager
 	next_scene.stopwatch_manager = stopwatch_manager
-	
+	print("continue", score_manager, stopwatch_manager)
 	get_tree().get_current_scene().queue_free()
 	get_tree().root.add_child(next_scene)
 	get_tree().set_current_scene(next_scene)
