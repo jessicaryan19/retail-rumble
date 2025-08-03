@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cbkf5hekrfd72"
-path="res://.godot/imported/jkl.png-5ec7f7c62f484059fd45a9702936581a.ctex"
+path="res://.godot/imported/JKL.png-8efd53a09e3d4c143167d81141863c75.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/jkl.png"
-dest_files=["res://.godot/imported/jkl.png-5ec7f7c62f484059fd45a9702936581a.ctex"]
+source_file="res://assets/ui/JKL.png"
+dest_files=["res://.godot/imported/JKL.png-8efd53a09e3d4c143167d81141863c75.ctex"]
 
 [params]
 

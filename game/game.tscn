@@ -10,10 +10,10 @@
 [ext_resource type="Script" uid="uid://uwp46gwnfjob" path="res://game/score_manager.gd" id="5_dxrkv"]
 [ext_resource type="PackedScene" uid="uid://bljp5jihpmr8f" path="res://game/ui/score_ui_control.tscn" id="6_y36n6"]
 [ext_resource type="PackedScene" uid="uid://bl7fwt0y4dv4k" path="res://game/ui/health_ui_control.tscn" id="7_l8g03"]
-[ext_resource type="PackedScene" uid="uid://dn53g2i6s2v5e" path="res://game/ui/button_control.tscn" id="8_qf6n1"]
-[ext_resource type="Script" uid="uid://dvcnqfc257ap1" path="res://game/player_die_canvas.gd" id="9_3vho3"]
+[ext_resource type="PackedScene" path="res://game/ui/button_control.tscn" id="8_qf6n1"]
+[ext_resource type="Script" path="res://game/player_die_canvas.gd" id="9_3vho3"]
 [ext_resource type="LabelSettings" uid="uid://mj62uk12jtlr" path="res://assets/font/label_setting.tres" id="9_58yx1"]
-[ext_resource type="Script" uid="uid://c0n5c44kd2o8f" path="res://game/notice_ui.gd" id="9_hbvmx"]
+[ext_resource type="Script" path="res://game/notice_ui.gd" id="9_hbvmx"]
 [ext_resource type="PackedScene" uid="uid://bsbw3tjr063ou" path="res://ui/player_die_ui.tscn" id="9_j8tme"]
 [ext_resource type="Shader" uid="uid://b6tgdk2xk2i6i" path="res://crt_shader/vhs.gdshader" id="9_l8g03"]
 [ext_resource type="Texture2D" uid="uid://ellby238chfw" path="res://assets/foreground.png" id="13_vsp63"]
@@ -78,15 +78,15 @@ shader_parameter/noise_opacity = 0.4
 shader_parameter/noise_speed = 5.0
 shader_parameter/static_noise_intensity = 0.06
 shader_parameter/aberration = -0.00199995
-shader_parameter/brightness = 1.1
+shader_parameter/brightness = 1.05
 shader_parameter/discolor = false
 shader_parameter/warp_amount = 0.3
 shader_parameter/clip_warp = false
 shader_parameter/vignette_intensity = 0.4
 shader_parameter/vignette_opacity = 0.22
-shader_parameter/custom_tint = Color(0.66739, 0.412466, 0.140195, 1)
-shader_parameter/custom_tint_intensity = 0.0
-shader_parameter/tone_style = 3
+shader_parameter/custom_tint = Color(1.05098, 0.8, 0.643137, 1)
+shader_parameter/custom_tint_intensity = 0.169
+shader_parameter/tone_style = 0
 shader_parameter/tone_intensity = 0.4
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_fegy3"]
