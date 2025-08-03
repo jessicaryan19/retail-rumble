@@ -4,5 +4,8 @@
 
 [resource]
 shader = ExtResource("1_sjjwp")
-shader_parameter/silhouette_color = Color(0, 0, 0, 0.5)
+shader_parameter/silhouette_color = Color(0, 0, 0, 0.117647)
 shader_parameter/color_tolerance = 0.01
+shader_parameter/blink_active = false
+shader_parameter/flash_active = false
+shader_parameter/blink_speed = 20.0

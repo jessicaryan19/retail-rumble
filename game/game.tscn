@@ -49,9 +49,9 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(-2147, -981, -2147, 267
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l8g03"]
 shader = ExtResource("9_l8g03")
 shader_parameter/overlay = true
-shader_parameter/scanlines_opacity = 0.175
+shader_parameter/scanlines_opacity = 0.0
 shader_parameter/scanlines_width = 0.25
-shader_parameter/grille_opacity = 0.064
+shader_parameter/grille_opacity = 0.05
 shader_parameter/resolution = Vector2(640, 480)
 shader_parameter/pixelate = false
 shader_parameter/roll = false
@@ -71,7 +71,7 @@ shader_parameter/vignette_intensity = 0.4
 shader_parameter/vignette_opacity = 0.22
 shader_parameter/custom_tint = Color(0.995558, 0.961445, 0.939133, 1)
 shader_parameter/custom_tint_intensity = 0.4
-shader_parameter/tone_style = 0
+shader_parameter/tone_style = 3
 shader_parameter/tone_intensity = 0.4
 
 [node name="Game" type="Node2D"]
@@ -160,7 +160,6 @@ visible = false
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 128
-visible = false
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
 material = SubResource("ShaderMaterial_l8g03")
