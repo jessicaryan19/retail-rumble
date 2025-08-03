@@ -6,6 +6,9 @@ enum EnemyState {
 	DIE = 2
 }
 
+@onready var hurt_sfx: AudioStream = preload("res://sfx/ua.mp3")
+@onready var die_sfx: AudioStream = preload("res://sfx/yey.mp3")
+
 @export var speed: float = 300.0
 @export var rps_list: Array[Enums.RPSType] = []
 
@@ -17,7 +20,7 @@ var player: Node2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var body: AnimatedSprite2D = $Sprite/Body
 @onready var head: AnimatedSprite2D = $Sprite/Head
-@onready var sprite: Node2D = $Sprite
+@onready var sprite: Sprite2D = $Sprite
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 
 @onready var rps_component: RPSComponent = $RPSComponent
@@ -25,6 +28,9 @@ var player: Node2D
 @onready var hitbox_component: HitboxComponent = $HitboxComponent
 @onready var hitbox_collision: CollisionShape2D = $HitboxComponent/CollisionShape2D
 @onready var score_manager = get_tree().get_root().get_node("Game/ScoreManager")
+
+#@onready var outline_material: ShaderMaterial = preload("res://enemy/outline_material.tres")
+@onready var enemy_shader := preload("res://enemy/white_outline.gdshader")
 
 #@onready var knockback_component: KnockbackComponent = $KnockbackComponent
 var rps_sprite_scene = preload("res://enemy/rps_sprite.tscn")
@@ -39,43 +45,58 @@ var state: EnemyState = EnemyState.CHASE:
 		
 		state = value
 		body.frame = state
-		frightened_tween()
+		do_squash_stretch_tween()
 		
 		match (value):
 			EnemyState.CHASE:
+				stop_blink()
 				head.animation = "rps"
+				
 			
 			EnemyState.STUNNED:
+				flash_red()
+				start_blink()
 				stunned_timer.start()
 				head.animation = "rps"
+				AudioHandler.play_sfx(hurt_sfx, 0, randf_range(0.8, 1.4))
 				hitbox_collision.set_deferred("disabled", true)
 				collision_shape_2d.set_deferred("disabled", true)
+				
 				
 			EnemyState.DIE:
+				flash_red()
+				stop_blink()
 				head.animation = "die"
+				AudioHandler.play_sfx(die_sfx, 0, randf_range(0.8, 1.4))
 				hitbox_collision.set_deferred("disabled", true)
 				collision_shape_2d.set_deferred("disabled", true)
-				
-				reset_die_tween()
-				die_tween.set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
-				die_tween.tween_property(self, "modulate:a", 0.0, 2.0)
-				die_tween.tween_callback(self.queue_free)
+				do_die_tween()
 				await die_tween.finished
 
 var die_tween: Tween
-var scale_tween: Tween
+var squash_stretch_tween: Tween
 
-func reset_die_tween() -> void:
+func do_die_tween() -> void:
 	if die_tween:
 		die_tween.kill()
 	
 	die_tween = create_tween()
 	
-func reset_scale_tween() -> void:
-	if scale_tween:
-		scale_tween.kill()
+	die_tween.set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
+	die_tween.tween_property(self, "modulate:a", 0.0, 2.0)
+	die_tween.tween_callback(self.queue_free)
 	
-	scale_tween = create_tween()
+func do_squash_stretch_tween() -> void:
+	if squash_stretch_tween:
+		squash_stretch_tween.kill()
+	
+	squash_stretch_tween = create_tween()
+	
+	squash_stretch_tween.set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	squash_stretch_tween.tween_property(sprite, "scale", Vector2(1.1, 0.9), 0.1)
+	squash_stretch_tween.tween_property(sprite, "scale", Vector2(0.9, 1.1), 0.1)
+	squash_stretch_tween.tween_property(sprite, "scale", Vector2(1, 1), 0.1)
+
 	
 func generate_rps_list():
 	rps_list.clear()
@@ -114,12 +135,19 @@ func update_rps_visual():
 		
 		if i == 0:
 			var frame = Sprite2D.new()
-			frame.texture = preload("res://assets/ui/frame_icon.png")
+			frame.texture = preload("res://assets/ui/frame_indicator.png")
 			frame.z_index = 1
 			frame.position = Vector2.ZERO
 			rps_sprite.add_child(frame)
 	
+	
+
 func _ready():
+	var mat := ShaderMaterial.new()
+	mat.shader = enemy_shader
+	sprite.material = mat.duplicate()
+	#body.material = mat.duplicate()
+	#head.material = mat.duplicate()
 	player = get_tree().get_first_node_in_group("player")
 	agent.target_position = player.global_position
 	randomize_variant()
@@ -178,8 +206,9 @@ func _on_stunned_timer_timeout() -> void:
 	if state == EnemyState.DIE: return
 	
 	collision_shape_2d.set_deferred("disabled", false)
-	hitbox_collision.set_deferred("disabled", false)
+	hitbox_collision.set_deferred("disabled", false)	
 	state = EnemyState.CHASE
+	
 	
 	update_current_rps()
 	
@@ -189,19 +218,13 @@ func _on_health_component_die() -> void:
 	state = EnemyState.DIE
 	
 	#print("enemy die")
-
-func frightened_tween() -> void:
-	reset_scale_tween()
-	scale_tween.set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
-	scale_tween.tween_property(sprite, "scale", Vector2(0.9, 1.1), 0.1)
-	scale_tween.tween_property(sprite, "scale", Vector2(1, 1), 0.1)
 	
 func _on_hitbox_component_duel(win: bool, opponent: HitboxComponent) -> void:
-	frightened_tween()
 	
 	if win:
-		#print("enemy win")
-		frightened_tween()
+		print("enemy win")
+		do_squash_stretch_tween()
+		pass
 	else:
 		#print("enemy lose")
 		
@@ -212,3 +235,33 @@ func _on_hitbox_component_duel(win: bool, opponent: HitboxComponent) -> void:
 		if health_component.health > 0:
 			state = EnemyState.STUNNED
 			
+			
+#func set_outline(is_active: bool) -> void:
+	#if not is_node_ready():
+		#await ready
+	#
+	#var material_to_set = outline_material if is_active else null
+	#stop_blink()
+	#if sprite:
+		#sprite.material = material_to_set
+	##if body:
+		##body.material = material_to_set
+	##if head:
+		##head.material = material_to_set
+
+func flash_red():
+	var mat := sprite.material as ShaderMaterial
+	if mat:
+		mat.set("shader_parameter/flash_active", true)
+		var tween = create_tween()
+		tween.tween_property(mat, "shader_parameter/flash_active", false, 0.3)
+
+func start_blink():
+	var mat := sprite.material as ShaderMaterial
+	if mat:
+		mat.set("shader_parameter/blink_active", true)
+
+func stop_blink():
+	var mat := sprite.material as ShaderMaterial
+	if mat:
+		mat.set("shader_parameter/blink_active", false)

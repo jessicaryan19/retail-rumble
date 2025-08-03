@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cascx50xtkkhh"]
+
+[ext_resource type="Shader" uid="uid://dkj2qmsnlubs5" path="res://common/shaders/silhouette.gdshader" id="1_sjjwp"]
+
+[resource]
+shader = ExtResource("1_sjjwp")
+shader_parameter/silhouette_color = Color(0, 0, 0, 0.5)
+shader_parameter/color_tolerance = 0.01

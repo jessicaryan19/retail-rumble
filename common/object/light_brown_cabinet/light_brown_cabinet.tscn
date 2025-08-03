@@ -1,0 +1,55 @@
+[gd_scene load_steps=8 format=3 uid="uid://yop8ft77reaj"]
+
+[ext_resource type="Script" uid="uid://bjsa4tf0raacb" path="res://common/object/object.gd" id="1_25nvq"]
+[ext_resource type="Texture2D" uid="uid://savxghgiuhso" path="res://common/object/light_brown_cabinet/light_brown_cabinet_spritesheet.png" id="2_d3s55"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gteob"]
+atlas = ExtResource("2_d3s55")
+region = Rect2(0, 0, 770, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x2rlr"]
+atlas = ExtResource("2_d3s55")
+region = Rect2(770, 0, 770, 400)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o3odx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gteob")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x2rlr")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4ipxt"]
+size = Vector2(768, 88)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uuwf1"]
+size = Vector2(736, 56)
+
+[node name="LightBrownCabinet" type="StaticBody2D" groups=["object"]]
+y_sort_enabled = true
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_25nvq")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_o3odx")
+offset = Vector2(0, -178.34)
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -20)
+shape = SubResource("RectangleShape2D_4ipxt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -20)
+shape = SubResource("RectangleShape2D_uuwf1")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

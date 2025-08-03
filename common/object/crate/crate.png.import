@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://s1c25dqahbtg"
-path="res://.godot/imported/RPS_2.png-2707781b6a95366dfe85b0d690763c8d.ctex"
+uid="uid://2t6b3wu4s6qh"
+path="res://.godot/imported/crate.png-fda5c01d4b0e6ce5b73f4a9ff6b4c0ab.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/RPS_2.png"
-dest_files=["res://.godot/imported/RPS_2.png-2707781b6a95366dfe85b0d690763c8d.ctex"]
+source_file="res://common/object/crate/crate.png"
+dest_files=["res://.godot/imported/crate.png-fda5c01d4b0e6ce5b73f4a9ff6b4c0ab.ctex"]
 
 [params]
 

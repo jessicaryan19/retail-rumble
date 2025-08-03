@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://6ads4lsdimtp"]
+
+[ext_resource type="Script" uid="uid://bjsa4tf0raacb" path="res://common/object/object.gd" id="1_iuwjy"]
+[ext_resource type="Texture2D" uid="uid://dmrnm6atwkuev" path="res://common/object/fan/fan.png" id="2_fj5xg"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o3odx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_fj5xg")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4ipxt"]
+size = Vector2(144, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uuwf1"]
+size = Vector2(112, 28)
+
+[node name="Fan" type="StaticBody2D" groups=["object"]]
+y_sort_enabled = true
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_iuwjy")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_o3odx")
+offset = Vector2(-44, -111.81)
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_4ipxt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_uuwf1")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

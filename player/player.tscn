@@ -1,10 +1,11 @@
-[gd_scene load_steps=31 format=3 uid="uid://byxbcaf1scbhq"]
+[gd_scene load_steps=30 format=3 uid="uid://byxbcaf1scbhq"]
 
 [ext_resource type="Script" uid="uid://d35vujgw0gwx1" path="res://player/player.gd" id="1_rkbax"]
 [ext_resource type="Texture2D" uid="uid://hgog5btqut2" path="res://common/head/head_spritesheet.png" id="2_g6k8r"]
 [ext_resource type="Shader" uid="uid://c7nkn3qt468fs" path="res://player/damage_shader_test.gdshader" id="2_rgyib"]
 [ext_resource type="Texture2D" uid="uid://dmv3xh64oy6ee" path="res://player/player_spritesheet.png" id="3_g6k8r"]
 [ext_resource type="PackedScene" uid="uid://duk7tymh3tjem" path="res://components/rps_component.tscn" id="3_yw30f"]
+[ext_resource type="Material" uid="uid://cascx50xtkkhh" path="res://player/red_damage.tres" id="4_8t03j"]
 [ext_resource type="PackedScene" uid="uid://djphn5du2drkq" path="res://components/hitbox_component.tscn" id="4_qjkh3"]
 [ext_resource type="PackedScene" uid="uid://d3yvf7tvhas08" path="res://components/knockback_component.tscn" id="5_boad6"]
 [ext_resource type="PackedScene" path="res://components/health_component.tscn" id="5_qjkh3"]
@@ -17,22 +18,18 @@ point_count = 4
 [sub_resource type="Curve" id="Curve_g6k8r"]
 _data = [Vector2(0, 0), 0.0, 3.79656, 0, 0, Vector2(0.042328, 0.841227), 1.90016, 1.90016, 0, 0, Vector2(0.119929, 0.941912), 0.162645, 0.162645, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 4
+metadata/_snap_enabled = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hg6s5"]
 shader = ExtResource("2_rgyib")
 shader_parameter/opacity = 1.0
-shader_parameter/r = 1.0
-shader_parameter/g = 0.0
-shader_parameter/b = 0.0
-shader_parameter/mix_color = 1.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_rgyib"]
-shader = ExtResource("2_rgyib")
-shader_parameter/opacity = 1.0
-shader_parameter/r = 1.0
-shader_parameter/g = 0.0
-shader_parameter/b = 0.0
-shader_parameter/mix_color = 0.0
+shader_parameter/blink_active = false
+shader_parameter/flash_active = false
+shader_parameter/blink_speed = 20.0
+shader_parameter/flash_mix_strength = 1.0
+shader_parameter/blink_mix_strength = 1.0
+shader_parameter/blink_color = Vector3(1, 1, 1)
+shader_parameter/flash_color = Vector3(0.835, 0.294, 0.051)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hg6s5"]
 atlas = ExtResource("2_g6k8r")
@@ -62,14 +59,6 @@ animations = [{
 "name": &"rps",
 "speed": 5.0
 }]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8t03j"]
-shader = ExtResource("2_rgyib")
-shader_parameter/opacity = 1.0
-shader_parameter/r = 1.0
-shader_parameter/g = 0.0
-shader_parameter/b = 0.0
-shader_parameter/mix_color = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8t03j"]
 atlas = ExtResource("3_g6k8r")
@@ -223,22 +212,43 @@ radius = 604.477
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 y_sort_enabled = true
 collision_mask = 4
-motion_mode = 1
 script = ExtResource("1_rkbax")
+MAX_SPEED = 800.0
+ACCELERATION = 1000.0
+DECCELERATION = 1500.0
+ACCEL_TIME_TO_MAX = 0.2
+DECCEL_TIME_TO_STOP = 0.05
 ACCELERATION_CURVE = SubResource("Curve_qjkh3")
 DECCELERATION_CURVE = SubResource("Curve_g6k8r")
 
-[node name="Sprite" type="Node2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="."]
+z_as_relative = false
 material = SubResource("ShaderMaterial_hg6s5")
 
 [node name="Head" type="AnimatedSprite2D" parent="Sprite"]
-material = SubResource("ShaderMaterial_rgyib")
-position = Vector2(0, -128)
+material = ExtResource("4_8t03j")
+use_parent_material = true
 sprite_frames = SubResource("SpriteFrames_2ieo8")
 animation = &"rps"
+offset = Vector2(0, -128)
 
 [node name="Body" type="AnimatedSprite2D" parent="Sprite"]
-material = SubResource("ShaderMaterial_8t03j")
+material = ExtResource("4_8t03j")
+use_parent_material = true
+sprite_frames = SubResource("SpriteFrames_yllr7")
+animation = &"normal"
+offset = Vector2(0, -128)
+
+[node name="HeadSilhouette" type="AnimatedSprite2D" parent="Sprite"]
+z_index = 100
+material = ExtResource("4_8t03j")
+sprite_frames = SubResource("SpriteFrames_2ieo8")
+animation = &"rps"
+offset = Vector2(0, -128)
+
+[node name="BodySilhouette" type="AnimatedSprite2D" parent="Sprite"]
+z_index = 100
+material = ExtResource("4_8t03j")
 sprite_frames = SubResource("SpriteFrames_yllr7")
 animation = &"normal"
 offset = Vector2(0, -128)
@@ -274,8 +284,13 @@ debug_color = Color(0.996078, 0, 0.176471, 0.419608)
 wait_time = 1.5
 one_shot = true
 
+[node name="RetoggleHitboxTimer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+ignore_time_scale = true
+
 [node name="InvincibleTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 2.0
 one_shot = true
 
 [node name="CheckCloseEntity" type="Area2D" parent="."]
@@ -289,4 +304,5 @@ debug_color = Color(0.952589, 0.784763, 7.70092e-07, 0.42)
 [connection signal="duel" from="HitboxComponent" to="." method="_on_hitbox_component_duel"]
 [connection signal="die" from="HealthComponent" to="." method="_on_health_component_die"]
 [connection signal="timeout" from="PoseTimer" to="." method="_on_pose_timer_timeout"]
+[connection signal="timeout" from="RetoggleHitboxTimer" to="." method="_on_retoggle_hitbox_timer_timeout"]
 [connection signal="timeout" from="InvincibleTimer" to="." method="_on_invincible_timer_timeout"]

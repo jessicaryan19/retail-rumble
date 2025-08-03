@@ -1,0 +1,16 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://fer1lac53e5b"]
+
+[ext_resource type="Shader" uid="uid://xl2m2ive8tj3" path="res://enemy/white_outline.gdshader" id="1_ifi8o"]
+
+[resource]
+shader = ExtResource("1_ifi8o")
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/outline_width = 10.0
+shader_parameter/flash_active = false
+shader_parameter/flash_color = Vector3(1, 0, 0)
+shader_parameter/flash_mix_strength = 1.0
+shader_parameter/blink_active = false
+shader_parameter/blink_color = Vector3(1, 1, 1)
+shader_parameter/blink_mix_strength = 1.0
+shader_parameter/blink_speed = 20.0
+shader_parameter/opacity = 1.0

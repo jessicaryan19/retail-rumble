@@ -1,25 +1,31 @@
 shader_type canvas_item;
-uniform float opacity;
-uniform float r;
-uniform float g;
-uniform float b;
-uniform float mix_color;
 
-void vertex() {
-	// Called for every vertex the material is visible on.
-}
+uniform float opacity = 1.0;
+
+uniform bool blink_active = false;
+uniform bool flash_active = false;
+
+uniform float blink_speed = 20.0;
+uniform float flash_mix_strength = 1.0;
+uniform float blink_mix_strength = 1.0;
+
+uniform vec3 blink_color = vec3(1.0, 1.0, 1.0); // white
+uniform vec3 flash_color = vec3(0.835, 0.294, 0.051); // red
 
 void fragment() {
-	// Called for every pixel the material is visible on.
-	vec4 texture_color = texture(TEXTURE, UV);
-	if(texture_color.a != 0.0)
-		COLOR = vec4(mix(texture_color.rgb, vec3(r,g,b), mix_color), opacity);
-}
+	vec4 tex_color = texture(TEXTURE, UV);
 
-void light() {
+	// Always define a base color
+	vec3 final_color = tex_color.rgb;
 
-	float cNdotL = max(1.0, dot(NORMAL, LIGHT_DIRECTION));
-	LIGHT = vec4(LIGHT_COLOR.rgb * LIGHT_ENERGY * cNdotL, LIGHT_COLOR.a);
-	// Called for every pixel for every light affecting the CanvasItem.
-	// Uncomment to replace the default light processing function with this one.
+	if (blink_active) {
+		float blink_wave = abs(sin(TIME * blink_speed));
+		final_color = mix(final_color, blink_color, blink_mix_strength * blink_wave);
+	}
+
+	if (flash_active) {
+		final_color = mix(final_color, flash_color, flash_mix_strength);
+	}
+
+	COLOR = vec4(final_color, tex_color.a * opacity);
 }

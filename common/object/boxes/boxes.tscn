@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://chldd6futyqxb"]
+
+[ext_resource type="Script" uid="uid://bjsa4tf0raacb" path="res://common/object/object.gd" id="1_yhr10"]
+[ext_resource type="Texture2D" uid="uid://ef74a0ff7py5" path="res://common/object/boxes/boxes.png" id="2_gj6hw"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o3odx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_gj6hw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4ipxt"]
+size = Vector2(384, 88)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uuwf1"]
+size = Vector2(336, 52)
+
+[node name="Boxes" type="StaticBody2D" groups=["object"]]
+y_sort_enabled = true
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_yhr10")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_o3odx")
+offset = Vector2(0, -96.5)
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -20)
+shape = SubResource("RectangleShape2D_4ipxt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -18)
+shape = SubResource("RectangleShape2D_uuwf1")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

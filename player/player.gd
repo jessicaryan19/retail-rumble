@@ -7,8 +7,13 @@ enum PlayerState {
 	DIE
 }
 
+@onready var click_sfx: AudioStream = preload("res://sfx/click3.mp3")
+@onready var hurt_sfx: AudioStream = preload("res://sfx/ua.mp3")
+@onready var pose_sfx: AudioStream = preload("res://sfx/woosh2.mp3")
+
 @onready var pose_timer: Timer = $PoseTimer
 @onready var invincible_timer: Timer = $InvincibleTimer
+@onready var retoggle_hitbox_timer: Timer = $RetoggleHitboxTimer
 
 var state: PlayerState = PlayerState.NORMAL:
 	get: 
@@ -19,32 +24,50 @@ var state: PlayerState = PlayerState.NORMAL:
 		if state==PlayerState.DIE: return
 		
 		state = value
-		do_stretch_tween()
+
+		var mat := sprite.material as ShaderMaterial
+		do_squash_stretch_tween()
 		
 		match (value):
 			PlayerState.NORMAL:
 				body.animation = "normal"
+				body_silhouette.animation = "normal"
+				mat.set("shader_parameter/blink_active", false)
+				retoggle_hitbox_timer.start()
 			
 			PlayerState.POSE:
 				pose_timer.start()
 				body.animation = "pose"
+				body_silhouette.animation = "pose"
+				AudioHandler.play_sfx(pose_sfx, 6, randf_range(0.9, 1.1))
 				do_closeup_tween(1.2)
 				body.frame = randi() % body.sprite_frames.get_frame_count("pose")
+				body_silhouette.frame = body.frame
 				hitbox_component.invincible = true
 				hitbox_component.target = null
+				mat.set("shader_parameter/blink_active", true)
+				retoggle_hitbox_timer.stop()
 				
 			PlayerState.INVINCIBLE:
 				invincible_timer.start()
 				body.animation = "hurt"
+				body_silhouette.animation = "hurt"
+				AudioHandler.play_sfx(hurt_sfx, 0, randf_range(0.8, 1.4))
 				do_closeup_tween(1.2)
 				hitbox_component.invincible = true
 				hitbox_component.target = null
+				mat.set("shader_parameter/blink_active", true)
+				retoggle_hitbox_timer.stop()
 				
 			PlayerState.DIE:
 				body.animation = "hurt"
+				body_silhouette.animation = "hurt"
+				AudioHandler.play_sfx(hurt_sfx, 0, randf_range(0.8, 1.4))
 				do_die_tween()
 				hitbox_collision.set_deferred("disabled", true)
 				hitbox_component.target = null
+				mat.set("shader_parameter/blink_active", false)
+				retoggle_hitbox_timer.stop()
 		
 
 @export var MAX_SPEED: float = 600.0
@@ -70,15 +93,19 @@ var deccel_time: float= 0.0
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var head: AnimatedSprite2D = $Sprite/Head
 @onready var body: AnimatedSprite2D = $Sprite/Body
+@onready var body_silhouette: AnimatedSprite2D = $Sprite/BodySilhouette
+@onready var head_silhouette: AnimatedSprite2D = $Sprite/HeadSilhouette
 @onready var check_close_entity: Area2D = $CheckCloseEntity
-@onready var sprite: Node2D = $Sprite
+@onready var sprite: Sprite2D = $Sprite
 @onready var camera: Camera2D = $Camera
 
 @onready var score_manager = get_tree().get_root().get_node("Game/ScoreManager")
 
+var current_target_enemy: CharacterBody2D = null
+
 var die_tween: Tween
 var closeup_tween: Tween
-var stretch_tween: Tween
+var squash_stretch_tween: Tween
 
 func do_die_tween() -> void:
 	if die_tween:
@@ -109,15 +136,16 @@ func do_closeup_tween(duration: float) -> void:
 	closeup_tween.parallel().set_ease(Tween.EASE_IN).tween_property(Engine, "time_scale", 1, duration_each_segment)
 	closeup_tween.parallel().tween_property(camera, "zoom", Vector2(1.0, 1.0), duration_each_segment)
 	
-func do_stretch_tween() -> void:
-	if stretch_tween:
-		stretch_tween.kill()
+func do_squash_stretch_tween() -> void:
+	if squash_stretch_tween:
+		squash_stretch_tween.kill()
 	
-	stretch_tween = create_tween()
+	squash_stretch_tween = create_tween()
 	
-	stretch_tween.set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
-	stretch_tween.tween_property(sprite, "scale", Vector2(0.9, 1.1), 0.1)
-	stretch_tween.tween_property(sprite, "scale", Vector2(1, 1), 0.1)
+	squash_stretch_tween.set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	squash_stretch_tween.tween_property(sprite, "scale", Vector2(1.1, 0.9), 0.1)
+	squash_stretch_tween.tween_property(sprite, "scale", Vector2(0.9, 1.1), 0.1)
+	squash_stretch_tween.tween_property(sprite, "scale", Vector2(1, 1), 0.1)
 	
 func _process(delta: float) -> void:
 	handle_anim()
@@ -137,25 +165,38 @@ func _physics_process(delta: float) -> void:
 	
 	
 func set_closest_hitbox_target():
-	var closest = null
+	var potential_enemies = check_close_entity.get_overlapping_bodies()
+	var new_closest_enemy: CharacterBody2D = null
 	var closest_dist_sq = INF
 	
-	for entity in check_close_entity.get_overlapping_bodies():
+	for entity in potential_enemies:
 		if entity.is_in_group("enemy"):
-			entity.get_node("HitboxComponent").reset_target()
-			entity.get_node("RPSContainer").visible = false
 			var dsq = global_position.distance_squared_to(entity.global_position)
 			if dsq < closest_dist_sq:
 				closest_dist_sq = dsq
-				closest = entity
-			
+				new_closest_enemy = entity
 	
-	if closest:
-		closest.get_node("RPSContainer").visible = true
-		closest.get_node("HitboxComponent").target = hitbox_component
-		hitbox_component.target = closest.get_node("HitboxComponent")
-	else:
-		hitbox_component.reset_target()
+	if new_closest_enemy != current_target_enemy:
+	
+		if is_instance_valid(current_target_enemy):
+			current_target_enemy.get_node("RPSContainer").visible = false
+			current_target_enemy.get_node("ClosestIndicator").visible = false
+			#current_target_enemy.set_outline(false)
+			
+		if is_instance_valid(new_closest_enemy):
+			new_closest_enemy.get_node("RPSContainer").visible = true
+			new_closest_enemy.get_node("ClosestIndicator").visible = true
+			#new_closest_enemy.set_outline(true)
+			new_closest_enemy.get_node("HitboxComponent").target = hitbox_component
+		else:
+			hitbox_component.reset_target()
+		
+		current_target_enemy = new_closest_enemy
+		
+	if is_instance_valid(current_target_enemy) and current_target_enemy.is_in_group("enemy"):
+		if hitbox_component.target == current_target_enemy.get_node("HitboxComponent"): return
+		
+		hitbox_component.target = current_target_enemy.get_node("HitboxComponent")
    
 		
 func get_input_direction() -> Vector2:
@@ -173,14 +214,15 @@ func handle_rps():
 		rps_component.current_rps_type = Enums.RPSType.SCISSOR
 	
 	if head.frame != rps_component.current_rps_type:
-		#retoggle_hitbox_monitoring()
-		do_stretch_tween()
+		do_squash_stretch_tween()
+		AudioHandler.play_sfx(click_sfx, 6, randf_range(0.9, 1.1))
 		head.frame = rps_component.current_rps_type
+		head_silhouette.frame = head.frame
 
-#func retoggle_hitbox_monitoring():
-	#hitbox_component.monitoring = false
-	#await get_tree().process_frame
-	#hitbox_component.monitoring = true
+func retoggle_hitbox_monitoring():
+	hitbox_component.monitoring = false
+	await get_tree().process_frame
+	hitbox_component.monitoring = true
 
 func handle_movement(delta: float):
 	var input_direction = get_input_direction()
@@ -209,10 +251,11 @@ func handle_anim():
 		change_animation("idle")
 		
 	if input_direction.x > 0:
-		body.flip_h = true
+		body.flip_h = true	
 	elif input_direction.x < 0:
 		body.flip_h = false
-
+		
+	body_silhouette.flip_h = body.flip_h
 func change_animation(animation_name: String):
 	if animation_player.current_animation != animation_name:
 		animation_player.play(animation_name)
@@ -264,19 +307,14 @@ func _on_hitbox_component_duel(win: bool, opponent: HitboxComponent) -> void:
 
 # Ini shader yg buat jadi merah
 func apply_hit_shader_effect():
-	var mat := body.material as ShaderMaterial
+	print("Flash triggered")
+	var mat := sprite.material as ShaderMaterial
 	if mat == null:
+		print("No material!")
 		return
-	
-	mat.set("shader_parameter/r", 1.0)
-	mat.set("shader_parameter/g", 0.0)
-	mat.set("shader_parameter/b", 0.0)
-	mat.set("shader_parameter/mix_color", 1.0)
-	mat.set("shader_parameter/opacity", 1.0)
-
+	mat.set("shader_parameter/flash_active", true)
 	var tween := create_tween()
-	tween.tween_property(mat, "shader_parameter/mix_color", 0.0, 0.2)
-
+	tween.tween_property(mat, "shader_parameter/flash_active", false, 0.2)
 
 func _on_took_damage():
 	apply_hit_shader_effect()
@@ -284,3 +322,12 @@ func _on_took_damage():
 
 func _ready():
 	health_component.took_damage.connect(_on_took_damage);
+
+
+func _on_retoggle_hitbox_timer_timeout() -> void:
+	print("Retoggle Timer Timeout")
+	retoggle_hitbox_monitoring()
+	
+	retoggle_hitbox_timer.start()
+	
+		
