@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dn53g2i6s2v5e"]
 
-[ext_resource type="Script" uid="uid://bygbsrod35vsy" path="res://game/button_control.gd" id="1_xokks"]
+[ext_resource type="Script" path="res://game/button_control.gd" id="1_xokks"]
 [ext_resource type="PackedScene" uid="uid://cq8r2d04jnnbl" path="res://game/ui/rps_button.tscn" id="2_3frhq"]
 
 [node name="ButtonControl" type="Control"]
