@@ -8,10 +8,10 @@ signal combo_changed(new_combo: int)
 
 var score: int = 0
 var combo: int = 0
-@export var combo_interval: float = 3.0
+@export var combo_interval: float = 5.0
 @onready var combo_timer = $ComboTimer
 
-@export var sfx_variant_every_n_combo: int = 10
+@export var sfx_variant_every_n_combo: int = 5
 
 func _ready():
 	combo_timer.wait_time = combo_interval

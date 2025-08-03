@@ -1,8 +1,10 @@
-[gd_scene load_steps=33 format=3 uid="uid://c7s7t0l0r87ea"]
+[gd_scene load_steps=37 format=3 uid="uid://c7s7t0l0r87ea"]
 
-[ext_resource type="Texture2D" uid="uid://c66foqpixvgx6" path="res://background/background_border.png" id="1_4fuuu"]
+[ext_resource type="Shader" uid="uid://dbdaintllwjv0" path="res://shader/moving_background.gdshader" id="1_fegy3"]
 [ext_resource type="PackedScene" uid="uid://chldd6futyqxb" path="res://common/object/boxes/boxes.tscn" id="1_hb504"]
+[ext_resource type="Texture2D" uid="uid://hjry3cklyvri" path="res://background/background_restricted_area.png" id="1_hbvmx"]
 [ext_resource type="PackedScene" uid="uid://byxbcaf1scbhq" path="res://player/player.tscn" id="1_l1rk1"]
+[ext_resource type="Texture2D" uid="uid://cqsfhit0irycd" path="res://background/background_toserba.png" id="2_fegy3"]
 [ext_resource type="Shader" uid="uid://c7nkn3qt468fs" path="res://player/damage_shader_test.gdshader" id="3_dxrkv"]
 [ext_resource type="PackedScene" uid="uid://dsuxwx28ircol" path="res://enemy/enemy_spawner.tscn" id="4_4fuuu"]
 [ext_resource type="Script" uid="uid://uwp46gwnfjob" path="res://game/score_manager.gd" id="5_dxrkv"]
@@ -29,6 +31,12 @@
 [ext_resource type="PackedScene" uid="uid://dbpklr08gu4ow" path="res://common/object/brown_cabinet/brown_cabinet.tscn" id="27_cieqw"]
 [ext_resource type="PackedScene" uid="uid://dfqcu1s2h616t" path="res://common/object/desk_counter/desk_counter.tscn" id="28_ta815"]
 [ext_resource type="PackedScene" uid="uid://b742fn3vj3o42" path="res://common/object/white_cabinet/white_cabinet.tscn" id="29_64wtb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pvdu1"]
+shader = ExtResource("1_fegy3")
+shader_parameter/h_speed = 0.05
+shader_parameter/v_speed = 0.05
+shader_parameter/alpha = 1.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dakft"]
 shader = ExtResource("3_dxrkv")
@@ -74,26 +82,44 @@ shader_parameter/custom_tint_intensity = 0.4
 shader_parameter/tone_style = 3
 shader_parameter/tone_intensity = 0.4
 
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_fegy3"]
+distance = -80.0
+
 [node name="Game" type="Node2D"]
 y_sort_enabled = true
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="RestrictedArea" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_pvdu1")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -3291.0
-offset_top = -1950.0
-offset_right = 3449.0
-offset_bottom = 1708.0
+offset_left = -10000.0
+offset_top = -10000.0
+offset_right = 10000.0
+offset_bottom = 10000.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_4fuuu")
+texture = ExtResource("1_hbvmx")
 stretch_mode = 1
+
+[node name="Background" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -3370.0
+offset_top = -1900.0
+offset_right = 3370.0
+offset_bottom = 1900.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_fegy3")
+stretch_mode = 3
 
 [node name="Player" parent="." instance=ExtResource("1_l1rk1")]
 material = SubResource("ShaderMaterial_dakft")
 
 [node name="NavigationRegion" type="NavigationRegion2D" parent="."]
+visible = false
 position = Vector2(-1116, -989)
 navigation_polygon = SubResource("NavigationPolygon_dxrkv")
 
@@ -198,10 +224,10 @@ position = Vector2(376, -480)
 position = Vector2(504, -544)
 
 [node name="Crate" parent="." instance=ExtResource("18_fegy3")]
-position = Vector2(-1528, -296)
+position = Vector2(-1672, -240)
 
 [node name="DeskCounter" parent="." instance=ExtResource("19_pvdu1")]
-position = Vector2(-2080, -648)
+position = Vector2(-1920, -856)
 
 [node name="MetalCabinet2" parent="." instance=ExtResource("16_58yx1")]
 position = Vector2(2136, -184)
@@ -216,16 +242,16 @@ position = Vector2(-1224, 840)
 position = Vector2(-1112, 936)
 
 [node name="SnackDisplay" parent="." instance=ExtResource("21_posua")]
-position = Vector2(-1048, -1928)
+position = Vector2(0, -1440)
 
 [node name="WhiteCabinet" parent="." instance=ExtResource("22_gvtgv")]
-position = Vector2(-1048, -1488)
+position = Vector2(-883, -825)
 
 [node name="WaterJug" parent="." instance=ExtResource("23_5ywmu")]
-position = Vector2(2488, -1152)
+position = Vector2(2672, -912)
 
 [node name="SmallChair5" parent="." instance=ExtResource("17_hbvmx")]
-position = Vector2(-2728, -584)
+position = Vector2(-2352, -520)
 
 [node name="SmallChair6" parent="." instance=ExtResource("17_hbvmx")]
 position = Vector2(-2688, -816)
@@ -234,7 +260,7 @@ position = Vector2(-2688, -816)
 position = Vector2(2560, 656)
 
 [node name="FridgeDisplay" parent="." instance=ExtResource("25_vkvnp")]
-position = Vector2(784, -1902)
+position = Vector2(896, -1432)
 
 [node name="Fan" parent="." instance=ExtResource("26_urpib")]
 position = Vector2(1152, -1056)
@@ -243,16 +269,16 @@ position = Vector2(1152, -1056)
 position = Vector2(-1352, 1168)
 
 [node name="BrownCabinet" parent="." instance=ExtResource("27_cieqw")]
-position = Vector2(1624, -1902)
+position = Vector2(1440, -1430)
 
 [node name="BrownCabinet2" parent="." instance=ExtResource("27_cieqw")]
-position = Vector2(1896, -1904)
+position = Vector2(1712, -1432)
 
 [node name="BrownCabinet3" parent="." instance=ExtResource("27_cieqw")]
-position = Vector2(2176, -1904)
+position = Vector2(1992, -1432)
 
 [node name="BrownCabinet4" parent="." instance=ExtResource("27_cieqw")]
-position = Vector2(2456, -1904)
+position = Vector2(2272, -1432)
 
 [node name="Crate2" parent="." instance=ExtResource("18_fegy3")]
 position = Vector2(1544, 584)
@@ -261,13 +287,46 @@ position = Vector2(1544, 584)
 position = Vector2(0, -776)
 
 [node name="WhiteCabinet2" parent="." instance=ExtResource("29_64wtb")]
-position = Vector2(-3040, -1880)
+position = Vector2(-2936, -1408)
 
 [node name="WhiteCabinet3" parent="." instance=ExtResource("29_64wtb")]
-position = Vector2(-2560, -1880)
+position = Vector2(-2456, -1408)
 
 [node name="WhiteCabinet4" parent="." instance=ExtResource("29_64wtb")]
-position = Vector2(-2080, -1880)
+position = Vector2(-1976, -1408)
 
 [node name="WhiteCabinet5" parent="." instance=ExtResource("29_64wtb")]
-position = Vector2(2945, 1464)
+position = Vector2(2584, 1672)
+
+[node name="WorldBorder" type="Node2D" parent="."]
+
+[node name="Down" type="StaticBody2D" parent="WorldBorder"]
+position = Vector2(0, 1848)
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBorder/Down"]
+shape = SubResource("WorldBoundaryShape2D_fegy3")
+
+[node name="Up" type="StaticBody2D" parent="WorldBorder"]
+position = Vector2(0, -1392)
+rotation = 3.14159
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBorder/Up"]
+shape = SubResource("WorldBoundaryShape2D_fegy3")
+
+[node name="Left" type="StaticBody2D" parent="WorldBorder"]
+position = Vector2(-3280, 0)
+rotation = 1.5708
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBorder/Left"]
+shape = SubResource("WorldBoundaryShape2D_fegy3")
+
+[node name="Right" type="StaticBody2D" parent="WorldBorder"]
+position = Vector2(3280, 0)
+rotation = -1.5708
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBorder/Right"]
+shape = SubResource("WorldBoundaryShape2D_fegy3")
