@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://c7s7t0l0r87ea"]
+[gd_scene load_steps=39 format=3 uid="uid://c7s7t0l0r87ea"]
 
 [ext_resource type="Shader" uid="uid://dbdaintllwjv0" path="res://shader/moving_background.gdshader" id="1_fegy3"]
 [ext_resource type="PackedScene" uid="uid://chldd6futyqxb" path="res://common/object/boxes/boxes.tscn" id="1_hb504"]
@@ -54,6 +54,12 @@ shader_parameter/flash_color = Vector3(1, 0, 0)
 vertices = PackedVector2Array(4544, -912.078, 4544, 2665, -2137, 2665, -2137, -970.906)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-2147, -981, -2147, 2675, 4554, 2675, 4554, -922)])
+
+[sub_resource type="Curve2D" id="Curve2D_pvdu1"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 5000, -1000, 0, 0, 0, 0, 5000, 3000, 0, 0, 0, 0, -5000, 3000, 0, 0, 0, 0, -5000, -1000)
+}
+point_count = 4
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l8g03"]
 shader = ExtResource("9_l8g03")
@@ -124,8 +130,12 @@ visible = false
 position = Vector2(-1116, -989)
 navigation_polygon = SubResource("NavigationPolygon_dxrkv")
 
+[node name="EnemySpawnPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_pvdu1")
+
 [node name="EnemySpawner" parent="." instance=ExtResource("4_4fuuu")]
 initial_max_enemies = 3
+path_node = NodePath("../EnemySpawnPath")
 initial_difficulty_override = 1.0
 
 [node name="ScoreManager" type="Node2D" parent="." groups=["utils"]]
