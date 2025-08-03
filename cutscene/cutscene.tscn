@@ -1,0 +1,116 @@
+[gd_scene load_steps=13 format=3 uid="uid://22kfx6p4ke78"]
+
+[ext_resource type="Texture2D" uid="uid://dpmmm0oy34u2i" path="res://cutscene/panel_1.png" id="1_1ox3v"]
+[ext_resource type="PackedScene" uid="uid://ehvsgplifmn" path="res://animation/beating_item.tscn" id="1_6k5ka"]
+[ext_resource type="Script" uid="uid://cdwgmk1dw2sg2" path="res://cutscene/cutscene.gd" id="1_ef2e0"]
+[ext_resource type="Texture2D" uid="uid://mohj3yyn4fy" path="res://cutscene/panel_2.png" id="2_6k5ka"]
+[ext_resource type="Texture2D" uid="uid://5k4d0k1p885j" path="res://cutscene/panel_3.png" id="3_ef2e0"]
+[ext_resource type="Texture2D" uid="uid://cyxt1uxok8ayn" path="res://cutscene/panel_4.png" id="4_o83an"]
+[ext_resource type="Texture2D" uid="uid://dssssm8u5x3q8" path="res://cutscene/popup_1.png" id="5_euriy"]
+[ext_resource type="Texture2D" uid="uid://dbgl2atk6e231" path="res://cutscene/popup_2.png" id="6_ahrru"]
+[ext_resource type="Texture2D" uid="uid://crgj4plsgjmye" path="res://cutscene/popup_3.png" id="7_5o8js"]
+[ext_resource type="FontFile" uid="uid://c6hba2kwtpt4m" path="res://assets/font/Rusty Hooks.ttf" id="10_o83an"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_euriy"]
+line_spacing = 20.0
+font = ExtResource("10_o83an")
+font_size = 40
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_o83an"]
+line_spacing = 20.0
+font = ExtResource("10_o83an")
+font_size = 32
+font_color = Color(0, 0, 0, 1)
+
+[node name="Cutscene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ef2e0")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0.976471, 0.921569, 1)
+
+[node name="Frames" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 96.0
+offset_top = 121.0
+offset_right = 96.0
+offset_bottom = 121.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.9, 0.9)
+
+[node name="BeatingItem" parent="Frames" instance=ExtResource("1_6k5ka")]
+layout_mode = 0
+pivot_offset = Vector2(487, 334)
+texture = ExtResource("1_1ox3v")
+
+[node name="BeatingItem2" parent="Frames" instance=ExtResource("1_6k5ka")]
+layout_mode = 0
+pivot_offset = Vector2(1352, 343)
+texture = ExtResource("2_6k5ka")
+
+[node name="BeatingItem3" parent="Frames" instance=ExtResource("1_6k5ka")]
+layout_mode = 0
+pivot_offset = Vector2(1614, 687)
+texture = ExtResource("3_ef2e0")
+
+[node name="BeatingItem4" parent="Frames" instance=ExtResource("1_6k5ka")]
+layout_mode = 0
+offset_left = -32.2222
+offset_right = 1887.78
+pivot_offset = Vector2(762, 796)
+texture = ExtResource("4_o83an")
+
+[node name="BeatingItem5" parent="Frames" instance=ExtResource("1_6k5ka")]
+layout_mode = 0
+pivot_offset = Vector2(815, 686)
+texture = ExtResource("5_euriy")
+
+[node name="BeatingItem6" parent="Frames" instance=ExtResource("1_6k5ka")]
+layout_mode = 0
+pivot_offset = Vector2(1184, 807)
+texture = ExtResource("6_ahrru")
+
+[node name="BeatingItem7" parent="Frames" instance=ExtResource("1_6k5ka")]
+layout_mode = 0
+pivot_offset = Vector2(845, 889)
+texture = ExtResource("7_5o8js")
+
+[node name="Narration" type="Label" parent="."]
+layout_mode = 0
+offset_left = 260.0
+offset_top = 80.0
+offset_right = 1660.0
+offset_bottom = 170.0
+text = "\"In a world where people speak through rock, paper, and scissors... a new shop quietly opens its doors.\""
+label_settings = SubResource("LabelSettings_euriy")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Narration2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 789.0
+offset_top = 921.0
+offset_right = 2189.0
+offset_bottom = 1011.0
+text = "Click anywhere to continue..."
+label_settings = SubResource("LabelSettings_o83an")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3

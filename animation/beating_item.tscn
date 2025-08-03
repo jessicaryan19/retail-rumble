@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://ehvsgplifmn"]
 
-[ext_resource type="Texture2D" uid="uid://dw540bo7rabms" path="res://tutorial/assets/tutorial_1_1.png" id="1_yt1ss"]
+[ext_resource type="Texture2D" uid="uid://dw540bo7rabms" path="res://tutorial/assets/tutorial_1_1.png" id="1_cibqm"]
 
 [sub_resource type="Animation" id="Animation_iqufe"]
 length = 0.001
@@ -39,11 +39,11 @@ _data = {
 &"beating": SubResource("Animation_pfmj8")
 }
 
-[node name="TutorialItem" type="TextureRect"]
+[node name="BeatingItem" type="TextureRect"]
 offset_right = 1920.0
 offset_bottom = 1080.0
 pivot_offset = Vector2(397, 545)
-texture = ExtResource("1_yt1ss")
+texture = ExtResource("1_cibqm")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

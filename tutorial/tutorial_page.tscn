@@ -1,10 +1,10 @@
 [gd_scene load_steps=18 format=3 uid="uid://c2fohfpjn2brr"]
 
-[ext_resource type="Script" uid="uid://puwkh0rvp47w" path="res://tutorial/tutorial.gd" id="1_8ai6r"]
+[ext_resource type="Script" uid="uid://puwkh0rvp47w" path="res://tutorial/tutorial_page.gd" id="1_8ai6r"]
 [ext_resource type="Texture2D" uid="uid://cr0iegxpi2wn3" path="res://tutorial/assets/background.png" id="2_kadnd"]
 [ext_resource type="Texture2D" uid="uid://deqixanayplfy" path="res://tutorial/assets/foreground.png" id="3_3l38k"]
 [ext_resource type="Texture2D" uid="uid://dgrx5h2lgyom5" path="res://tutorial/assets/title.png" id="4_yu57s"]
-[ext_resource type="PackedScene" uid="uid://ehvsgplifmn" path="res://tutorial/tutorial_item.tscn" id="5_7uoc3"]
+[ext_resource type="PackedScene" uid="uid://ehvsgplifmn" path="res://animation/beating_item.tscn" id="5_7uoc3"]
 [ext_resource type="Texture2D" uid="uid://bhu4n74hgplj3" path="res://tutorial/assets/tutorial_1_2.png" id="6_yu57s"]
 [ext_resource type="Texture2D" uid="uid://7hi1duky5o7d" path="res://tutorial/assets/tutorial_1_3.png" id="7_srmca"]
 [ext_resource type="Texture2D" uid="uid://cer4avbma7mke" path="res://tutorial/assets/tutorial_2_1.png" id="8_38kmh"]
