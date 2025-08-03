@@ -10,6 +10,8 @@ enum PlayerState {
 @onready var click_sfx: AudioStream = preload("res://sfx/click3.mp3")
 @onready var hurt_sfx: AudioStream = preload("res://sfx/ua.mp3")
 @onready var pose_sfx: AudioStream = preload("res://sfx/woosh2.mp3")
+@onready var die_sfx: AudioStream = preload("res://sfx/UI_Quirky33.mp3")
+
 
 @onready var pose_timer: Timer = $PoseTimer
 @onready var invincible_timer: Timer = $InvincibleTimer
@@ -112,7 +114,7 @@ var state: PlayerState = PlayerState.NORMAL:
 			PlayerState.DIE:
 				body.animation = "hurt"
 				body_silhouette.animation = "hurt"
-				AudioHandler.play_sfx(hurt_sfx, 0, randf_range(0.8, 1.4))
+				AudioHandler.play_sfx(die_sfx, 0, randf_range(0.8, 1.4))
 				do_die_tween()
 				hitbox_collision.set_deferred("disabled", true)
 				hitbox_component.target = null
