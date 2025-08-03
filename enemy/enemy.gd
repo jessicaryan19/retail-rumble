@@ -9,10 +9,13 @@ enum EnemyState {
 @onready var hurt_sfx: AudioStream = preload("res://sfx/ua.mp3")
 @onready var die_sfx: AudioStream = preload("res://sfx/yey.mp3")
 
-@export var speed: float = 300.0
-@export var rps_list: Array[Enums.RPSType] = []
+@export var initial_speed: float = 300.0
+var speed: float
 
+@export var rps_list: Array[Enums.RPSType] = []
 var player: Node2D
+var difficulty_level: float = 1.0
+
 @onready var agent: NavigationAgent2D = $NavigationAgent2D
 @onready var rps_container = $RPSContainer
 
@@ -76,6 +79,21 @@ var state: EnemyState = EnemyState.CHASE:
 var die_tween: Tween
 var squash_stretch_tween: Tween
 
+
+func initialize(p_difficulty_level: float):
+	await ready
+
+	difficulty_level = p_difficulty_level
+
+	speed = initial_speed * (1 + (difficulty_level - 1.0) * 0.05)
+	
+	randomize_variant()
+	generate_rps_list() 
+	
+	if score_manager:
+		health_component.took_damage.connect(score_manager._on_enemy_took_damage)
+	
+
 func do_die_tween() -> void:
 	if die_tween:
 		die_tween.kill()
@@ -100,7 +118,11 @@ func do_squash_stretch_tween() -> void:
 	
 func generate_rps_list():
 	rps_list.clear()
-	var rps_length = randi() % 3 + 1
+	
+	var min_rps_length = 1
+	var max_rps_length = min(5, 1 + floori(difficulty_level / 2.0))
+	var rps_length = randi_range(min_rps_length, max_rps_length)
+	
 	var keys = Enums.RPSType.keys()
 	
 	for i in range(rps_length):
@@ -111,7 +133,8 @@ func generate_rps_list():
 	update_current_rps()
 	update_health()
 	update_rps_visual()
-		
+	
+	
 const RPS_TEXTURES = {
 	Enums.RPSType.ROCK: preload("res://assets/rps/rock.png"),
 	Enums.RPSType.PAPER: preload("res://assets/rps/paper.png"),
@@ -152,14 +175,14 @@ func _ready():
 	var mat := ShaderMaterial.new()
 	mat.shader = enemy_shader
 	sprite.material = mat.duplicate()
-	#body.material = mat.duplicate()
-	#head.material = mat.duplicate()
 	player = get_tree().get_first_node_in_group("player")
 	agent.target_position = player.global_position
-	randomize_variant()
-	generate_rps_list()
-	if score_manager:
-		health_component.took_damage.connect(score_manager._on_enemy_took_damage)
+	
+	if speed == 0:
+		speed = initial_speed
+		randomize_variant()
+		generate_rps_list()
+	
 	
 func _process(delta: float) -> void:
 	handle_anim()

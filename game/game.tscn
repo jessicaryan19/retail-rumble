@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://bl7fwt0y4dv4k" path="res://game/ui/health_ui_control.tscn" id="7_l8g03"]
 [ext_resource type="Script" path="res://game/button_control.gd" id="8_j8tme"]
 [ext_resource type="PackedScene" uid="uid://cq8r2d04jnnbl" path="res://game/ui/rps_button.tscn" id="8_l8g03"]
-[ext_resource type="Script" uid="uid://dvcnqfc257ap1" path="res://game/player_die_canvas.gd" id="9_3vho3"]
+[ext_resource type="Script" path="res://game/player_die_canvas.gd" id="9_3vho3"]
 [ext_resource type="PackedScene" uid="uid://bsbw3tjr063ou" path="res://ui/player_die_ui.tscn" id="9_j8tme"]
 [ext_resource type="Shader" uid="uid://b6tgdk2xk2i6i" path="res://crt_shader/vhs.gdshader" id="9_l8g03"]
 [ext_resource type="Texture2D" uid="uid://ellby238chfw" path="res://assets/foreground.png" id="13_vsp63"]
@@ -78,9 +78,9 @@ shader_parameter/clip_warp = false
 shader_parameter/vignette_intensity = 0.4
 shader_parameter/vignette_opacity = 0.22
 shader_parameter/custom_tint = Color(0.995558, 0.961445, 0.939133, 1)
-shader_parameter/custom_tint_intensity = 0.4
-shader_parameter/tone_style = 3
-shader_parameter/tone_intensity = 0.4
+shader_parameter/custom_tint_intensity = 0.0
+shader_parameter/tone_style = 1
+shader_parameter/tone_intensity = 0.0
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_fegy3"]
 distance = -80.0
@@ -124,7 +124,7 @@ position = Vector2(-1116, -989)
 navigation_polygon = SubResource("NavigationPolygon_dxrkv")
 
 [node name="EnemySpawner" parent="." instance=ExtResource("4_4fuuu")]
-spawn_interval = 1.0
+initial_difficulty_override = 1.0
 
 [node name="ScoreManager" type="Node2D" parent="." groups=["utils"]]
 script = ExtResource("5_dxrkv")

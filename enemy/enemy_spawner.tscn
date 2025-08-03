@@ -13,9 +13,14 @@ point_count = 4
 script = ExtResource("1_uihh4")
 enemy_scene = ExtResource("2_cjw55")
 path_node = NodePath("SpawnPath")
-timer_node = NodePath("SpawnTimer")
+spawn_timer_node = NodePath("SpawnTimer")
+initial_difficulty_override = 100.0
 
 [node name="SpawnPath" type="Path2D" parent="."]
 curve = SubResource("Curve2D_dxrkv")
 
 [node name="SpawnTimer" type="Timer" parent="."]
+
+[node name="DifficultyTimer" type="Timer" parent="."]
+wait_time = 15.0
+autostart = true
