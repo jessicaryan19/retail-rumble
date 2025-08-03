@@ -1,19 +1,22 @@
-[gd_scene load_steps=15 format=3 uid="uid://c2fohfpjn2brr"]
+[gd_scene load_steps=18 format=3 uid="uid://c2fohfpjn2brr"]
 
 [ext_resource type="Script" uid="uid://puwkh0rvp47w" path="res://tutorial/tutorial.gd" id="1_8ai6r"]
 [ext_resource type="Texture2D" uid="uid://cr0iegxpi2wn3" path="res://tutorial/assets/background.png" id="2_kadnd"]
 [ext_resource type="Texture2D" uid="uid://deqixanayplfy" path="res://tutorial/assets/foreground.png" id="3_3l38k"]
 [ext_resource type="Texture2D" uid="uid://dgrx5h2lgyom5" path="res://tutorial/assets/title.png" id="4_yu57s"]
 [ext_resource type="PackedScene" uid="uid://ehvsgplifmn" path="res://tutorial/tutorial_item.tscn" id="5_7uoc3"]
-[ext_resource type="Texture2D" uid="uid://cjxg4lmnhcahq" path="res://tutorial/assets/tutroial_1_2.png" id="6_1c0qp"]
-[ext_resource type="Texture2D" uid="uid://d22tmvmfyrwu8" path="res://tutorial/assets/tutorial_1_3.png" id="7_srmca"]
-[ext_resource type="Texture2D" uid="uid://cta0r75qrco3v" path="res://tutorial/assets/tutorial_2_1.png" id="8_38kmh"]
-[ext_resource type="Texture2D" uid="uid://c5k0f2vff8v05" path="res://tutorial/assets/tutorial_2_2.png" id="9_6fmhf"]
-[ext_resource type="Texture2D" uid="uid://c51fc1r55p51f" path="res://tutorial/assets/tutroial_2_3.png" id="10_54a0b"]
+[ext_resource type="Texture2D" uid="uid://bhu4n74hgplj3" path="res://tutorial/assets/tutorial_1_2.png" id="6_yu57s"]
+[ext_resource type="Texture2D" uid="uid://7hi1duky5o7d" path="res://tutorial/assets/tutorial_1_3.png" id="7_srmca"]
+[ext_resource type="Texture2D" uid="uid://cer4avbma7mke" path="res://tutorial/assets/tutorial_2_1.png" id="8_38kmh"]
+[ext_resource type="Texture2D" uid="uid://coi8m4wsxjodw" path="res://tutorial/assets/tutorial_2_2.png" id="9_6fmhf"]
+[ext_resource type="Texture2D" uid="uid://ceygua3ehhh6e" path="res://tutorial/assets/tutorial_2_3.png" id="10_7uoc3"]
 [ext_resource type="Texture2D" uid="uid://dvf0fmcce0n0i" path="res://assets/ui/button_s_normal.png" id="11_51gqy"]
 [ext_resource type="Texture2D" uid="uid://dksrqk18aympv" path="res://assets/ui/button_s_clicked.png" id="12_lub1u"]
 [ext_resource type="Texture2D" uid="uid://bhqays8filocl" path="res://assets/ui/button_s_hover.png" id="13_1ioxo"]
 [ext_resource type="LabelSettings" uid="uid://mj62uk12jtlr" path="res://assets/font/label_setting.tres" id="14_501q4"]
+[ext_resource type="Texture2D" uid="uid://xw7cnislntfs" path="res://assets/ui/x_button_normal.png" id="15_yu57s"]
+[ext_resource type="Texture2D" uid="uid://dgrs3efvca2gd" path="res://assets/ui/x_button_select.png" id="16_7uoc3"]
+[ext_resource type="Texture2D" uid="uid://b8ja8far4ek1r" path="res://assets/ui/x_button_hover.png" id="17_1c0qp"]
 
 [node name="TutorialPage" type="Control"]
 layout_mode = 3
@@ -52,7 +55,7 @@ layout_mode = 0
 [node name="TutorialItem2" parent="Page1" instance=ExtResource("5_7uoc3")]
 layout_mode = 0
 pivot_offset = Vector2(988, 571)
-texture = ExtResource("6_1c0qp")
+texture = ExtResource("6_yu57s")
 
 [node name="TutorialItem3" parent="Page1" instance=ExtResource("5_7uoc3")]
 layout_mode = 0
@@ -79,7 +82,7 @@ texture = ExtResource("9_6fmhf")
 [node name="TutorialItem3" parent="Page2" instance=ExtResource("5_7uoc3")]
 layout_mode = 0
 pivot_offset = Vector2(1559, 571)
-texture = ExtResource("10_54a0b")
+texture = ExtResource("10_7uoc3")
 
 [node name="ButtonContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -136,3 +139,13 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "NEXT"
 label_settings = ExtResource("14_501q4")
+
+[node name="CloseButton" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 1740.0
+offset_top = 20.0
+offset_right = 1899.0
+offset_bottom = 175.0
+texture_normal = ExtResource("15_yu57s")
+texture_pressed = ExtResource("16_7uoc3")
+texture_hover = ExtResource("17_1c0qp")

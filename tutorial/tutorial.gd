@@ -4,6 +4,7 @@ extends Control
 @onready var page2 = $Page2
 @onready var prev_button = $ButtonContainer/PrevButton
 @onready var next_button = $ButtonContainer/NextButton
+@onready var close_button = $CloseButton
 
 var current_page: int = 1
 

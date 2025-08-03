@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://coi8m4wsxjodw"
-path="res://.godot/imported/tutorial_2_2.png-bd1d9a75d6ac6f608341d50f9c5a3619.ctex"
+uid="uid://dgrs3efvca2gd"
+path="res://.godot/imported/x_button_select.png-9fb20d061bb2d5f54ee16a4f94823ab1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://tutorial/assets/tutorial_2_2.png"
-dest_files=["res://.godot/imported/tutorial_2_2.png-bd1d9a75d6ac6f608341d50f9c5a3619.ctex"]
+source_file="res://assets/ui/x_button_select.png"
+dest_files=["res://.godot/imported/x_button_select.png-9fb20d061bb2d5f54ee16a4f94823ab1.ctex"]
 
 [params]
 

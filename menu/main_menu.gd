@@ -27,21 +27,22 @@ func _ready():
 	rolling_door_bg.transition_finished.connect(_on_transition_finished)
 
 func _on_play_pressed():
+	tutorial_page.visible = false
 	pending_action = ActionType.PLAY
-	prepare_ui_for_transition()
+	transition_out_from_menu()
 
 func _on_tutorial_pressed():
 	pending_action = ActionType.TUTORIAL
-	prepare_ui_for_transition()
+	transition_out_from_menu()
 
 func _on_credit_pressed():
 	pending_action = ActionType.CREDITS
-	prepare_ui_for_transition()
+	transition_out_from_menu()
 
 func _on_exit_pressed():
 	get_tree().quit()
 
-func prepare_ui_for_transition():
+func transition_out_from_menu():
 	button_container.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	game_logo.modulate.a = 1.0
 	button_container.modulate.a = 1.0
@@ -50,6 +51,19 @@ func prepare_ui_for_transition():
 	tween.parallel().tween_property(game_logo, "modulate:a", 0.0, 0.3).set_trans(Tween.TRANS_SINE)
 	tween.parallel().tween_property(button_container, "modulate:a", 0.0, 0.3).set_trans(Tween.TRANS_SINE)
 	tween.tween_callback(rolling_door_bg.roll_up)
+	
+func transition_into_menu():
+	button_container.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	game_logo.modulate.a = 0.0
+	button_container.modulate.a = 0.0
+
+	await rolling_door_bg.roll_down()
+	var tween = create_tween()
+	tween.parallel().tween_property(game_logo, "modulate:a", 1.0, 0.3).set_trans(Tween.TRANS_SINE)
+	tween.parallel().tween_property(button_container, "modulate:a", 1.0, 0.3).set_trans(Tween.TRANS_SINE)
+	tween.tween_callback(func():
+		button_container.mouse_filter = Control.MOUSE_FILTER_STOP
+	)
 
 func _on_transition_finished():
 	match pending_action:
@@ -63,8 +77,13 @@ func _on_transition_finished():
 			pass
 
 func show_tutorial():
+	tutorial_page.close_button.pressed.connect(_on_tutorial_closed)
 	tutorial_page.page1.visible = true
 	tutorial_page._animate_page(tutorial_page.page1)
-
+	
+func _on_tutorial_closed():
+	await transition_into_menu()
+	tutorial_page.page1.visible = false
+	
 func show_credits():
 	pass
