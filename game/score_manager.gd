@@ -53,6 +53,9 @@ func reset_score():
 	emit_signal("score_changed", score)
 	
 func save_high_score():
+	if OS.get_name() == "Web":
+		return
+		
 	if score > high_score:
 		var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
 		var data = { "high_score": score }
@@ -60,6 +63,10 @@ func save_high_score():
 		file.close()
 
 func load_high_score():
+	if OS.get_name() == "Web":
+		high_score = 0
+		return
+		
 	if not FileAccess.file_exists(SAVE_PATH):
 		save_high_score()
 		return
