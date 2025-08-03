@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://dff48w48gumck"]
+
+[ext_resource type="Texture2D" uid="uid://dvf0fmcce0n0i" path="res://assets/ui/button_s_normal.png" id="1_1oov3"]
+[ext_resource type="Texture2D" uid="uid://dksrqk18aympv" path="res://assets/ui/button_s_clicked.png" id="2_l4i1k"]
+[ext_resource type="Texture2D" uid="uid://bhqays8filocl" path="res://assets/ui/button_s_hover.png" id="3_vhdf0"]
+[ext_resource type="Script" uid="uid://cenrmxmnawdo4" path="res://tutorial/button_small.gd" id="4_w3ty3"]
+[ext_resource type="LabelSettings" uid="uid://mj62uk12jtlr" path="res://assets/font/label_setting.tres" id="5_xisco"]
+
+[node name="ButtonSmall" type="TextureButton"]
+texture_normal = ExtResource("1_1oov3")
+texture_pressed = ExtResource("2_l4i1k")
+texture_hover = ExtResource("3_vhdf0")
+script = ExtResource("4_w3ty3")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -104.0
+offset_top = -42.5
+offset_right = 104.0
+offset_bottom = 31.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "prev"
+label_settings = ExtResource("5_xisco")
