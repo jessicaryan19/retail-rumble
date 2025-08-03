@@ -13,7 +13,9 @@ config_version=5
 config/name="Retail Rumble"
 run/main_scene="uid://mktqdoxooupc"
 config/features=PackedStringArray("4.4", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="uid://cywnbreugg58"
+config/macos_native_icon="res://icon.icns"
+config/windows_native_icon="res://icon.ico"
 
 [autoload]
 
@@ -76,6 +78,7 @@ equip_scissor={
 2d_physics/layer_1="Player"
 2d_physics/layer_2="Enemy"
 2d_physics/layer_3="Solid"
+2d_physics/layer_4="PlayerSolid"
 
 [rendering]
 
