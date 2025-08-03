@@ -135,7 +135,7 @@ curve = SubResource("Curve2D_pvdu1")
 [node name="EnemySpawner" parent="." instance=ExtResource("4_4fuuu")]
 initial_max_enemies = 3
 path_node = NodePath("../EnemySpawnPath")
-initial_difficulty_override = 1.0
+initial_difficulty_override = 3.0
 
 [node name="ScoreManager" type="Node2D" parent="." groups=["utils"]]
 script = ExtResource("5_dxrkv")
