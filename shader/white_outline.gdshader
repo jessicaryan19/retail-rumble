@@ -18,20 +18,23 @@ uniform float blink_speed : hint_range(1.0, 50.0) = 20.0;
 uniform float opacity : hint_range(0.0, 1.0) = 1.0;
 
 void fragment() {
+	// --- THIS IS THE KEY ---
+	
+	float modulate_alpha = COLOR.a;
+
 	vec4 original_color = texture(TEXTURE, UV);
 	vec3 final_color = original_color.rgb;
 
-	// === BLINK (white pulse with sine wave) ===
+	
 	if (blink_active) {
 		float wave = abs(sin(TIME * blink_speed));
 		final_color = mix(final_color, blink_color, blink_mix_strength * wave);
 	}
-
-	// === FLASH (instant red override) ===
+	
 	if (flash_active) {
 		final_color = mix(final_color, flash_color, flash_mix_strength);
 	}
-
+	
 	// === OUTLINE ===
 	vec2 pixel_size = TEXTURE_PIXEL_SIZE;
 	float max_neighbor_alpha = 0.0;
@@ -53,10 +56,11 @@ void fragment() {
 	max_neighbor_alpha = max(max_neighbor_alpha, texture(TEXTURE, UV + offset_sw).a);
 	max_neighbor_alpha = max(max_neighbor_alpha, texture(TEXTURE, UV + offset_w).a);
 	max_neighbor_alpha = max(max_neighbor_alpha, texture(TEXTURE, UV + offset_nw).a);
-
+	
 	float outline_amount = step(original_color.a, 0.1) * max_neighbor_alpha;
-
-	// === Final blending ===
+	
 	vec4 blended_color = vec4(final_color, original_color.a * opacity);
 	COLOR = mix(blended_color, outline_color, outline_amount);
+	
+	COLOR.a *= modulate_alpha;
 }
