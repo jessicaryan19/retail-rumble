@@ -39,7 +39,6 @@ func _on_continue():
 	var next_scene = load("res://game/game_over.tscn").instantiate()
 	next_scene.score_manager = score_manager
 	next_scene.stopwatch_manager = stopwatch_manager
-	
 	get_tree().get_current_scene().queue_free()
 	get_tree().root.add_child(next_scene)
 	get_tree().set_current_scene(next_scene)

@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://crsc23np72w83" path="res://ui/button_menu.tscn" id="3_4w48o"]
 [ext_resource type="PackedScene" uid="uid://ehvsgplifmn" path="res://animation/beating_item.tscn" id="5_ahoid"]
 [ext_resource type="Texture2D" uid="uid://b46aygxpmrb1x" path="res://assets/ui/new.png" id="6_ncdyg"]
-[ext_resource type="Script" uid="uid://bqi7gf6psu5bg" path="res://animation/beating_item.gd" id="7_ny4d7"]
+[ext_resource type="Script" path="res://animation/beating_item.gd" id="7_ny4d7"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ahoid"]
 font = ExtResource("2_mxcey")
