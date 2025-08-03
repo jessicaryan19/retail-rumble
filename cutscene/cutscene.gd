@@ -28,7 +28,6 @@ func show_item(index: int) -> void:
 		return
 		
 	narration.text = narration_list[index]
-	
 		
 	current_item = index
 	var item = beating_items[index]

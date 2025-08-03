@@ -58,7 +58,6 @@ func save_high_score():
 		var data = { "high_score": score }
 		file.store_string(JSON.stringify(data))
 		file.close()
-	load_high_score()
 
 func load_high_score():
 	if not FileAccess.file_exists(SAVE_PATH):

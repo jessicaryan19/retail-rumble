@@ -299,6 +299,7 @@ func _on_health_component_die() -> void:
 	print("die")
 	state = PlayerState.DIE
 	score_manager.save_high_score()
+	score_manager.load_high_score()
 
 func _on_pose_timer_timeout() -> void:
 	if state == PlayerState.DIE: return

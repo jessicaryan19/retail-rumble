@@ -1,9 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://cj87aexkj3nox"]
+[gd_scene load_steps=12 format=3 uid="uid://cj87aexkj3nox"]
 
 [ext_resource type="PackedScene" uid="uid://8eqx36gbs540" path="res://menu/rolling_door_bg.tscn" id="1_cw3on"]
 [ext_resource type="Script" uid="uid://2agunwvr1ydx" path="res://game/game_over.gd" id="1_mxcey"]
+[ext_resource type="Texture2D" uid="uid://dkpft2t6gjk61" path="res://assets/ui/game_over_bg.png" id="2_ahoid"]
 [ext_resource type="FontFile" uid="uid://bet3oe08d83oe" path="res://assets/font/Kaph-Regular.ttf" id="2_mxcey"]
 [ext_resource type="PackedScene" uid="uid://crsc23np72w83" path="res://ui/button_menu.tscn" id="3_4w48o"]
+[ext_resource type="PackedScene" uid="uid://ehvsgplifmn" path="res://animation/beating_item.tscn" id="5_ahoid"]
+[ext_resource type="Texture2D" uid="uid://b46aygxpmrb1x" path="res://assets/ui/new.png" id="6_ncdyg"]
+[ext_resource type="Script" uid="uid://bqi7gf6psu5bg" path="res://animation/beating_item.gd" id="7_ny4d7"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ahoid"]
 font = ExtResource("2_mxcey")
@@ -11,16 +15,17 @@ font_size = 40
 outline_size = 40
 outline_color = Color(0, 0, 0, 1)
 
-[sub_resource type="LabelSettings" id="LabelSettings_ncdyg"]
+[sub_resource type="LabelSettings" id="LabelSettings_ny4d7"]
 font = ExtResource("2_mxcey")
-font_size = 200
+font_size = 60
 font_color = Color(1, 0.823529, 0.235294, 1)
 outline_size = 40
 outline_color = Color(0, 0, 0, 1)
 
-[sub_resource type="LabelSettings" id="LabelSettings_ny4d7"]
+[sub_resource type="LabelSettings" id="LabelSettings_ncdyg"]
 font = ExtResource("2_mxcey")
-font_size = 100
+font_size = 120
+font_color = Color(1, 0.823529, 0.235294, 1)
 outline_size = 40
 outline_color = Color(0, 0, 0, 1)
 
@@ -33,7 +38,12 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_mxcey")
 
-[node name="RollingDoorBG" parent="." instance=ExtResource("1_cw3on")]
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -64.0
+offset_right = 1920.0
+offset_bottom = 1116.0
+texture = ExtResource("2_ahoid")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -41,18 +51,37 @@ anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_top = -83.5
-offset_bottom = 83.5
+offset_top = -335.0
+offset_bottom = 359.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 60
+theme_override_constants/separation = 40
+
+[node name="Time" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="VBoxContainer/Time"]
+layout_mode = 2
+text = "playtime"
+label_settings = SubResource("LabelSettings_ahoid")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Point" type="Label" parent="VBoxContainer/Time"]
+layout_mode = 2
+text = "10000"
+label_settings = SubResource("LabelSettings_ny4d7")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Score" type="VBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_constants/separation = 10
 
 [node name="Label" type="Label" parent="VBoxContainer/Score"]
 layout_mode = 2
-text = "customer service score"
+text = "service score"
 label_settings = SubResource("LabelSettings_ahoid")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -66,17 +95,18 @@ vertical_alignment = 1
 
 [node name="HighScore" type="VBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_constants/separation = 10
 
 [node name="Label" type="Label" parent="VBoxContainer/HighScore"]
 layout_mode = 2
-text = "your high score"
+text = "personal best"
 label_settings = SubResource("LabelSettings_ahoid")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Point" type="Label" parent="VBoxContainer/HighScore"]
 layout_mode = 2
-text = "1000"
+text = "10000"
 label_settings = SubResource("LabelSettings_ny4d7")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -84,3 +114,15 @@ vertical_alignment = 1
 [node name="ButtonMenu" parent="VBoxContainer" instance=ExtResource("3_4w48o")]
 layout_mode = 2
 stretch_mode = 3
+
+[node name="NewScore" parent="." instance=ExtResource("5_ahoid")]
+layout_mode = 0
+offset_left = 1171.0
+offset_top = 19.0
+offset_right = 1521.0
+offset_bottom = 269.0
+pivot_offset = Vector2(174, 132)
+texture = ExtResource("6_ncdyg")
+script = ExtResource("7_ny4d7")
+
+[node name="RollingDoorBG" parent="." instance=ExtResource("1_cw3on")]
