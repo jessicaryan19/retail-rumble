@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://blgr3d3k1l3h5"]
+[gd_scene load_steps=12 format=3 uid="uid://blgr3d3k1l3h5"]
 
 [ext_resource type="Script" uid="uid://duurfixnlh6o2" path="res://credit/credit_page.gd" id="1_5fpwd"]
 [ext_resource type="Texture2D" uid="uid://cr0iegxpi2wn3" path="res://tutorial/assets/background.png" id="2_jesed"]
@@ -8,6 +8,13 @@
 [ext_resource type="Texture2D" uid="uid://dgrs3efvca2gd" path="res://assets/ui/x_button_select.png" id="6_oekn3"]
 [ext_resource type="Texture2D" uid="uid://b8ja8far4ek1r" path="res://assets/ui/x_button_hover.png" id="7_gro40"]
 [ext_resource type="Script" uid="uid://b0g45rpgsjerg" path="res://ui/button_close.gd" id="8_ncid2"]
+[ext_resource type="FontFile" uid="uid://bet3oe08d83oe" path="res://assets/font/Kaph-Regular.ttf" id="9_kjpmr"]
+[ext_resource type="LabelSettings" uid="uid://dmmlor3hvi4y6" path="res://assets/font/subtext.tres" id="10_bs010"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_xth8l"]
+font = ExtResource("9_kjpmr")
+font_size = 28
+font_color = Color(0, 0, 0, 1)
 
 [node name="CreditPage" type="Control"]
 layout_mode = 3
@@ -45,3 +52,145 @@ texture_normal = ExtResource("5_xth8l")
 texture_pressed = ExtResource("6_oekn3")
 texture_hover = ExtResource("7_gro40")
 script = ExtResource("8_ncid2")
+
+[node name="Music" type="VBoxContainer" parent="."]
+layout_mode = 2
+offset_left = 639.0
+offset_top = 764.0
+offset_right = 1257.0
+offset_bottom = 896.0
+
+[node name="Title" type="Label" parent="Music"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "music"
+label_settings = SubResource("LabelSettings_xth8l")
+autowrap_mode = 1
+
+[node name="Label" type="Label" parent="Music"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Country Romance
+The Crazy Chef
+by Eric Matyas
+https://www.soundimage.org/"
+label_settings = ExtResource("10_bs010")
+autowrap_mode = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 265.0
+offset_top = 317.0
+offset_right = 1660.0
+offset_bottom = 896.0
+theme_override_constants/separation = 200
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 40
+
+[node name="Members" type="VBoxContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="HBoxContainer/VBoxContainer/Members"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "team members"
+label_settings = SubResource("LabelSettings_xth8l")
+autowrap_mode = 1
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/Members"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Ivan Setiawan (Team Leader & Programmer)
+Astrid Maysa Zafira (Artist)
+Jessica Ryan (Programmer)
+Kristin Ryan (Artist)
+Muhammad Azmi (Technical Artist & Programmer)"
+label_settings = ExtResource("10_bs010")
+autowrap_mode = 1
+
+[node name="SFX" type="VBoxContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="HBoxContainer/VBoxContainer/SFX"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "sfx"
+label_settings = SubResource("LabelSettings_xth8l")
+autowrap_mode = 1
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/SFX"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Blinds_Opening
+Kitchen-Drawer-4-Open_with_Silverware
+UI_Quirky7
+UI_Quirky18
+UI_Quirky33
+by Eric Matyas
+https://www.soundimage.org/
+
+click3
+dieThrow1
+rockHit1
+woosh2
+by Kenney (CC0)
+https://www.kenney.nl/"
+label_settings = ExtResource("10_bs010")
+autowrap_mode = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 40
+
+[node name="Fonts" type="VBoxContainer" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="HBoxContainer/VBoxContainer2/Fonts"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "fonts"
+label_settings = SubResource("LabelSettings_xth8l")
+autowrap_mode = 1
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer2/Fonts"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Kaph by GGBotNet (OFL)
+https://www.ggbot.net/
+
+Rusty Hooks by Niskala Huruf (100% Free)
+https://www.dafont.com/rusty-hooks.font"
+label_settings = ExtResource("10_bs010")
+autowrap_mode = 1
+
+[node name="Modules" type="VBoxContainer" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="HBoxContainer/VBoxContainer2/Modules"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "modules"
+label_settings = SubResource("LabelSettings_xth8l")
+autowrap_mode = 1
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer2/Modules"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Scene Manager
+by glassbrick (MIT)
+https://godotengine.org/asset-library/asset/1303
+
+Stopwatch
+by GustavoLR548 (MIT)
+https://godotengine.org/asset-library/asset/2407
+
+VHS and CRT Monitor Effect
+by pend00 (CC0)
+https://godotshaders.com/shader/VHS-and-CRT-monitor-effect 
+GGBOTNET"
+label_settings = ExtResource("10_bs010")
+autowrap_mode = 1

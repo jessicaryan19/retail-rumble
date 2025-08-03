@@ -9,13 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://dssssm8u5x3q8" path="res://cutscene/popup_1.png" id="5_euriy"]
 [ext_resource type="Texture2D" uid="uid://dbgl2atk6e231" path="res://cutscene/popup_2.png" id="6_ahrru"]
 [ext_resource type="Texture2D" uid="uid://crgj4plsgjmye" path="res://cutscene/popup_3.png" id="7_5o8js"]
+[ext_resource type="LabelSettings" uid="uid://dmmlor3hvi4y6" path="res://assets/font/subtext.tres" id="10_euriy"]
 [ext_resource type="FontFile" uid="uid://c6hba2kwtpt4m" path="res://assets/font/Rusty Hooks.ttf" id="10_o83an"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_euriy"]
-line_spacing = 20.0
-font = ExtResource("10_o83an")
-font_size = 40
-font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_o83an"]
 line_spacing = 20.0
@@ -98,7 +93,7 @@ offset_top = 80.0
 offset_right = 1660.0
 offset_bottom = 170.0
 text = "\"In a world where people speak through rock, paper, and scissors... a new shop quietly opens its doors.\""
-label_settings = SubResource("LabelSettings_euriy")
+label_settings = ExtResource("10_euriy")
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3

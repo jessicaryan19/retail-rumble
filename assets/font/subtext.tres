@@ -1,0 +1,9 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://dmmlor3hvi4y6"]
+
+[ext_resource type="FontFile" uid="uid://c6hba2kwtpt4m" path="res://assets/font/Rusty Hooks.ttf" id="1_kur0s"]
+
+[resource]
+line_spacing = 5.0
+font = ExtResource("1_kur0s")
+font_size = 22
+font_color = Color(0, 0, 0, 1)
