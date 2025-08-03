@@ -1,18 +1,17 @@
-[gd_scene load_steps=33 format=3 uid="uid://c7s7t0l0r87ea"]
+[gd_scene load_steps=34 format=3 uid="uid://c7s7t0l0r87ea"]
 
 [ext_resource type="Texture2D" uid="uid://c66foqpixvgx6" path="res://game/background/repeating_background.png" id="1_4fuuu"]
 [ext_resource type="PackedScene" uid="uid://chldd6futyqxb" path="res://common/object/boxes/boxes.tscn" id="1_hb504"]
 [ext_resource type="PackedScene" uid="uid://byxbcaf1scbhq" path="res://player/player.tscn" id="1_l1rk1"]
 [ext_resource type="Shader" uid="uid://c7nkn3qt468fs" path="res://player/damage_shader_test.gdshader" id="3_dxrkv"]
 [ext_resource type="PackedScene" uid="uid://dsuxwx28ircol" path="res://enemy/enemy_spawner.tscn" id="4_4fuuu"]
-[ext_resource type="Script" path="res://game/score_manager.gd" id="5_dxrkv"]
+[ext_resource type="Script" uid="uid://uwp46gwnfjob" path="res://game/score_manager.gd" id="5_dxrkv"]
 [ext_resource type="PackedScene" uid="uid://bljp5jihpmr8f" path="res://game/ui/score_ui_control.tscn" id="6_y36n6"]
 [ext_resource type="PackedScene" uid="uid://bl7fwt0y4dv4k" path="res://game/ui/health_ui_control.tscn" id="7_l8g03"]
 [ext_resource type="PackedScene" uid="uid://dn53g2i6s2v5e" path="res://game/ui/button_control.tscn" id="8_qf6n1"]
 [ext_resource type="Script" uid="uid://dvcnqfc257ap1" path="res://game/player_die_canvas.gd" id="9_3vho3"]
-[ext_resource type="Script" path="res://game/button_control.gd" id="8_j8tme"]
-[ext_resource type="PackedScene" uid="uid://cq8r2d04jnnbl" path="res://game/ui/rps_button.tscn" id="8_l8g03"]
-[ext_resource type="Script" path="res://game/player_die_canvas.gd" id="9_3vho3"]
+[ext_resource type="LabelSettings" uid="uid://mj62uk12jtlr" path="res://assets/font/label_setting.tres" id="9_58yx1"]
+[ext_resource type="Script" uid="uid://c0n5c44kd2o8f" path="res://game/notice_ui.gd" id="9_hbvmx"]
 [ext_resource type="PackedScene" uid="uid://bsbw3tjr063ou" path="res://ui/player_die_ui.tscn" id="9_j8tme"]
 [ext_resource type="Shader" uid="uid://b6tgdk2xk2i6i" path="res://crt_shader/vhs.gdshader" id="9_l8g03"]
 [ext_resource type="Texture2D" uid="uid://ellby238chfw" path="res://assets/foreground.png" id="13_vsp63"]
@@ -96,6 +95,7 @@ stretch_mode = 1
 material = SubResource("ShaderMaterial_dakft")
 
 [node name="NavigationRegion" type="NavigationRegion2D" parent="."]
+visible = false
 position = Vector2(-1116, -989)
 navigation_polygon = SubResource("NavigationPolygon_dxrkv")
 
@@ -114,6 +114,38 @@ script = ExtResource("5_dxrkv")
 [node name="HealthUIControl" parent="GameUI" instance=ExtResource("7_l8g03")]
 
 [node name="ButtonControl" parent="GameUI" instance=ExtResource("8_qf6n1")]
+
+[node name="NoticeControl" type="Control" parent="GameUI"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("9_hbvmx")
+
+[node name="NewHichScoreLabel" type="Label" parent="GameUI/NoticeControl"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -363.0
+offset_top = -320.0
+offset_right = 363.0
+offset_bottom = -246.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(626, 584)
+text = "New High Score!"
+label_settings = ExtResource("9_58yx1")
 
 [node name="PlayerDieCanvas" type="CanvasLayer" parent="."]
 layer = 128

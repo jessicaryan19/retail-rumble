@@ -2,13 +2,16 @@ extends Node2D
 
 signal score_changed(new_score: int)
 signal combo_changed(new_combo: int)
+signal new_high_score()
+
+const SAVE_PATH := "user://high_score.save"
 
 var score: int = 0
 var combo: int = 0
 var high_score: int = 0
-const SAVE_PATH := "user://high_score.save"
+var is_new_high_score_notified = false
 
-@export var combo_interval: float = 10.0
+@export var combo_interval: float = 6.0
 @onready var combo_timer = $ComboTimer
 
 func _ready():
@@ -30,6 +33,10 @@ func add_combo():
 func add_score(points: int):
 	score += points * combo
 	emit_signal("score_changed", score)
+	
+	if score > high_score and high_score != 0 and not is_new_high_score_notified:
+		is_new_high_score_notified = true
+		emit_signal("new_high_score")
 
 func reset_score():
 	score = 0
