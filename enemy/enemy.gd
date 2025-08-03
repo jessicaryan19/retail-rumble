@@ -9,7 +9,9 @@ enum EnemyState {
 @onready var hurt_sfx: AudioStream = preload("res://sfx/ua.mp3")
 @onready var die_sfx: AudioStream = preload("res://sfx/yey.mp3")
 
-@export var speed: float = 300.0
+#@export var speed: float = 300.0
+@export var initial_speed: float = 300.0
+var speed: float
 @export var rps_list: Array[Enums.RPSType] = []
 
 var player: Node2D
@@ -32,6 +34,7 @@ var player: Node2D
 #@onready var outline_material: ShaderMaterial = preload("res://enemy/outline_material.tres")
 @onready var enemy_shader := preload("res://enemy/white_outline.gdshader")
 
+var difficulty_level: float = 1.0
 #@onready var knockback_component: KnockbackComponent = $KnockbackComponent
 var rps_sprite_scene = preload("res://enemy/rps_sprite.tscn")
 
@@ -100,7 +103,11 @@ func do_squash_stretch_tween() -> void:
 	
 func generate_rps_list():
 	rps_list.clear()
-	var rps_length = randi() % 3 + 1
+	
+	var min_rps_length = 1
+	var max_rps_length = min(5, 1 + floori(difficulty_level / 2.0))
+	var rps_length = randi_range(min_rps_length, max_rps_length)
+		
 	var keys = Enums.RPSType.keys()
 	
 	for i in range(rps_length):
@@ -156,8 +163,13 @@ func _ready():
 	#head.material = mat.duplicate()
 	player = get_tree().get_first_node_in_group("player")
 	agent.target_position = player.global_position
-	randomize_variant()
-	generate_rps_list()
+	
+	# Klo gk spawn tanpa initializer dia pake default values
+	if speed == 0:
+		speed = initial_speed
+		randomize_variant()
+		generate_rps_list()
+
 	if score_manager:
 		health_component.took_damage.connect(score_manager._on_enemy_took_damage)
 	
@@ -271,3 +283,20 @@ func stop_blink():
 	var mat := sprite.material as ShaderMaterial
 	if mat:
 		mat.set("shader_parameter/blink_active", false)
+
+
+func initialize(p_difficulty_level: float):
+	difficulty_level = p_difficulty_level
+
+#func initialize(p_difficulty_level: float):
+	#await ready
+	#
+	#difficulty_level = p_difficulty_level
+	#
+	#speed = initial_speed * (1 + (difficulty_level - 1.0) * 0.05)
+	#
+	#randomize_variant()
+	#generate_rps_list()
+	#if score_manager:
+		#health_component.took_damage.connect(score_manager._on_enemy_took_damage)
+		#

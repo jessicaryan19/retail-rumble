@@ -98,7 +98,6 @@ position = Vector2(-1116, -989)
 navigation_polygon = SubResource("NavigationPolygon_dxrkv")
 
 [node name="EnemySpawner" parent="." instance=ExtResource("4_4fuuu")]
-spawn_interval = 1.0
 
 [node name="ScoreManager" type="Node2D" parent="." groups=["utils"]]
 script = ExtResource("5_dxrkv")
