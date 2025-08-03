@@ -1,0 +1,51 @@
+[gd_scene load_steps=5 format=3 uid="uid://ehvsgplifmn"]
+
+[ext_resource type="Texture2D" uid="uid://dw540bo7rabms" path="res://tutorial/assets/tutorial_1_1.png" id="1_yt1ss"]
+
+[sub_resource type="Animation" id="Animation_iqufe"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_pfmj8"]
+resource_name = "beating"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.025, 1.025), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8lj81"]
+_data = {
+&"RESET": SubResource("Animation_iqufe"),
+&"beating": SubResource("Animation_pfmj8")
+}
+
+[node name="TutorialItem" type="TextureRect"]
+offset_right = 1920.0
+offset_bottom = 1080.0
+pivot_offset = Vector2(397, 545)
+texture = ExtResource("1_yt1ss")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_8lj81")
+}

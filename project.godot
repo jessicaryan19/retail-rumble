@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Enums="*res://autoloads/enums.gd"
+AudioHandler="*res://autoloads/audio_handler.gd"
 
 [display]
 
@@ -30,6 +31,7 @@ window/stretch/mode="canvas_items"
 player=""
 enemy=""
 utils=""
+object=""
 
 [input]
 
