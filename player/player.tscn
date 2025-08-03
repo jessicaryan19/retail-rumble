@@ -3,9 +3,9 @@
 [ext_resource type="Script" uid="uid://d35vujgw0gwx1" path="res://player/player.gd" id="1_rkbax"]
 [ext_resource type="Texture2D" uid="uid://c5ex7lvgpj3hw" path="res://common/head/head_spritesheet.png" id="2_g6k8r"]
 [ext_resource type="Shader" uid="uid://c7nkn3qt468fs" path="res://player/damage_shader_test.gdshader" id="2_rgyib"]
-[ext_resource type="Material" uid="uid://bv1rtfllehlx" path="res://player/silhouette.tres" id="3_8t03j"]
 [ext_resource type="Texture2D" uid="uid://dmv3xh64oy6ee" path="res://player/player_spritesheet.png" id="3_g6k8r"]
 [ext_resource type="PackedScene" uid="uid://duk7tymh3tjem" path="res://components/rps_component.tscn" id="3_yw30f"]
+[ext_resource type="Material" uid="uid://cascx50xtkkhh" path="res://player/red_damage.tres" id="4_8t03j"]
 [ext_resource type="PackedScene" uid="uid://djphn5du2drkq" path="res://components/hitbox_component.tscn" id="4_qjkh3"]
 [ext_resource type="PackedScene" uid="uid://d3yvf7tvhas08" path="res://components/knockback_component.tscn" id="5_boad6"]
 [ext_resource type="PackedScene" uid="uid://5lapc8r0j8bx" path="res://components/health_component.tscn" id="5_qjkh3"]
@@ -226,31 +226,29 @@ z_as_relative = false
 material = SubResource("ShaderMaterial_hg6s5")
 
 [node name="Head" type="AnimatedSprite2D" parent="Sprite"]
-z_as_relative = false
+material = ExtResource("4_8t03j")
 use_parent_material = true
 sprite_frames = SubResource("SpriteFrames_2ieo8")
 animation = &"rps"
 offset = Vector2(0, -128)
 
 [node name="Body" type="AnimatedSprite2D" parent="Sprite"]
-z_as_relative = false
+material = ExtResource("4_8t03j")
 use_parent_material = true
 sprite_frames = SubResource("SpriteFrames_yllr7")
 animation = &"normal"
 offset = Vector2(0, -128)
 
 [node name="HeadSilhouette" type="AnimatedSprite2D" parent="Sprite"]
-visible = false
 z_index = 100
-material = ExtResource("3_8t03j")
+material = ExtResource("4_8t03j")
 sprite_frames = SubResource("SpriteFrames_2ieo8")
 animation = &"rps"
 offset = Vector2(0, -128)
 
 [node name="BodySilhouette" type="AnimatedSprite2D" parent="Sprite"]
-visible = false
 z_index = 100
-material = ExtResource("3_8t03j")
+material = ExtResource("4_8t03j")
 sprite_frames = SubResource("SpriteFrames_yllr7")
 animation = &"normal"
 offset = Vector2(0, -128)
