@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://c2fohfpjn2brr"]
+[gd_scene load_steps=16 format=3 uid="uid://c2fohfpjn2brr"]
 
 [ext_resource type="Script" uid="uid://puwkh0rvp47w" path="res://tutorial/tutorial_page.gd" id="1_8ai6r"]
 [ext_resource type="Texture2D" uid="uid://cr0iegxpi2wn3" path="res://tutorial/assets/background.png" id="2_kadnd"]
@@ -10,13 +10,11 @@
 [ext_resource type="Texture2D" uid="uid://cer4avbma7mke" path="res://tutorial/assets/tutorial_2_1.png" id="8_38kmh"]
 [ext_resource type="Texture2D" uid="uid://coi8m4wsxjodw" path="res://tutorial/assets/tutorial_2_2.png" id="9_6fmhf"]
 [ext_resource type="Texture2D" uid="uid://ceygua3ehhh6e" path="res://tutorial/assets/tutorial_2_3.png" id="10_7uoc3"]
-[ext_resource type="Texture2D" uid="uid://dvf0fmcce0n0i" path="res://assets/ui/button_s_normal.png" id="11_51gqy"]
-[ext_resource type="Texture2D" uid="uid://dksrqk18aympv" path="res://assets/ui/button_s_clicked.png" id="12_lub1u"]
-[ext_resource type="Texture2D" uid="uid://bhqays8filocl" path="res://assets/ui/button_s_hover.png" id="13_1ioxo"]
-[ext_resource type="LabelSettings" uid="uid://mj62uk12jtlr" path="res://assets/font/label_setting.tres" id="14_501q4"]
+[ext_resource type="PackedScene" uid="uid://dff48w48gumck" path="res://ui/button_small.tscn" id="11_1c0qp"]
 [ext_resource type="Texture2D" uid="uid://xw7cnislntfs" path="res://assets/ui/x_button_normal.png" id="15_yu57s"]
 [ext_resource type="Texture2D" uid="uid://dgrs3efvca2gd" path="res://assets/ui/x_button_select.png" id="16_7uoc3"]
 [ext_resource type="Texture2D" uid="uid://b8ja8far4ek1r" path="res://assets/ui/x_button_hover.png" id="17_1c0qp"]
+[ext_resource type="Script" uid="uid://b0g45rpgsjerg" path="res://ui/button_close.gd" id="18_7uoc3"]
 
 [node name="TutorialPage" type="Control"]
 layout_mode = 3
@@ -92,55 +90,17 @@ offset_right = 2340.0
 offset_bottom = 1081.0
 scale = Vector2(0.8, 0.8)
 
-[node name="PrevButton" type="TextureButton" parent="ButtonContainer"]
+[node name="PrevButton" parent="ButtonContainer" instance=ExtResource("11_1c0qp")]
 layout_mode = 2
-texture_normal = ExtResource("11_51gqy")
-texture_pressed = ExtResource("12_lub1u")
-texture_hover = ExtResource("13_1ioxo")
-
-[node name="Label" type="Label" parent="ButtonContainer/PrevButton"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -104.0
-offset_top = -42.5
-offset_right = 104.0
-offset_bottom = 31.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "prev"
-label_settings = ExtResource("14_501q4")
 
 [node name="Spacer" type="Control" parent="ButtonContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="NextButton" type="TextureButton" parent="ButtonContainer"]
+[node name="NextButton" parent="ButtonContainer" instance=ExtResource("11_1c0qp")]
 layout_mode = 2
-texture_normal = ExtResource("11_51gqy")
-texture_pressed = ExtResource("12_lub1u")
-texture_hover = ExtResource("13_1ioxo")
 
-[node name="Label" type="Label" parent="ButtonContainer/NextButton"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -104.0
-offset_top = -42.5
-offset_right = 104.0
-offset_bottom = 31.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "NEXT"
-label_settings = ExtResource("14_501q4")
-
-[node name="CloseButton" type="TextureButton" parent="."]
+[node name="ButtonClose" type="TextureButton" parent="."]
 layout_mode = 0
 offset_left = 1740.0
 offset_top = 20.0
@@ -149,3 +109,4 @@ offset_bottom = 175.0
 texture_normal = ExtResource("15_yu57s")
 texture_pressed = ExtResource("16_7uoc3")
 texture_hover = ExtResource("17_1c0qp")
+script = ExtResource("18_7uoc3")

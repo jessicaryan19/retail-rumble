@@ -4,11 +4,13 @@ extends Control
 @onready var page2 = $Page2
 @onready var prev_button = $ButtonContainer/PrevButton
 @onready var next_button = $ButtonContainer/NextButton
-@onready var close_button = $CloseButton
+@onready var button_close = $ButtonClose
 
 var current_page: int = 1
 
 func _ready():
+	prev_button.set_text("Prev")
+	next_button.set_text("Next")
 	next_button.pressed.connect(_on_next_pressed)
 	prev_button.pressed.connect(_on_prev_pressed)
 	

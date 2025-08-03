@@ -5,8 +5,12 @@ extends Control
 @onready var high_score = $VBoxContainer/HighScore/Point
 @onready var vbox= $VBoxContainer
 
+<<<<<<< Updated upstream
 var score_manager: Node
 var stopwatch_manager: Node
+=======
+var score_manager: Node2D
+>>>>>>> Stashed changes
 
 func _ready() -> void:
 	back_button.disabled = true
@@ -25,7 +29,7 @@ func _on_back_to_menu() -> void:
 	back_button.disabled = true
 	var tween := create_tween()
 	await tween.tween_property(vbox, "modulate:a", 0.0, 0.5).finished
-	#get_tree().change_scene_to_file("res://menu/main_menu.tscn")
+	
 	SceneManager.change_scene("res://game/game.tscn", {
 				"pattern": "squares",
 				"speed": 2.5,               

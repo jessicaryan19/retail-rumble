@@ -4,7 +4,7 @@ extends Node2D
 @onready var button_container = $ButtonContainer
 @onready var game_logo = $GameLogo
 @onready var tutorial_page = $TutorialPage
-#@onready var tutorial_panel = $TutorialPanel
+@onready var credit_page = $CreditPage
 
 @onready var play_btn = button_container.get_node("Play")
 @onready var tutorial_btn = button_container.get_node("Tutorial")
@@ -29,14 +29,19 @@ func _ready():
 
 func _on_play_pressed():
 	tutorial_page.visible = false
+	credit_page.visible = false
 	pending_action = ActionType.PLAY
 	transition_out_from_menu()
 
 func _on_tutorial_pressed():
+	tutorial_page.visible = true
+	credit_page.visible = false
 	pending_action = ActionType.TUTORIAL
 	transition_out_from_menu()
 
 func _on_credit_pressed():
+	tutorial_page.visible = false
+	credit_page.visible = true
 	pending_action = ActionType.CREDITS
 	transition_out_from_menu()
 
@@ -78,7 +83,7 @@ func _on_transition_finished():
 			pass
 
 func show_tutorial():
-	tutorial_page.close_button.pressed.connect(_on_tutorial_closed)
+	tutorial_page.button_close.pressed.connect(_on_tutorial_closed)
 	tutorial_page.page1.visible = true
 	tutorial_page._animate_page(tutorial_page.page1)
 	
@@ -87,5 +92,9 @@ func _on_tutorial_closed():
 	transition_into_menu()
 	tutorial_page._on_close()
 	
+func _on_credits_closed():
+	await rolling_door_bg.roll_down()
+	transition_into_menu()
+	
 func show_credits():
-	pass
+	credit_page.button_close.pressed.connect(_on_credits_closed)
