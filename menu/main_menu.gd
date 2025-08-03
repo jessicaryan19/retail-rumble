@@ -68,7 +68,15 @@ func transition_into_menu():
 func _on_transition_finished():
 	match pending_action:
 		ActionType.PLAY:
-			get_tree().change_scene_to_file("res://game/game.tscn")
+			#get_tree().change_scene_to_file("res://game/game.tscn")
+			SceneManager.change_scene("res://game/game.tscn", {
+				"pattern": "circle",
+				"speed": 1.0,               
+				"invert_on_leave": true,
+				"ease": 5.0,
+				"color" : Color("#FFD23C")
+			})
+			
 		ActionType.TUTORIAL:
 			show_tutorial()
 		ActionType.CREDITS:

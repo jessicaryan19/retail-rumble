@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bljp5jihpmr8f" path="res://game/ui/score_ui_control.tscn" id="6_y36n6"]
 [ext_resource type="PackedScene" uid="uid://bl7fwt0y4dv4k" path="res://game/ui/health_ui_control.tscn" id="7_l8g03"]
 [ext_resource type="PackedScene" uid="uid://dn53g2i6s2v5e" path="res://game/ui/button_control.tscn" id="8_qf6n1"]
-[ext_resource type="Script" uid="uid://dvcnqfc257ap1" path="res://game/player_die_canvas.gd" id="9_3vho3"]
+[ext_resource type="Script" path="res://game/player_die_canvas.gd" id="9_3vho3"]
 [ext_resource type="LabelSettings" uid="uid://mj62uk12jtlr" path="res://assets/font/label_setting.tres" id="9_58yx1"]
 [ext_resource type="Script" uid="uid://c0n5c44kd2o8f" path="res://game/notice_ui.gd" id="9_hbvmx"]
 [ext_resource type="PackedScene" uid="uid://bsbw3tjr063ou" path="res://ui/player_die_ui.tscn" id="9_j8tme"]
