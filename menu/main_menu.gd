@@ -18,6 +18,9 @@ var pending_action: ActionType = ActionType.NONE
 
 
 func _ready():
+	if OS.get_name() == "Web":
+		exit_btn.visible = false
+		
 	play_btn.set_text("Play")
 	tutorial_btn.set_text("Tutorial")
 	credit_btn.set_text("Credits")
@@ -91,6 +94,7 @@ func _on_transition_finished():
 func show_tutorial():
 	tutorial_page.button_close.pressed.connect(_on_tutorial_closed)
 	tutorial_page.page1.visible = true
+	tutorial_page.page2.visible = false
 	tutorial_page._animate_page(tutorial_page.page1)
 	
 func _on_tutorial_closed():
