@@ -33,7 +33,7 @@ var difficulty_level: float = 1.0
 @onready var score_manager = get_tree().get_root().get_node("Game/ScoreManager")
 
 #@onready var outline_material: ShaderMaterial = preload("res://enemy/outline_material.tres")
-@onready var enemy_shader := preload("res://enemy/white_outline.gdshader")
+@onready var enemy_shader := preload("res://shader/white_outline.gdshader")
 
 #@onready var knockback_component: KnockbackComponent = $KnockbackComponent
 var rps_sprite_scene = preload("res://enemy/rps_sprite.tscn")

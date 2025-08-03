@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cascx50xtkkhh"]
 
-[ext_resource type="Shader" uid="uid://dkj2qmsnlubs5" path="res://common/shaders/silhouette.gdshader" id="1_sjjwp"]
+[ext_resource type="Shader" uid="uid://dkj2qmsnlubs5" path="res://shader/silhouette.gdshader" id="1_sjjwp"]
 
 [resource]
 shader = ExtResource("1_sjjwp")
