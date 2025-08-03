@@ -25,7 +25,7 @@ func _ready():
 		printerr("EnemySpawner: The 'Spawn Timer Node' has not been assigned in the Inspector!")
 		set_process(false)
 		return
-
+	
 	current_difficulty = initial_difficulty_override
 	print("Starting game with difficulty level: ", current_difficulty)
 	player = get_tree().get_first_node_in_group("player")

@@ -122,8 +122,10 @@ var state: PlayerState = PlayerState.NORMAL:
 				retoggle_hitbox_timer.stop()
 
 
+@onready var game_bgm: AudioStream = preload("res://sfx/The-Crazy-Chef.mp3")
 func _ready():
 	# Safely initialize material variables after @onready nodes are loaded
+	AudioHandler.play_music(game_bgm, 3)
 	body_sil_mat = body_silhouette.material
 	head_sil_mat = head_silhouette.material
 

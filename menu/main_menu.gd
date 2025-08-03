@@ -14,12 +14,16 @@ extends Node2D
 enum ActionType { NONE, PLAY, TUTORIAL, CREDITS }
 var pending_action: ActionType = ActionType.NONE
 
+@onready var menu_bgm: AudioStream = preload("res://sfx/Country-Romance.mp3")
+
+
 func _ready():
 	play_btn.set_text("Play")
 	tutorial_btn.set_text("Tutorial")
 	credit_btn.set_text("Credits")
 	exit_btn.set_text("Exit")
-
+	
+	AudioHandler.play_music(menu_bgm, 3)
 	play_btn.pressed.connect(_on_play_pressed)
 	tutorial_btn.pressed.connect(_on_tutorial_pressed)
 	credit_btn.pressed.connect(_on_credit_pressed)
