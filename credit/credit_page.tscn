@@ -81,7 +81,7 @@ autowrap_mode = 1
 layout_mode = 0
 offset_left = 265.0
 offset_top = 317.0
-offset_right = 1660.0
+offset_right = 1663.0
 offset_bottom = 896.0
 theme_override_constants/separation = 200
 
@@ -190,7 +190,6 @@ https://godotengine.org/asset-library/asset/2407
 
 VHS and CRT Monitor Effect
 by pend00 (CC0)
-https://godotshaders.com/shader/VHS-and-CRT-monitor-effect 
-GGBOTNET"
+https://godotshaders.com/shader/VHS-and-CRT-monitor-effect"
 label_settings = ExtResource("10_bs010")
 autowrap_mode = 1
