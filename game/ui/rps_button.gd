@@ -7,8 +7,8 @@ extends TextureRect
 func set_button_state(is_active: bool) -> void:
 	if is_active:
 		button_sprite.frame = 1
-		button_sprite.scale = Vector2(1.1, 1.1)
-		rps_sprite.scale = Vector2(1.1, 1.1)
+		button_sprite.scale = Vector2(1.25, 1.25)
+		rps_sprite.scale = Vector2(1.25, 1.25)
 	else:
 		button_sprite.frame = 0
 		button_sprite.scale = Vector2(1, 1)

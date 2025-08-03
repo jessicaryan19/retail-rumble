@@ -13,6 +13,7 @@ config_version=5
 config/name="Retail Rumble"
 run/main_scene="uid://mktqdoxooupc"
 config/features=PackedStringArray("4.4", "GL Compatibility")
+boot_splash/image="uid://betcee8dygyi4"
 config/icon="uid://cywnbreugg58"
 config/macos_native_icon="res://icon.icns"
 config/windows_native_icon="res://icon.ico"
