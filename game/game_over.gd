@@ -6,6 +6,7 @@ extends Control
 @onready var vbox= $VBoxContainer
 
 var score_manager: Node
+var stopwatch_manager: Node
 
 func _ready() -> void:
 	back_button.disabled = true

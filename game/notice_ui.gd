@@ -1,6 +1,6 @@
 extends Control
 
-@onready var new_high_score_label = $NewHichScoreLabel
+@onready var new_high_score_label = $NewHighScoreLabel
 @onready var score_manager = get_node("/root/Game/ScoreManager")
 
 func _ready() -> void:
