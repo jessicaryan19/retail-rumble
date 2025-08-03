@@ -10,10 +10,7 @@ func _ready() -> void:
 	score_manager.new_high_score.connect(show_high_score_notice)
 
 func show_high_score_notice():
-	print("new_high_score")
-	
 	var tween = create_tween()
-	
 	tween.parallel().tween_property(new_high_score_label, "scale", Vector2.ONE, 0.3).set_trans(Tween.TRANS_BACK)
 	tween.parallel().tween_property(new_high_score_label, "modulate:a", 1.0, 0.3)
 	

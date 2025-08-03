@@ -25,6 +25,7 @@ func _ready():
 	credit_btn.pressed.connect(_on_credit_pressed)
 	exit_btn.pressed.connect(_on_exit_pressed)
 	rolling_door_bg.transition_finished.connect(_on_transition_finished)
+	await transition_into_menu()
 
 func _on_play_pressed():
 	tutorial_page.visible = false
@@ -57,7 +58,6 @@ func transition_into_menu():
 	game_logo.modulate.a = 0.0
 	button_container.modulate.a = 0.0
 
-	await rolling_door_bg.roll_down()
 	var tween = create_tween()
 	tween.parallel().tween_property(game_logo, "modulate:a", 1.0, 0.3).set_trans(Tween.TRANS_SINE)
 	tween.parallel().tween_property(button_container, "modulate:a", 1.0, 0.3).set_trans(Tween.TRANS_SINE)
@@ -82,7 +82,8 @@ func show_tutorial():
 	tutorial_page._animate_page(tutorial_page.page1)
 	
 func _on_tutorial_closed():
-	await transition_into_menu()
+	await rolling_door_bg.roll_down()
+	transition_into_menu()
 	tutorial_page.page1.visible = false
 	
 func show_credits():
