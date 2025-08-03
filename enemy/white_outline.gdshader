@@ -6,7 +6,7 @@ uniform float outline_width : hint_range(0.0, 10.0) = 1.0;
 
 // === FLASH ===
 uniform bool flash_active = false;
-uniform vec3 flash_color = vec3(1.0, 0.0, 0.0);
+uniform vec3 flash_color = vec3(0.835 , 0.294 , 0.0509);
 uniform float flash_mix_strength : hint_range(0.0, 1.0) = 1.0;
 
 // === BLINK ===

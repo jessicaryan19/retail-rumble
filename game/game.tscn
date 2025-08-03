@@ -71,16 +71,16 @@ shader_parameter/noise_opacity = 0.4
 shader_parameter/noise_speed = 5.0
 shader_parameter/static_noise_intensity = 0.06
 shader_parameter/aberration = -0.00199995
-shader_parameter/brightness = 1.4
+shader_parameter/brightness = 1.1
 shader_parameter/discolor = false
 shader_parameter/warp_amount = 0.3
 shader_parameter/clip_warp = false
 shader_parameter/vignette_intensity = 0.4
 shader_parameter/vignette_opacity = 0.22
 shader_parameter/custom_tint = Color(0.66739, 0.412466, 0.140195, 1)
-shader_parameter/custom_tint_intensity = 0.2
-shader_parameter/tone_style = 1
-shader_parameter/tone_intensity = 0.0
+shader_parameter/custom_tint_intensity = 0.0
+shader_parameter/tone_style = 3
+shader_parameter/tone_intensity = 0.4
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_fegy3"]
 distance = -80.0

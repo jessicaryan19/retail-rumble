@@ -36,9 +36,8 @@ void fragment() {
 		} else if (blink_active) {
 			// This is the only line that needs to change!
 			// We subtract the result of step() from 1.0 to invert the wave.
-			float blink_wave = 1.0 - step(0.5, abs(sin(TIME * blink_speed))); // <<< MODIFIED LINE
+			float blink_wave = 1.0 - step(0.0, abs(sin(TIME * blink_speed)));
 
-			// Mix between the normal alpha and transparent alpha based on the inverted wave.
 			final_alpha = mix(final_alpha, 0.0, blink_wave);
 		}
 
